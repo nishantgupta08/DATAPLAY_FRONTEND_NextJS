@@ -18,7 +18,7 @@ const App = () => {
                     <div className="bg-white rounded-xl shadow-md p-6 mb-8 lg:p-10">
                         <h1 className="text-4xl font-bold text-[#1a2d59] mb-4">Data Engineering</h1>
                         <p className="text-gray-600 mb-4">
-                            This comprehensive program takes you on a transformative learning journey, equipping you with a wide range of skills and expertise to tackle the most complex data challenges in today's data-driven world.
+                            This comprehensive program takes you on a transformative learning journey, equipping you with a wide range of skills and expertise to tackle the most complex data challenges in today&apos;s data-driven world.
                         </p>
                         <div className="flex items-center text-sm text-gray-500 mb-4">
                             <span className="flex items-center text-yellow-400">
@@ -118,7 +118,7 @@ const App = () => {
                                 <h3 className="text-xl font-bold text-[#1a2d59]">John Doe</h3>
                                 <p className="text-gray-500 text-sm">Chief Executive Officer</p>
                                 <p className="text-gray-600 text-sm mt-4">
-                                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s.
                                 </p>
                             </div>
                         </div>
