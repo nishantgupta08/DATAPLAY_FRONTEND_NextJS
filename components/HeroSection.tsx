@@ -42,7 +42,7 @@ const HeroSection = () => {
 
               {/* Main Heading */}
               <h1
-                className="text-darkBlue 2xl:text-6xl xl:text-5xl text-4xl font-bold mb-10"
+                className="text-darkBlue 2xl:text-[56px] xl:text-5xl text-4xl font-bold mb-10"
                 data-aos="fade-right"
               >
                 Empowering Careers In DATA and{" "}
@@ -65,7 +65,7 @@ const HeroSection = () => {
               </h1>
 
               {/* Description */}
-              <p className="text-darkBlue 2xl:text-3xl xl:text-2xl text-xl relative block font-bold 2xl:mb-20 mb-14">
+              <p className="text-darkBlue 2xl:text-[28px] xl:text-2xl text-xl relative block font-bold 2xl:mb-20 mb-14">
                 Let&apos;s Sculpt YOUR Path To Success, YOUR Way !
               </p>
 

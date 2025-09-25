@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,13 +27,15 @@ const Header = () => {
         <div className="flex max-lg:justify-between items-center lg:gap-20 h-[62px] md:h-[100px]">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Image
-              src="/Brand-Logo.svg"
-              alt="header-logo"
-              width={150}
-              height={28}
-              className="h-7 w-auto md:h-12 md:w-auto"
-            />
+            <Link href="/">
+              <Image
+                src="/Brand-Logo.svg"
+                alt="header-logo"
+                width={150}
+                height={28}
+                className="h-7 w-auto md:h-12 md:w-auto"
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}

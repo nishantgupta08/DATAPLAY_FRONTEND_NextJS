@@ -1,5 +1,4 @@
 import HeroSection from "@/components/HeroSection";
-import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
 import WhoCanApply from "@/components/WhoCanApply";
@@ -19,7 +18,6 @@ export default function Home() {
       <Testimonials />
       <WhoCanApply />
       <Gallery />
-      <Footer />
     </>
   );
 }

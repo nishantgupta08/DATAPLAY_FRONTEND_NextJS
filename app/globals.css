@@ -11,8 +11,10 @@
   --color-foreground: #171717;
   --color-orange: #FF6464;
   --color-darkOrange: #FF4C3D;
+  --color-lightOrange: #FFF2F1;
   --color-purple: #8073E5;
   --color-darkPurple: #6155F5;
+  --color-bor: #D1D1D1;
   
   --font-sans: "Inter", sans-serif;
 }
@@ -27,6 +29,14 @@
 }
 
 .scroll-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide {
   &::-webkit-scrollbar {
     display: none;
   }
