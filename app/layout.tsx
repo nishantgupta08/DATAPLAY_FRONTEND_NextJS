@@ -1,13 +1,15 @@
+// app/layout.tsx or app/layout.js
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 
 const inter = Inter({
-  subsets: ["latin"], // Add required subsets
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // Include all weights
-  variable: "--font-inter", // Optional: Use as a CSS variable
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -22,12 +24,206 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>DATAPLAY</title>
         <meta name="theme-color" content="#ffffff" />
-      </head>
+        <meta name="google-site-verification" content="SOdoDmVwmitkQciSMId7J2IbqHKcoyhdKRCX9VkHSYk" />
+
+        {/* Structured Data Scripts */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Corporation",
+              name: "Dataplay",
+              alternateName: "Dataplay",
+              url: "https://dataplay.co.in/",
+              logo: "https://dataplay.co.in/Brand-Logo.svg",
+              sameAs: [
+                "https://www.instagram.com/dataplay_dataplay/",
+                "https://www.youtube.com/@DataPlay-dataplay",
+                "https://www.linkedin.com/company/data-play/",
+                "https://dataplay.co.in/",
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "AboutPage",
+              mainEntity: {
+                "@type": "Organization",
+                name: "Dataplay",
+                url: "https://dataplay.co.in",
+                logo: "https://dataplay.co.in/path/to/logo.png",
+                sameAs: [
+                  "https://www.facebook.com/dataplay",
+                  "https://www.linkedin.com/company/dataplay",
+                  "https://twitter.com/dataplay",
+                ],
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  telephone: "+91 7427071631",
+                  contactType: "customer service",
+                  areaServed: "IN",
+                },
+                description:
+                  "Dataplay is a navigation hub for learners in data science, offering guided learning paths, daily practice problems, interview prep, and industry insights.",
+              },
+              breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://dataplay.co.in",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "About",
+                    item: "https://dataplay.co.in/about",
+                  },
+                ],
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: "Interview Prep – Dataplay",
+              url: "https://dataplay.co.in/interviewprep",
+              description:
+                "Interview Prep portal by Dataplay: practice questions (Linear Regression, PCA, Regularization, Decision Trees etc.), levels (Easy, Medium, Hard), and mock interview resources for data science learners.",
+              breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://dataplay.co.in",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Interview Prep",
+                    item: "https://dataplay.co.in/interviewprep",
+                  },
+                ],
+              },
+              mainEntity: {
+                "@type": "CreativeWork",
+                name: "Interview Prep",
+                publisher: {
+                  "@type": "Organization",
+                  name: "Dataplay",
+                  url: "https://dataplay.co.in",
+                },
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: "Blogs – Dataplay",
+              url: "https://dataplay.co.in/blogs",
+              description: "Dataplay’s blog & insights section (coming soon).",
+              breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://dataplay.co.in",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Blogs",
+                    item: "https://dataplay.co.in/blogs",
+                  },
+                ],
+              },
+              mainEntity: {
+                "@type": "CollectionPage",
+                name: "Blogs",
+                publisher: {
+                  "@type": "Organization",
+                  name: "Dataplay",
+                  url: "https://dataplay.co.in",
+                },
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              name: "Contact – Dataplay",
+              url: "https://dataplay.co.in/contact",
+              description:
+                "Get in touch with Dataplay — contact details and inquiry form.",
+              breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://dataplay.co.in",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Contact",
+                    item: "https://dataplay.co.in/contact",
+                  },
+                ],
+              },
+              mainEntity: {
+                "@type": "Organization",
+                name: "Dataplay",
+                url: "https://dataplay.co.in",
+                contactPoint: [
+                  {
+                    "@type": "ContactPoint",
+                    telephone: "+91 7427071631",
+                    contactType: "customer service",
+                    areaServed: "IN",
+                  },
+                  {
+                    "@type": "ContactPoint",
+                    email: "hr@dataplay.co.in",
+                    contactType: "support",
+                    areaServed: "IN",
+                  },
+                ],
+              },
+            }),
+          }}
+        />
+      </Head>
+
       <body className={` ${inter.className} antialiased`}>
         <Header />
         {children}
