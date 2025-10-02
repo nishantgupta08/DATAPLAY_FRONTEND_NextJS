@@ -67,7 +67,7 @@
             "sub_title": "Guiding minds towards brilliance and success.",
             "mentors": [
                 {
-                    "img": "",
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759415855/Nishant_Sir_lbsemx.png",
                     "name": "Nishant Gupta",
                     "current_company": "Senior Data Scientist @ EXL",
                     "company_details_2": "Ex Senior Data Scientist @ MediaCorp, Singapore",
@@ -75,7 +75,7 @@
                     "linkdin_profile": "https://www.linkedin.com/in/nishantthewriter/"
                 },
                 {
-                    "img": "",
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759415855/Mahima_Maam_qli0ox.png",
                     "name": "Mahima Gupta",
                     "current_company": "Data Scientist @ Target, Bangalore",
                     "company_details_2": "",
@@ -90,10 +90,10 @@
             "testimonials": [
                 {
                     "isTypeVideo": true,
-                    "video_url": "",
+                    "video_url": "https://www.youtube.com/watch?v=fIJi1QNeUtU",
                     "description": "",
                     "person_detail": {
-                        "img": "",
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416150/Satya_oow5jb.png",
                         "linkdin_profile": "https://www.linkedin.com/in/satya-sourav-nanda-3998a6244/",
                         "name": "Satya Sourav Nanda",
                         "designation": "Data Analyst"
@@ -110,7 +110,7 @@
                     "video_url": "",
                     "description": "I highly recommend DataPlay for anyone pursuing a career in data analysis and data science. The mentors are exceptionally dedicated, ensuring every student understands the concepts. The inclusive and engaging classroom environment fosters positive learning. The curriculum's focus on practical knowledge over theory helps in grasping real-world applications. Overall, my experience at DataPlay has been excellent.",
                     "person_detail": {
-                        "img": "",
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416151/Amisha_hsanlk.jpg",
                         "linkdin_profile": "https://www.linkedin.com/in/amisha-nagiya-a22a311b1/",
                         "name": "Amisha Nagiya",
                         "designation": "Data Analyst"
@@ -127,7 +127,7 @@
                     "video_url": "",
                     "description": "Nishant Sir and Mahima Ma'am of Data Play are dedicated educators and they genuinely care about students’ future. They are exceptionally hard working and it reflects in their well crafted course material and daily practice sheets. Mahima Ma'am’s simple and easy to learn approach and Nishant Sir’s practical teaching methods ensure that each and every student grasps the subject. They foster a positive learning environment by building connections with their students, motivating them to work hard and excel. We are really grateful for DataPlay's exceptional commitment to Data Science education.",
                     "person_detail": {
-                        "img": "",
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416149/Ayush_rsxz1f.jpg",
                         "linkdin_profile": "https://www.linkedin.com/in/ayush-suthar-41811a1b8/",
                         "name": "Ayush Suthar",
                         "designation": "Data Analyst"
@@ -144,7 +144,7 @@
                     "video_url": "",
                     "description": "I enrolled in multiple courses earlier for Data science but I found Dataplay data science course to be the most comprehensive. Every topic is covered in depth with implementation on real life projects. PPTs are short, clear and concise. Now I am confident in solving data science problems and cracking desired companies for data science roles.",
                     "person_detail": {
-                        "img": "",
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759417697/Screenshot_2025-10-02_203751_zjh5g5.png",
                         "linkdin_profile": "https://www.linkedin.com/in/goutammeena/",
                         "name": "Goutam Meena",
                         "designation": "Data Analyst"
@@ -170,28 +170,28 @@
             "sub_title": "Visualizing knowledge through our gallery.",
             "gallery": [
                 {
-                    "img": "",
-                    "title": ""
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416317/IMG-20231124-WA0015_fsvbbb.jpg",
+                    "title": "Balaji College"
                 },
                 {
-                    "img": "",
-                    "title": ""
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416329/IMG20240825162617_igtxmm.jpg",
+                    "title": "Certificate Ceremony"
                 },
                 {
-                    "img": "",
-                    "title": ""
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416375/IMG_20250827_132209_kiyjyr.jpg",
+                    "title": "SKIT Jaipur"
                 },
                 {
-                    "img": "",
-                    "title": ""
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416340/IMG_4473-1_mnhgee.jpg",
+                    "title": "MNIT Jaipur"
                 },
                 {
-                    "img": "",
-                    "title": ""
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416307/DSC03361_ut0jh0.jpg",
+                    "title": "LNMIIT Jaipur"
                 },
                 {
-                    "img": "",
-                    "title": ""
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416301/1728655307393_b1tpyk.jpg",
+                    "title": "IIIT Gwalior"
                 }
             ]
         }
@@ -215,7 +215,7 @@
             "right_side_video_url": "",
             "user_section": [
                 {
-                    "img_url": "",
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416237/Soumya_Awasthi_bebpm3.jpg",
                     "name": "Soumya Awasthi",
                     "linkdin_url": "https://www.linkedin.com/in/soumyaawasthi08/",
                     "designation_name": "Associate Analytical Engineer",
@@ -229,7 +229,7 @@
             "id": 2,
             "title": "Data Engineering",
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
-            "img_url": "",
+            "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
             "courses_content": [
             ],
             "right_side_video_url": "",
