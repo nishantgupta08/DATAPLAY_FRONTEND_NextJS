@@ -229,13 +229,13 @@
             "id": 2,
             "title": "Data Engineering",
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
-            "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
+            "img_url": "",
             "courses_content": [
             ],
             "right_side_video_url": "",
             "user_section": [
                 {
-                    "img_url": "",
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
                     "name": "Rajat Sinha",
                     "linkdin_url": "https://www.linkedin.com/in/rajat-sinha-94aa22201/",
                     "designation_name": "Data Engineer",
@@ -261,7 +261,7 @@
                     "designation_name": "",
                     "company_name": "",
                     "company_business_link": "",
-                    "details": "I highly recommend this course at DataPlay."
+                    "details": ""
                 }
             ]
         }
