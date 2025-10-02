@@ -9,10 +9,10 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "About Us", href: "#" },
-    { name: "Courses", href: "#" },
-    { name: "Contact Us", href: "#" },
+    { name: "Home", href: "#home" },
+    { name: "About Us", href: "#about-us" },
+    { name: "Courses", href: "#courses" },
+    { name: "Contact Us", href: "#contact-us" },
     { name: "Corporate Training", href: "#" },
     { name: "Consultancy", href: "#" },
   ];
@@ -43,12 +43,12 @@ const Header = () => {
             <ul className="flex items-center gap-4 xl:gap-6 2xl:gap-8">
               {navLinks.map((link, index) => (
                 <li key={index}>
-                  <a
+                  <Link
                     href={link.href}
                     className="hover:text-orange text-base xl:text-lg 2xl:text-[22px] font-medium text-white transition-colors duration-200 whitespace-nowrap"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

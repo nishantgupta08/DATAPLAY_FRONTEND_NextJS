@@ -39,7 +39,7 @@ const Courses = () => {
   ];
 
   return (
-    <section className="relative py-12 sm:py-16 md:py-20">
+    <section className="relative py-12 sm:py-16 md:py-20" id="courses">
       <div className="container">
         <div className="relative flex-center flex-col leading-none gap-3 sm:gap-4 lg:gap-5 text-center mb-8 sm:mb-12 lg:mb-16">
           <div className="inline-block bg-purple text-white px-4 sm:px-6 py-1.5 sm:py-2 rounded-full text-sm sm:text-lg lg:text-[22px] uppercase font-semibold">
@@ -94,15 +94,6 @@ const Courses = () => {
                   ))}
                 </ul>
 
-                {/* View More Link */}
-                <div className="mb-3 sm:mb-4">
-                  <a
-                    href="#"
-                    className="text-gray-600 text-xs sm:text-sm hover:text-gray-800 transition-colors"
-                  >
-                    View more...
-                  </a>
-                </div>
 
                 {/* View Course Button */}
                 <button className="w-full bg-gradient-to-r from-orange to-orange/50 text-white py-2.5 sm:py-3 text-base sm:text-lg md:text-xl rounded-xl sm:rounded-2xl font-semibold transition duration-300 hover:from-orange/90 hover:to-orange/40">

@@ -1,0 +1,176 @@
+{
+    "homepage": {
+        "hero": {
+            "tag_line": {
+                "normal_text": "Never Stop",
+                "highlighted_text": "Learning"
+            },
+            "heading": "Empowering Careers In DATA and Design",
+            "sub_heading": "Let's Sculpt YOUR Path To Success, YOUR Way !"
+        },
+        "features": [
+            "Lifetime Access to Live Classes",
+            "By the Industry For the Industry",
+            "Resume Refactoring & Mock Interviews",
+            "Affordability meets Quality"
+        ],
+        "about_us": {
+            "title": "Welcome to DataPlay",
+            "heading": "Your Compass On The",
+            "highlighted_heading": "Data Science",
+            "remaining_heading": "Journey.",
+            "video_url": "",
+            "details": [
+                "At DataPlay, we believe that success in data science isn't one-size-fits-all—it's personal. Like Arjuna guided on his path, we aim to help you find yours, combining academic wisdom with real-world insight.",
+                "Whether you're just starting or deepening your journey, our supportive ecosystem—built on individuality, passion, and purpose—guides you toward becoming not just job-ready, but truly fulfilled.",
+                "Through tools like DPPs and a vibrant community, we help you learn, grow, and thrive in your own unique way. Welcome to a space where your brilliance can truly flourish. ✨"
+            ]
+        },
+        "courses": {
+            "title": "Industry Expert Certified",
+            "sub_title": "Your ultimate comprehensive and tailored solutions.",
+            "courses": [
+                {
+                    "id": 1,
+                    "img_url": "",
+                    "highlighted_title": "DATA SCIENCE",
+                    "title": "Data Engineering",
+                    "features": [
+                        "Data Collection and Storage",
+                        "Data Cleaning and Preprocessing"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "img_url": "",
+                    "highlighted_title": "DATA SCIENCE",
+                    "title": "Data Analyst",
+                    "features": [
+                        "Data Collection and Storage",
+                        "Data Cleaning and Preprocessing"
+                    ]
+                },
+                {
+                    "id": 3,
+                    "img_url": "",
+                    "highlighted_title": "Data Analyst",
+                    "title": "MERN STACK",
+                    "features": [
+                        "Data Collection and Storage",
+                        "Data Cleaning and Preprocessing"
+                    ]
+                }
+            ]
+        },
+        "mentors": {
+            "title": "Our Mentors",
+            "sub_title": "Guiding minds towards brilliance and success.",
+            "mentors": [
+                {
+                    "img": "",
+                    "name": "Nishant Gupta",
+                    "current_company": "Senior Data Scientist @ EXL",
+                    "company_details_2": "Ex Senior Data Scientist @ MediaCorp, Singapore",
+                    "description": "With 8 years of experience, he excels at simplifying complex concepts, ensuring comprehensive understanding from the very roots.",
+                    "linkdin_profile": ""
+                },
+                {
+                    "img": "",
+                    "name": "Mahima Gupta",
+                    "current_company": "Data Scientist @ Target, Bangalore",
+                    "company_details_2": "",
+                    "description": "With 4 years of expertise, she adeptly identifies students' weak points, introducing effective techniques to help them excel by addressing their shortcomings",
+                    "linkdin_profile": ""
+                }
+            ]
+        },
+        "testimonial": {
+            "title": "Our Students Speak",
+            "subtitle": "Transformative Testimonials from our Champions",
+            "testimonials": [
+                {
+                    "isTypeVideo": true,
+                    "video_url": "",
+                    "description": "",
+                    "person_detail": {
+                        "img": "",
+                        "linkdin_profile": "",
+                        "name": "",
+                        "designation": ""
+                    },
+                    "transformation": {
+                        "old_title": "",
+                        "old_designation": "",
+                        "new_title": "",
+                        "new_designation": ""
+                    }
+                }
+            ]
+        },
+        "who_can_apply": {
+            "title": "Who Can Apply?",
+            "sub_title_1": "Absolutely ",
+            "highlighted_title": "Everyone!",
+            "sub_title_2": "All Backgrounds, All Levels,",
+            "paragraph": "Whether you're a high school grad, college graduate, or industry expert. Diversity is your learning playground!"
+        },
+        "gallery": {
+            "title": "Our Gallery",
+            "sub_title": "Visualizing knowledge through our gallery.",
+            "gallery": [
+                {
+                    "img": "",
+                    "title": ""
+                },
+                {
+                    "img": "",
+                    "title": ""
+                },
+                {
+                    "img": "",
+                    "title": ""
+                },
+                {
+                    "img": "",
+                    "title": ""
+                },
+                {
+                    "img": "",
+                    "title": ""
+                },
+                {
+                    "img": "",
+                    "title": ""
+                }
+            ]
+        }
+    },
+    "courses": [
+        {
+            "id": 1,
+            "title": "Data Engineering",
+            "sub_title": "This comprehensive program takes you on a transformative learning journey, equipping you with a wide range of skills and expertise to tackle the most complex data challenges in today's data-driven world.",
+            "img_url": "",
+            "courses_content": [
+                "Introduction to Data Engineering",
+                "Databases and Sql Fundamentals",
+                "Data warehousing - Snowflake",
+                "Programming for data engineering",
+                "Hadoop Eco system",
+                "Apache spark fundamentals and pyspark"
+            ],
+            "right_side_video_url": "",
+            "user_section": [
+                {
+                    "img_url": "",
+                    "name": "",
+                    "linkdin_url": "",
+                    "designation_name": "",
+                    "company_name": "",
+                    "company_business_link": "",
+                    "details": ""
+                }
+            ]
+        }
+    ]
+}

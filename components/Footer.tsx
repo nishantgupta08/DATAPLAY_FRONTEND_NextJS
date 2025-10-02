@@ -43,7 +43,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-darkBlue text-white">
+    <footer className="relative bg-darkBlue text-white" id="contact-us">
       {/* Main Footer Content */}
       <div className="relative container py-10 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8">

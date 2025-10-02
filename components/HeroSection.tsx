@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-[#F7EEFA] overflow-hidden">
+    <section className="relative bg-[#F7EEFA] overflow-hidden" id="home">
       <div className="container">
         <div className="grid lg:grid-cols-2 2xl:gap-20 lg:gap-10 items-end">
           {/* Left Content */}

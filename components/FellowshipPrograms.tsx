@@ -1,6 +1,6 @@
 const FellowshipPrograms = () => {
   return (
-    <section className="relative py-16 lg:py-20">
+    <section className="relative py-16 lg:py-20" id="about-us">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-center">
           {/* Video Section */}

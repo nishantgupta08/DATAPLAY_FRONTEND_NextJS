@@ -68,7 +68,7 @@ const WhoCanApply = () => {
             </p>
 
             <div className="flex justify-center lg:justify-start">
-              <Button title="Contact Us" />
+              <Button title="Contact Us" isLink href="#contact-us" />
             </div>
           </div>
         </div>
