@@ -155,6 +155,40 @@
                         "new_title": "Data Analyst",
                         "new_designation": "Bayslope Solutions"
                     }
+                },
+                      {
+                    "isTypeVideo": False,
+                    "video_url": "",
+                    "description": "The sessions from DataPlay's ML classes have been outstanding. The content is well-structured, and the clarity in explanations makes even complex topics easy to grasp. Each session adds real value, and the learning experience has been truly enriching.",
+                    "person_detail": {
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759420105/Screenshot_2025-10-02_211744_yv3zxi.png",
+                        "linkdin_profile": "https://www.linkedin.com/in/dhruv-sanghvi-36b05b22a/",
+                        "name": "Dhruv Sanghvi",
+                        "designation": "Data Scientist"
+                    },
+                    "transformation": {
+                        "old_title": "IMTech (CS)",
+                        "old_designation": "IIIT, Gwalior",
+                        "new_title": "Data Scientist",
+                        "new_designation": "Fibe"
+                    }
+                },
+                 {
+                    "isTypeVideo": False,
+                    "video_url": "",
+                    "description": "I got to learn many new things in the data science Course.They take the time to ensure every student understands the material and are always willing to provide extra support when needed. Their positive attitude and encouragement create a great learning environment.",
+                    "person_detail": {
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759420246/Aman_Soni_fiqzlp.jpg",
+                        "linkdin_profile": "https://www.linkedin.com/in/aman-soni-3121051b8/",
+                        "name": "Aman Soni",
+                        "designation": "AI Engineer"
+                    },
+                    "transformation": {
+                        "old_title": "BTech",
+                        "old_designation": "JECRC University",
+                        "new_title": "AI Engineer",
+                        "new_designation": "Celebal Technologies"
+                    }
                 }
             ]
         },
