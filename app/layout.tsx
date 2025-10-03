@@ -55,13 +55,13 @@ export default function RootLayout({
 }) {
   return (
     <html className="scroll-smooth" lang="en">
+      <Head>
+        <meta
+          name="msvalidate.01"
+          content="2B92D95F597E2458DEB18E6BD8AF8363"
+        />
+      </Head>
       <body className={`${inter.className} antialiased`}>
-        <Head>
-          <meta
-            name="msvalidate.01"
-            content="2B92D95F597E2458DEB18E6BD8AF8363"
-          />
-        </Head>
         <Header />
         {children}
         <Footer />
