@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -55,6 +56,12 @@ export default function RootLayout({
   return (
     <html className="scroll-smooth" lang="en">
       <body className={`${inter.className} antialiased`}>
+        <Head>
+          <meta
+            name="msvalidate.01"
+            content="2B92D95F597E2458DEB18E6BD8AF8363"
+          />
+        </Head>
         <Header />
         {children}
         <Footer />
