@@ -122,7 +122,7 @@ const Courses = () => {
                     </ul>
 
                     <button className="w-full bg-gradient-to-r from-orange to-orange/50 text-white py-2.5 sm:py-3 text-base sm:text-lg md:text-xl rounded-xl sm:rounded-2xl font-semibold transition duration-300 hover:from-orange/90 hover:to-orange/40">
-                      <Link href={`/courses?id=${course.id}`}>
+                      <Link href={`/courses/${course.id}`}>
                         View Course
                       </Link>
                     </button>
