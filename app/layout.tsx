@@ -55,12 +55,13 @@ export default function RootLayout({
 }) {
   return (
     <html className="scroll-smooth" lang="en">
-      <Head>
+      <head>
+        {/* Bing Webmaster Tools Verification */}
         <meta
           name="msvalidate.01"
           content="2B92D95F597E2458DEB18E6BD8AF8363"
         />
-      </Head>
+      </head>
       <body className={`${inter.className} antialiased`}>
         <Header />
         {children}

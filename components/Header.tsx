@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="relative bg-darkBlue text-white">
+    <div className="relative bg-darkBlue text-white">
       <div className="container mx-auto px-4">
         <div className="flex max-lg:justify-between items-center lg:gap-20 h-[62px] md:h-[100px]">
           {/* Logo */}
@@ -88,7 +88,7 @@ const Header = () => {
           </div>
         )}
       </div>
-    </header>
+    </div>
   );
 };
 
