@@ -102,7 +102,24 @@
                         "old_title": "Passout MS(Maths)",
                         "old_designation": "NIT Rourkela",
                         "new_title": "Data Analyst",
-                        "new_designation": ""
+                        "new_designation": "Diligent"
+                    }
+                },
+                 {
+                    "isTypeVideo": False,
+                    "video_url": "",
+                    "description": "",
+                    "person_detail": {
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759479340/Screenshot_2025-10-03_134457_ije7g7.png",
+                        "linkdin_profile": "https://www.linkedin.com/in/akella-dattatreyulu-9a969020a/#/",
+                        "name": "Akella Dattatreyulu",
+                        "designation": "Associate Data Scientist"
+                    },
+                    "transformation": {
+                        "old_title": "BTech(Maths)",
+                        "old_designation": "NIT Durgapur",
+                        "new_title": "Associate Data Scientst",
+                        "new_designation": "Softsensor.ai"
                     }
                 },
                   {
