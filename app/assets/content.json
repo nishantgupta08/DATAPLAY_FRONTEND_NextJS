@@ -33,7 +33,7 @@
             "courses": [
                 {
                     "id": 1,
-                    "img_url": "",
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480655/Group_217_youx1q.png",
                     "highlighted_title": "DATA ANALYST",
                     "title": "Data Analyst",
                     "features": [
@@ -43,7 +43,7 @@
                 },
                 {
                     "id": 2,
-                    "img_url": "",
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
                     "highlighted_title": "DATA ENGINEERING",
                     "title": "Data Engineering",
                     "features": [
@@ -53,7 +53,7 @@
                 },
                 {
                     "id": 3,
-                    "img_url": "",
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480380/Group_218_uvhvtw.png",
                     "highlighted_title": "WEB DEVELOPMENT",
                     "title": "Web Development",
                     "features": [
@@ -70,7 +70,7 @@
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759415855/Nishant_Sir_lbsemx.png",
                     "name": "Nishant Gupta",
-                    "current_company": "Senior Data Scientist @ EXL",
+                    "current_company": "Senior Data Scientist @ Gurgaon",
                     "company_details_2": "Ex Senior Data Scientist @ MediaCorp, Singapore",
                     "description": "With 9 years of experience, he excels at simplifying complex concepts, ensuring comprehensive understanding from the very roots.",
                     "linkdin_profile": "https://www.linkedin.com/in/nishantthewriter/"
@@ -78,7 +78,7 @@
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759415855/Mahima_Maam_qli0ox.png",
                     "name": "Mahima Gupta",
-                    "current_company": "Data Scientist @ Target, Bangalore",
+                    "current_company": "Data Scientist @ Bangalore",
                     "company_details_2": "",
                     "description": "With 5 years of expertise, she adeptly identifies students' weak points, introducing effective techniques to help them excel by addressing their shortcomings",
                     "linkdin_profile": "https://www.linkedin.com/in/mahima-gupta1997/"
@@ -109,7 +109,7 @@
                 {
                     "isTypeVideo": false,
                     "video_url": "",
-                    "description": "",
+                    "description": "I got to learn many new things in the data science fellowship.They take the time to ensure every student understands the material and are always willing to provide extra support when needed. Their positive attitude and encouragement create a great learning environment.",
                     "person_detail": {
                         "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759479340/Screenshot_2025-10-03_134457_ije7g7.png",
                         "linkdin_profile": "https://www.linkedin.com/in/akella-dattatreyulu-9a969020a/#/",
@@ -277,7 +277,7 @@
             "id": 1,
             "title": "Data Analyst",
             "sub_title": "Make businesses smarter with data. In this hands-on, project-first course, you’ll learn to wrangle messy datasets, build dashboards people actually use, and present insights that drive action. No fluff—just the skills hiring managers ask for.",
-            "img_url": "",
+            "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480655/Group_217_youx1q.png",
             "courses_content": [
                 "Introduction to Data Analysis",
                 "Statistics",
@@ -305,7 +305,7 @@
             "id": 2,
             "title": "Data Engineering",
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
-            "img_url": "",
+            "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
             "courses_content": [],
             "right_side_video_url": "",
             "user_section": [
