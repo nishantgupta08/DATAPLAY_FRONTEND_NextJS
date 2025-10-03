@@ -1,7 +1,9 @@
 import Button from "./widgets/Button";
+import data from "@/app/assets/content.json"
 
 /* eslint-disable @next/next/no-img-element */
 const WhoCanApply = () => {
+  const whoCanApplyData = data.homepage.who_can_apply
   return (
     <section className="relative bg-purple overflow-hidden max-lg:pt-16 lg:pt-10 ">
       {/* Background Decorations - Hidden on mobile, visible on larger screens */}
@@ -40,11 +42,12 @@ const WhoCanApply = () => {
           {/* Content Section */}
           <div className="text-white text-center lg:text-left order-1 lg:order-2 flex-1 lg:pb-6">
             <h2 className="text-4xl lg:text-5xl xl:text-6xl 2xl:text-[70px] font-bold leading-tight mb-4 sm:mb-6">
-              Who Can Apply?
+              {whoCanApplyData.title}
             </h2>
 
             <p className="text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold leading-tight mb-4 sm:mb-6">
-              Absolutely{" "}
+              {whoCanApplyData.sub_title_1}
+
               <span className="relative inline-flex items-center justify-center">
                 <svg
                   className="absolute h-full w-full scale-110 sm:scale-125"
@@ -57,14 +60,13 @@ const WhoCanApply = () => {
                     fill="#FF4C3D"
                   />
                 </svg>
-                <span className="relative z-[1]">Everyone!</span>
+                <span className="relative z-[1]">{whoCanApplyData.highlighted_title}</span>
               </span>{" "}
-              All Backgrounds, All Levels,
+              {whoCanApplyData.sub_title_2}
             </p>
 
             <p className="text-base sm:text-lg max-w-xl mx-auto lg:mx-0 mb-6 sm:mb-8">
-              Whether you&apos;re a high school grad, college graduate, or
-              industry expert. Diversity is your learning playground!
+              {whoCanApplyData.paragraph}
             </p>
 
             <div className="flex justify-center lg:justify-start">

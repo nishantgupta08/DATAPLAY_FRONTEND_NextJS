@@ -5,7 +5,8 @@
                 "normal_text": "Never Stop",
                 "highlighted_text": "Learning"
             },
-            "heading": "Empowering Careers In DATA and Design",
+            "heading": "Empowering Careers In DATA and",
+            "underline_heading": " Design",
             "sub_heading": "Let's Sculpt YOUR Path To Success, YOUR Way !"
         },
         "features": [
@@ -19,7 +20,7 @@
             "heading": "Your Compass On The",
             "highlighted_heading": "Data Science",
             "remaining_heading": "Journey.",
-            "video_url": "https://www.youtube.com/watch?v=Eq_kHFBaoe0",
+            "video_url": "https://www.youtube.com/embed/Eq_kHFBaoe0?si=RReygUU9r968XBVO",
             "details": [
                 "At DataPlay, we believe that success isn't one-size-fits-all—it's personal. Like Arjuna guided on his path, we aim to help you find yours, combining academic wisdom with real-world insight.",
                 "Whether you're just starting or deepening your journey, our supportive ecosystem—built on individuality, passion, and purpose—guides you toward becoming not just job-ready, but truly fulfilled.",
@@ -50,7 +51,7 @@
                         "Reliability at scale"
                     ]
                 },
-                 {
+                {
                     "id": 3,
                     "img_url": "",
                     "highlighted_title": "WEB DEVELOPMENT",
@@ -90,7 +91,7 @@
             "testimonials": [
                 {
                     "isTypeVideo": true,
-                    "video_url": "https://www.youtube.com/watch?v=fIJi1QNeUtU",
+                    "video_url": "https://www.youtube.com/embed/fIJi1QNeUtU?si=7nnIzwOHd-Si0bPT",
                     "description": "",
                     "person_detail": {
                         "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416150/Satya_oow5jb.png",
@@ -105,8 +106,8 @@
                         "new_designation": "Diligent"
                     }
                 },
-                 {
-                    "isTypeVideo": False,
+                {
+                    "isTypeVideo": false,
                     "video_url": "",
                     "description": "",
                     "person_detail": {
@@ -122,8 +123,8 @@
                         "new_designation": "Softsensor.ai"
                     }
                 },
-                  {
-                    "isTypeVideo": False,
+                {
+                    "isTypeVideo": false,
                     "video_url": "",
                     "description": "I highly recommend DataPlay for anyone pursuing a career in data analysis and data science. The mentors are exceptionally dedicated, ensuring every student understands the concepts. The inclusive and engaging classroom environment fosters positive learning. The curriculum's focus on practical knowledge over theory helps in grasping real-world applications. Overall, my experience at DataPlay has been excellent.",
                     "person_detail": {
@@ -139,8 +140,8 @@
                         "new_designation": "Fabrik8 Lifestyle LLP"
                     }
                 },
-                   {
-                    "isTypeVideo": False,
+                {
+                    "isTypeVideo": false,
                     "video_url": "",
                     "description": "Nishant Sir and Mahima Ma'am of Data Play are dedicated educators and they genuinely care about students’ future. They are exceptionally hard working and it reflects in their well crafted course material and daily practice sheets. Mahima Ma'am’s simple and easy to learn approach and Nishant Sir’s practical teaching methods ensure that each and every student grasps the subject. They foster a positive learning environment by building connections with their students, motivating them to work hard and excel. We are really grateful for DataPlay's exceptional commitment to Data Science education.",
                     "person_detail": {
@@ -156,8 +157,8 @@
                         "new_designation": "Cognitive Stars"
                     }
                 },
-                   {
-                    "isTypeVideo": False,
+                {
+                    "isTypeVideo": false,
                     "video_url": "",
                     "description": "I enrolled in multiple courses earlier for Data science but I found Dataplay data science course to be the most comprehensive. Every topic is covered in depth with implementation on real life projects. PPTs are short, clear and concise. Now I am confident in solving data science problems and cracking desired companies for data science roles.",
                     "person_detail": {
@@ -173,8 +174,8 @@
                         "new_designation": "Bayslope Solutions"
                     }
                 },
-                      {
-                    "isTypeVideo": False,
+                {
+                    "isTypeVideo": false,
                     "video_url": "",
                     "description": "The sessions from DataPlay's ML classes have been outstanding. The content is well-structured, and the clarity in explanations makes even complex topics easy to grasp. Each session adds real value, and the learning experience has been truly enriching.",
                     "person_detail": {
@@ -190,8 +191,8 @@
                         "new_designation": "Fibe"
                     }
                 },
-                 {
-                    "isTypeVideo": False,
+                {
+                    "isTypeVideo": false,
                     "video_url": "",
                     "description": "I got to learn many new things in the data science Course.They take the time to ensure every student understands the material and are always willing to provide extra support when needed. Their positive attitude and encouragement create a great learning environment.",
                     "person_detail": {
@@ -222,27 +223,51 @@
             "gallery": [
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416317/IMG-20231124-WA0015_fsvbbb.jpg",
-                    "title": "Balaji College"
+                    "title": "Balaji College",
+                    "width": 800,
+                    "height": 600,
+                    "span": "col-span-6 sm:col-span-7 lg:col-span-4",
+                    "rowSpan": "row-span-1"
                 },
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416329/IMG20240825162617_igtxmm.jpg",
-                    "title": "Certificate Ceremony"
+                    "title": "Certificate Ceremony",
+                    "width": 800,
+                    "height": 600,
+                    "span": "col-span-6 sm:col-span-5 lg:col-span-4",
+                    "rowSpan": "row-span-1"
                 },
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416375/IMG_20250827_132209_kiyjyr.jpg",
-                    "title": "SKIT Jaipur"
+                    "title": "SKIT Jaipur",
+                    "width": 800,
+                    "height": 600,
+                    "span": "col-span-6 sm:col-span-5 lg:col-span-4",
+                    "rowSpan": "row-span-1"
                 },
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416340/IMG_4473-1_mnhgee.jpg",
-                    "title": "MNIT Jaipur"
+                    "title": "MNIT Jaipur",
+                    "width": 1200,
+                    "height": 900,
+                    "span": "col-span-6 sm:col-span-7 lg:col-span-6",
+                    "rowSpan": "row-span-1"
                 },
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416307/DSC03361_ut0jh0.jpg",
-                    "title": "LNMIIT Jaipur"
+                    "title": "LNMIIT Jaipur",
+                    "width": 600,
+                    "height": 450,
+                    "span": "col-span-6 sm:col-span-7 lg:col-span-3",
+                    "rowSpan": "row-span-1"
                 },
                 {
                     "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416301/1728655307393_b1tpyk.jpg",
-                    "title": "IIIT Gwalior"
+                    "title": "IIIT Gwalior",
+                    "width": 600,
+                    "height": 450,
+                    "span": "col-span-6 sm:col-span-5 lg:col-span-3",
+                    "rowSpan": "row-span-1"
                 }
             ]
         }
@@ -281,8 +306,7 @@
             "title": "Data Engineering",
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
             "img_url": "",
-            "courses_content": [
-            ],
+            "courses_content": [],
             "right_side_video_url": "",
             "user_section": [
                 {
@@ -301,8 +325,7 @@
             "title": "Web Development",
             "sub_title": "Turn ideas into live websites. In this hands-on, project-first course, you’ll learn modern frontend & backend skills to ship production-ready web apps—fast, clean, and user-friendly.",
             "img_url": "",
-            "courses_content": [
-            ],
+            "courses_content": [],
             "right_side_video_url": "",
             "user_section": [
                 {

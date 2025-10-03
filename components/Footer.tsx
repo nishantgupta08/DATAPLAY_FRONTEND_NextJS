@@ -21,11 +21,11 @@ const Footer = () => {
   const socialMediaLinks = [
     {
       icon: "uil:linkedin",
-      href: "#",
+      href: "https://www.linkedin.com/company/data-play/",
     },
     {
       icon: "fa7-brands:square-twitter",
-      href: "#",
+      href: "https://www.instagram.com/dataplay_dataplay/",
     },
     {
       icon: "ant-design:facebook-filled",
@@ -111,7 +111,7 @@ const Footer = () => {
                 </h4>
                 <div className="relative space-y-3 text-gray-300">
                   <a
-                    href="mailto:digitaldataplay@gmail.com"
+                    href="mailto:admin@dataplay.co.in"
                     className="flex items-start md:items-center gap-2 text-white hover:text-purple transition-colors"
                   >
                     <Icon
@@ -119,7 +119,7 @@ const Footer = () => {
                       className="size-5 md:size-6 text-purple shrink-0 mt-0.5 md:mt-0"
                     />
                     <span className="text-sm md:text-base break-all">
-                      digitaldataplay@gmail.com
+                      admin@dataplay.co.in
                     </span>
                   </a>
                   <a
@@ -138,34 +138,31 @@ const Footer = () => {
                       className="size-5 md:size-6 text-purple shrink-0 mt-0.5 md:mt-0"
                     />
                     <span className="text-sm md:text-base">
-                      BG/02 Chitrakoot, New Mall of Galaxy, Sector, Rajkot,
-                      360021
+                      E2/202, Chitrakoot, Near Mall of Jaipur, Jaipur
                     </span>
                   </p>
                 </div>
 
                 {/* Social Media */}
+                {/* Social Media (from original footer) */}
                 <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                  <h5 className="text-base md:text-lg font-semibold">
-                    Follow Us :
-                  </h5>
-                  <div className="flex space-x-3">
-                    {socialMediaLinks.map((social, index) => {
-                      return (
-                        <a
-                          key={index}
-                          href={social.href}
-                          className={`flex-center text-purple hover:text-orange transition duration-300`}
-                        >
-                          <Icon
-                            icon={social.icon}
-                            className="size-5 md:size-6"
-                          />
-                        </a>
-                      );
-                    })}
+                  <h5 className="text-base md:text-lg font-semibold">Follow Us:</h5>
+                  <div className="flex space-x-3 items-center">
+                    <a href="https://www.linkedin.com/company/data-play/" target="_blank" rel="noopener noreferrer">
+                      <Icon icon="fa6-brands:linkedin" className="text-purple hover:text-orange size-5 md:size-6" />
+                    </a>
+                    <a href="https://www.instagram.com/dataplay_dataplay/" target="_blank" rel="noopener noreferrer">
+                      <Icon icon="mdi:instagram" className="text-purple hover:text-orange size-5 md:size-6" />
+                    </a>
+                    <a href="https://www.youtube.com/@DataPlay-dataplay" target="_blank" rel="noopener noreferrer">
+                      <Icon icon="mdi:youtube" className="text-purple hover:text-orange size-5 md:size-6" />
+                    </a>
+                    <a href="https://g.co/kgs/iLU4VKb" target="_blank" rel="noopener noreferrer">
+                      <Icon icon="mdi:google" className="text-purple hover:text-orange size-5 md:size-6" />
+                    </a>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

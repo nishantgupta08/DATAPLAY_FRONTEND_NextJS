@@ -6,10 +6,12 @@ import Mentors from "@/components/Mentors";
 import Courses from "@/components/Courses";
 import Features from "@/components/Features";
 import FellowshipPrograms from "@/components/FellowshipPrograms";
+import SocialBadge from "@/components/SocialBadge";
 
 export default function Home() {
   return (
     <>
+      <SocialBadge />
       <HeroSection />
       <Features />
       <FellowshipPrograms />

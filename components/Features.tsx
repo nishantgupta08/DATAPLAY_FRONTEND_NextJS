@@ -1,22 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-
+import data from "@/app/assets/content.json"
 const Features = () => {
+  const featuresData = data.homepage.features
   const features = [
     {
       icon: "/lifetime.png",
-      title: "Lifetime Access to Live Classes",
+      title: featuresData[0],
     },
     {
       icon: "/bytheindustry.png",
-      title: "By the Industry For the  Industry",
+      title: featuresData[1],
     },
     {
       icon: "/resume.png",
-      title: "Resume Refactoring & Mock Interviews",
+      title: featuresData[2],
     },
     {
       icon: "/money.png",
-      title: "Affordability meets Quality",
+      title: featuresData[3],
     },
   ];
 

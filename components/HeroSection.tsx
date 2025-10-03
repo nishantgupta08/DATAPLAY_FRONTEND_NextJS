@@ -3,8 +3,9 @@
 import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
-
+import data from "@/app/assets/content.json"
 const HeroSection = () => {
+  const heroSectionData = data.homepage.hero
   return (
     <section className="relative bg-[#F7EEFA] overflow-hidden" id="home">
       <div className="container">
@@ -14,9 +15,9 @@ const HeroSection = () => {
             <div className="relative">
               {/* Never Stop Learning */}
               <h5 className="text-darkBlue 2xl:text-4xl xl:text-3xl text-2xl font-semibold mb-4">
-                Never Stop
+                {heroSectionData.tag_line.normal_text}
                 <span className="relative ml-3 inline-flex items-center justify-center text-white font-bold ">
-                  <span className="relative z-[1] ">Learning</span>
+                  <span className="relative z-[1] ">{heroSectionData.tag_line.highlighted_text}</span>
                   <svg
                     className="absolute h-full w-full scale-110"
                     viewBox="0 0 211 56"
@@ -45,9 +46,9 @@ const HeroSection = () => {
                 className="text-darkBlue 2xl:text-[56px] xl:text-5xl text-4xl font-bold mb-10"
                 data-aos="fade-right"
               >
-                Empowering Careers In DATA and{" "}
+                {heroSectionData.heading}
                 <span className="relative">
-                  Design
+                  {heroSectionData.underline_heading}
                   <svg
                     width="227"
                     height="20"
@@ -66,7 +67,7 @@ const HeroSection = () => {
 
               {/* Description */}
               <p className="text-darkBlue 2xl:text-[28px] xl:text-2xl text-xl relative block font-bold 2xl:mb-20 mb-14">
-                Let&apos;s Sculpt YOUR Path To Success, YOUR Way !
+                {heroSectionData.sub_heading}
               </p>
 
               {/* Statistics Section */}

@@ -1,4 +1,6 @@
+import data from "@/app/assets/content.json"
 const FellowshipPrograms = () => {
+  const aboutUsData = data.homepage.about_us
   return (
     <section className="relative py-16 lg:py-20" id="about-us">
       <div className="container">
@@ -8,7 +10,7 @@ const FellowshipPrograms = () => {
             <div className="relative max-lg:aspect-video lg:h-[500px] w-full">
               <iframe
                 className="w-full h-full rounded-2xl sm:rounded-3xl border border-black drop-shadow-[4px_4px_0_#1C1A4A] sm:drop-shadow-[6px_6px_0_#1C1A4A] lg:drop-shadow-[8px_8px_0_#1C1A4A]"
-                src="https://www.youtube.com/embed/3JZ_D3ELwOQ"
+                src={aboutUsData.video_url}
                 title="WELCOME TO DATAPLAY"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -20,11 +22,11 @@ const FellowshipPrograms = () => {
           {/* Content Section */}
           <div className="relative flex flex-col items-start leading-none gap-4 sm:gap-6 order-1 lg:order-2">
             <div className="relative lg:-mb-3 inline-block bg-purple text-white px-4 py-1 rounded-full text-base sm:text-lg lg:text-[22px] font-semibold">
-              Welcome to DataPlay
+              {aboutUsData.title}
             </div>
 
             <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-[50px] font-bold text-black pr-0 sm:pr-4 lg:pr-8 xl:pr-20 leading-tight">
-              Your Compass On The
+              {aboutUsData.heading}
               <span className="relative inline-flex items-center justify-center ml-2">
                 <svg
                   className="absolute h-full w-full scale-[115%]"
@@ -39,32 +41,23 @@ const FellowshipPrograms = () => {
                 </svg>
 
                 <span className="relative z-[1] font-black text-white">
-                  Data Science
+                  {aboutUsData.highlighted_heading}
                 </span>
               </span>{" "}
-              Journey.
+              {aboutUsData.remaining_heading}
+
             </h2>
 
             <div className="text-black text-sm sm:text-base lg:text-lg font-light space-y-3 sm:space-y-4 lg:space-y-5">
-              <p>
-                At DataPlay, we believe that success in data science isn&apos;t
-                one-size-fits-all—it&apos;s personal. Like Arjuna guided on his
-                path, we aim to help you find yours, combining academic wisdom
-                with real-world insight.{" "}
-              </p>
-
-              <p>
-                Whether you&apos;re just starting or deepening your journey, our
-                supportive ecosystem—built on individuality, passion, and
-                purpose—guides you toward becoming not just job-ready, but truly
-                fulfilled.
-              </p>
-
-              <p>
-                Through tools like DPPs and a vibrant community, we help you
-                learn, grow, and thrive in your own unique way. Welcome to a
-                space where your brilliance can truly flourish. ✨
-              </p>
+              {
+                aboutUsData.details?.map((ele, idx) => {
+                  return (
+                    <p key={`about-${idx}`}>
+                      {ele}
+                    </p>
+                  )
+                })
+              }
             </div>
           </div>
         </div>

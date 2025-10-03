@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import React from "react";
 
-const InnerBanner = () => {
+const InnerBanner = ({ img_url }: { img_url: string }) => {
   return (
     <div className="relative bg-lightOrange max-lg:py-16 mb-8 md:mb-12 lg:mb-20">
       <img
@@ -54,28 +54,30 @@ const InnerBanner = () => {
                 <Icon icon="mdi:star" className="size-4 sm:size-5" />
                 <Icon icon="mdi:star" className="size-4 sm:size-5" />
                 <Icon icon="mdi:star" className="size-4 sm:size-5" />
-                <Icon icon="mingcute:star-line" className="size-4 sm:size-5" />
+                <Icon icon="mdi:star" className="size-4 sm:size-5" />
               </span>
-              <span className="font-medium">1,292 Reviews</span>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm sm:text-base md:text-lg text-black">
-              <p>Instructor:</p>
-              <p className="font-medium underline hover:text-orange cursor-pointer transition-colors">
-                Dr. Robin Malviya
-              </p>
             </div>
           </div>
 
           {/* Image Section */}
           <div className="relative lg:-mb-10 h-auto w-full max-w-full lg:max-w-[400px] xl:max-w-[550px] border border-bor bg-white p-4 sm:p-5 rounded-lg mx-auto lg:mx-0">
             <img
-              src="/course.png"
+              src={img_url}
               alt="Course Image"
               className="relative w-full rounded-lg sm:rounded-xl aspect-video object-cover"
             />
-            <p className="relative block text-center text-lg sm:text-xl font-bold text-darkBlue mt-3 sm:mt-4">
-              Flexible Schedule
-            </p>
+            {/* <p className="relative block text-center text-lg sm:text-xl font-bold text-darkBlue mt-3 sm:mt-4">
+              Flexible Schedule //TODO: whatsUp
+            </p> */}
+            <a
+              href="https://wa.me/917427071631"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative flex justify-center items-center gap-2 text-green-600 font-semibold text-base sm:text-lg mt-4 sm:mt-5 hover:text-green-700 transition-colors"
+            >
+              <Icon icon="ic:baseline-whatsapp" className="size-5 sm:size-6" />
+              Contact us on WhatsApp
+            </a>
           </div>
         </div>
       </div>
