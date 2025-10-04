@@ -68,7 +68,7 @@
             "sub_title": "Guiding minds towards brilliance and success.",
             "mentors": [
                 {
-                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759415855/Nishant_Sir_lbsemx.png",
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759594855/Nishant_final-removebg-preview_szf9zb.png",
                     "name": "Nishant Gupta",
                     "current_company": "Senior Data Scientist @ Gurgaon",
                     "company_details_2": "Ex Senior Data Scientist @ MediaCorp, Singapore",
@@ -76,7 +76,7 @@
                     "linkdin_profile": "https://www.linkedin.com/in/nishantthewriter/"
                 },
                 {
-                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759415855/Mahima_Maam_qli0ox.png",
+                    "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759594860/Mahima_final-removebg-preview_eztyfm.png",
                     "name": "Mahima Gupta",
                     "current_company": "Data Scientist @ Bangalore",
                     "company_details_2": "",
@@ -91,7 +91,7 @@
             "testimonials": [
                 {
                     "isTypeVideo": true,
-                    "video_url": "https://youtube.com/shorts/0z0sKK3050M?si=ruLAQAKrB31XKWOb",
+                    "video_url": "https://www.youtube.com/embed/0z0sKK3050M",
                     "description": "",
                     "person_detail": {
                         "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416150/Satya_oow5jb.png",
@@ -324,7 +324,7 @@
             "id": 3,
             "title": "Web Development",
             "sub_title": "Turn ideas into live websites. In this hands-on, project-first course, you’ll learn modern frontend & backend skills to ship production-ready web apps—fast, clean, and user-friendly.",
-            "img_url": "",
+            "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480380/Group_218_uvhvtw.png",
             "courses_content": [],
             "right_side_video_url": "",
             "user_section": [

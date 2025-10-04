@@ -57,14 +57,14 @@ const Mentors = () => {
           >
             {mentorsData.mentors.map((mentor, index) => (
               <SwiperSlide key={index}>
-                <div
-                  className="bg-gradient-to-b from-[#FF9393] to-[#8073E5] rounded-2xl md:rounded-3xl text-white relative overflow-visible min-h-[300px] md:min-h-[400px] flex flex-col md:flex-row"
-                >
+                <div className="bg-gradient-to-b from-[#FF9393] to-[#8073E5] rounded-2xl md:rounded-3xl text-white relative overflow-visible min-h-[300px] md:min-h-[400px] flex flex-col md:flex-row md:gap-4 lg:gap-6">
+
                   {/* Image */}
                   {/* Image */}
-                  <div className="w-full md:w-1/2 relative h-48 md:h-auto">
+                  <div className="w-full md:w-5/12 relative h-48 md:h-auto">
                     {/* The outer div is no longer 'overflow-visible' and will serve as the image boundary */}
-                    <div className="absolute inset-0 w-full overflow-hidden">
+                    <div className="absolute inset-0 w-full h-full flex justify-center items-end">
+
                       {/* Remove the -top-8 xl:-top-16 and -bottom-0 from this container.
         Let the image itself handle the positioning/sizing to be visible. */}
                       <Image
@@ -74,13 +74,14 @@ const Mentors = () => {
                         // Changed to object-contain and object-left-bottom to ensure the
                         // full image is visible, anchored to the bottom and left/center.
                         // This will prevent the top of the head from being cut off and the bottom from clipping.
-                        className="object-contain object-left-bottom"
+                        className="object-contain object-left-bottom "
                       />
                     </div>
                   </div>
 
                   {/* Text Content */}
-                  <div className="w-full md:w-1/2 p-4 md:p-6 lg:p-8 flex flex-col justify-center relative z-20">
+                  <div className="w-full md:w-7/12 p-4 md:p-4 lg:p-6 flex flex-col justify-center relative z-20">
+
                     <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">
                       {mentor.name}
                     </h3>
