@@ -61,7 +61,7 @@ const TestimonialCard: React.FC<Props> = ({ t, onReadMore }) => {
                         <>
                             <p
                                 ref={textRef}
-                                className="text-black text-base sm:text-lg lg:text-xl font-light line-clamp-4 sm:line-clamp-5"
+                                className="text-black text-base sm:text-lg lg:text-xl font-light line-clamp-4 sm:line-clamp-9"
                             >
                                 {t.description}
                             </p>

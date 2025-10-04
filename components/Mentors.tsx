@@ -61,13 +61,20 @@ const Mentors = () => {
                   className="bg-gradient-to-b from-[#FF9393] to-[#8073E5] rounded-2xl md:rounded-3xl text-white relative overflow-visible min-h-[300px] md:min-h-[400px] flex flex-col md:flex-row"
                 >
                   {/* Image */}
-                  <div className="w-full md:w-1/2 relative overflow-visible h-48 md:h-auto">
-                    <div className="absolute inset-0 -top-8 xl:-top-16 -bottom-0 w-full overflow-visible">
+                  {/* Image */}
+                  <div className="w-full md:w-1/2 relative h-48 md:h-auto">
+                    {/* The outer div is no longer 'overflow-visible' and will serve as the image boundary */}
+                    <div className="absolute inset-0 w-full overflow-hidden">
+                      {/* Remove the -top-8 xl:-top-16 and -bottom-0 from this container.
+        Let the image itself handle the positioning/sizing to be visible. */}
                       <Image
                         src={mentor.img}
                         alt={mentor.name}
                         fill
-                        className="object-scale-down object-bottom"
+                        // Changed to object-contain and object-left-bottom to ensure the
+                        // full image is visible, anchored to the bottom and left/center.
+                        // This will prevent the top of the head from being cut off and the bottom from clipping.
+                        className="object-contain object-left-bottom"
                       />
                     </div>
                   </div>

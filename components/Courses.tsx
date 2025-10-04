@@ -11,41 +11,6 @@ import Link from "next/link";
 
 const Courses = () => {
   const coursesData = data.homepage.courses
-  const courses = [
-    {
-      title: "Data Engineering",
-      category: "DATA SCIENCE",
-      topics: [
-        "Data Collection and Storage",
-        "Data Cleaning and Preprocessing",
-      ],
-      image: "/course.png",
-      badges: ["LaunchPad", "DS Essentials"],
-      discount: "100%",
-    },
-    {
-      title: "Data Analyst",
-      category: "DATA SCIENCE",
-      topics: [
-        "Data Collection and Storage",
-        "Data Cleaning and Preprocessing",
-      ],
-      image: "/course.png",
-      badges: ["LaunchPad", "DS Essentials"],
-      discount: "100%",
-    },
-    {
-      title: "MERN STACK",
-      category: "Web Development",
-      topics: [
-        "Data Collection and Storage",
-        "Data Cleaning and Preprocessing",
-      ],
-      image: "/course.png",
-      badges: ["LaunchPad", "DS Essentials"],
-      discount: "100%",
-    },
-  ];
 
   return (
     <section className="relative py-12 sm:py-16 md:py-20" id="courses">

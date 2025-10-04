@@ -17,7 +17,20 @@ const App = () => {
     <>
       <SocialBadge />
       {/* {router..id} */}
-      <InnerBanner img_url={coursesData?.img_url as string} />
+      <InnerBanner
+        img_url={coursesData?.img_url as string}
+        data={
+          coursesData
+            ? {
+              id: coursesData.id.toString(),
+              title: coursesData.title,
+              sub_title: coursesData.sub_title,
+              img_url: coursesData.img_url,
+              right_side_video_url: coursesData.right_side_video_url
+            }
+            : {}
+        }
+      />
       <div className="relative py-12 lg:py-16">
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 lg:gap-8">

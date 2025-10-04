@@ -123,14 +123,14 @@ const Footer = () => {
                     </span>
                   </a>
                   <a
-                    href="tel:9876543211"
+                    href="tel:7427071631"
                     className="flex items-center gap-2 text-white hover:text-purple transition-colors"
                   >
                     <Icon
                       icon="carbon:phone-filled"
                       className="size-5 md:size-6 text-purple shrink-0"
                     />
-                    <span className="text-sm md:text-base">+91 9876543211</span>
+                    <span className="text-sm md:text-base">+91 7427071631</span>
                   </a>
                   <p className="flex items-start gap-2 text-white hover:text-purple mt-6 md:mt-8">
                     <Icon
@@ -151,7 +151,7 @@ const Footer = () => {
                     <a href="https://www.linkedin.com/company/data-play/" target="_blank" rel="noopener noreferrer">
                       <Icon icon="fa6-brands:linkedin" className="text-purple hover:text-orange size-5 md:size-6" />
                     </a>
-                    <a href="https://www.instagram.com/dataplay_dataplay/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/dataplayacademy?igsh=eGM5YnVsZ3k4Nm53" target="_blank" rel="noopener noreferrer">
                       <Icon icon="mdi:instagram" className="text-purple hover:text-orange size-5 md:size-6" />
                     </a>
                     <a href="https://www.youtube.com/@DataPlay-dataplay" target="_blank" rel="noopener noreferrer">

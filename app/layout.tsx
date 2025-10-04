@@ -56,6 +56,7 @@ export default function RootLayout({
   return (
     <html className="scroll-smooth" lang="en">
       <head>
+        <link rel="icon" href="favicon.ico" sizes="any" />
         {/* Bing Webmaster Tools Verification */}
         <meta
           name="msvalidate.01"

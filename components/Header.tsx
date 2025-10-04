@@ -7,23 +7,23 @@ import Link from "next/link";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About Us", href: "#about-us" },
-    { name: "Courses", href: "#courses" },
-    { name: "Contact Us", href: "#contact-us" },
-    { name: "Corporate Training", href: "#" },
-    { name: "Consultancy", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/#about-us" },
+    { name: "Courses", href: "/#courses" },
+    { name: "Contact Us", href: "/#contact-us" },
+    { name: "Corporate Training", href: "/#corporate-training" },
+    { name: "Consultancy", href: "/#consultancy" },
   ];
+
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <div className="relative bg-darkBlue text-white">
-      <div className="container mx-auto px-4">
+    <div className="sticky top-0 z-50 bg-darkBlue text-white">
+      < div className="container mx-auto px-4" >
         <div className="flex max-lg:justify-between items-center lg:gap-20 h-[62px] md:h-[100px]">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -68,27 +68,29 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-darkBlue border-t border-gray-700 shadow-lg z-50">
-            <nav className="px-4 py-4">
-              <ul className="flex flex-col space-y-3">
-                {navLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      className="block hover:text-orange text-base font-medium text-white transition-colors duration-200 py-2 px-1"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        )}
-      </div>
-    </div>
+        {
+          isMobileMenuOpen && (
+            <div className="lg:hidden absolute top-full left-0 right-0 bg-darkBlue border-t border-gray-700 shadow-lg z-50">
+              <nav className="px-4 py-4">
+                <ul className="flex flex-col space-y-3">
+                  {navLinks.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className="block hover:text-orange text-base font-medium text-white transition-colors duration-200 py-2 px-1"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )
+        }
+      </div >
+    </div >
   );
 };
 

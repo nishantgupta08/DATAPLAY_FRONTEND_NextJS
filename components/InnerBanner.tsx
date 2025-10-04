@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import React from "react";
 
-const InnerBanner = ({ img_url }: { img_url: string }) => {
+const InnerBanner = ({ img_url, data }: { img_url: string, data: { [key: string]: string } }) => {
   return (
     <div className="relative bg-lightOrange max-lg:py-16 mb-8 md:mb-12 lg:mb-20">
       <img
@@ -37,16 +37,13 @@ const InnerBanner = ({ img_url }: { img_url: string }) => {
               >
                 Home &gt;
               </Link>{" "}
-              <span className="text-orange">Data Engineering</span>
+              <span className="text-orange">{data.title}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-darkBlue my-3 md:my-4">
-              Data Engineering
+              {data.title}
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-xl text-darkBlue leading-relaxed">
-              This comprehensive program takes you on a transformative learning
-              journey, equipping you with a wide range of skills and expertise
-              to tackle the most complex data challenges in today&apos;s
-              data-driven world.
+              {data.sub_title}
             </p>
             <div className="flex items-center gap-2 text-sm sm:text-base my-4 md:my-6">
               <span className="flex items-center text-darkOrange">
