@@ -279,6 +279,7 @@
             "sub_title": "Make businesses smarter with data. In this hands-on, project-first course, you’ll learn to wrangle messy datasets, build dashboards people actually use, and present insights that drive action. No fluff—just the skills hiring managers ask for.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480655/Group_217_youx1q.png",
             "courses_content": [
+                "Capstone Projects",
                 "Introduction to Data Analysis",
                 "Statistics",
                 "Understanding Data",
@@ -306,7 +307,23 @@
             "title": "Data Engineering",
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
-            "courses_content": [],
+            "courses_content": [
+                "Capstone Projects",
+                "Introduction to Data Analysis",
+                "Statistics",
+                "Understanding Data",
+                "Excel",
+                "SQL",
+                "Power BI",
+                "Python",
+                "Intro to Data Science",
+                "Pipeline Architecture & Design",
+                "Big Data Foundations",
+                "Orchestration & Automation",
+                "DevOps & Cloud Integration",
+                "Advanced Data Processing",
+                "Data Governance & Security"
+            ],
             "right_side_video_url": "",
             "user_section": [
                 {
@@ -325,7 +342,18 @@
             "title": "Web Development",
             "sub_title": "Turn ideas into live websites. In this hands-on, project-first course, you’ll learn modern frontend & backend skills to ship production-ready web apps—fast, clean, and user-friendly.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480380/Group_218_uvhvtw.png",
-            "courses_content": [],
+            "courses_content": [
+                "Capstone Projects",
+                "Introduction to Web Development",
+                "HTML – Structure of Web Pages",
+                "CSS – Styling the Web",
+                "JavaScript – Adding Interactivity",
+                "Version Control with Git & GitHub",
+                "Advanced Frontend Concepts",
+                "Backend Basics",
+                "React.js Fundamentals",
+                "Databases"
+            ],
             "right_side_video_url": "",
             "user_section": [
                 {
