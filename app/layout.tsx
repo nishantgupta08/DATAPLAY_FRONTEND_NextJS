@@ -91,7 +91,57 @@ const courseItemListSchema = {
 
 // 3. Define the static schemas that don't need to change
 const staticSchemas = [
-  // ... existing static schema logic ...
+  // New LocalBusiness Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "DataPlay",
+    "alternateName": "Dataplay Data Science Institute",
+    "description": "DataPlay offers data science courses, mock interviews, real‑world projects, and skill development training.",
+    "url": "https://www.dataplay.co.in/",
+    "telephone": "+91 7427 0716 31",
+    "email": "hr@dataplay.co.in",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "E2/202 Chitrakoot, Near Mall of Jaipur, Chitrakoot Scheme",
+      "addressLocality": "Jaipur",
+      "addressRegion": "Rajasthan",
+      "postalCode": "302021",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 26.8906,
+      "longitude": 75.7537
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "10:00",
+        "closes": "20:00"
+      }
+    ],
+    "logo": "https://www.dataplay.co.in/path/to/logo.png",
+    "image": [
+      "https://www.dataplay.co.in/path/to/image1.jpg",
+      "https://www.dataplay.co.in/path/to/image2.jpg"
+    ],
+    "sameAs": [
+      "https://www.facebook.com/YourPage",
+      "https://www.linkedin.com/company/dataplay",
+      "https://twitter.com/YourProfile"
+    ],
+    "priceRange": "₹₹"
+  },
   // Static Organization Schema (updated to match the original Corporation schema)
   {
     "@context": "https://schema.org",
@@ -196,7 +246,7 @@ const staticSchemas = [
   }
 ];
 
-// Combine all schemas: dynamic ItemList + static Services + Organization
+// Combine all schemas: dynamic ItemList + static Services + Organization + NEW LocalBusiness
 const allSchemas = [
   ...staticSchemas,
   courseItemListSchema
@@ -215,10 +265,10 @@ export default function RootLayout({
         strategy="afterInteractive" // Loads after the hydration and during idle time
         dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-MM2QG7MX');`,
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-MM2QG7MX');`,
         }}
       />
 
