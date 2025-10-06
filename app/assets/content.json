@@ -202,10 +202,27 @@
                         "designation": "AI Engineer"
                     },
                     "transformation": {
-                        "old_title": "BTech",
+                        "old_title": "BTech(CS)",
                         "old_designation": "JECRC University",
                         "new_title": "AI Engineer",
                         "new_designation": "Celebal Technologies"
+                    }
+                },
+                {
+                    "isTypeVideo": false,
+                    "video_url": "",
+                    "description": "Dataplay has really been a amazing experience. the way concepts are taught here, clarification of doubts and interaction for projects has helped me a lot to learn.We can also go through the recordings any time needed for further clarification. It was joyful to learn and practice here.",
+                    "person_detail": {
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759745882/Screenshot_2025-10-06_at_3.47.50_PM_hn8ror.png",
+                        "linkdin_profile": "https://www.linkedin.com/in/prateek-agrawal03/",
+                        "name": "Prateek Agarwal",
+                        "designation": "Cyber Security Expert"
+                    },
+                    "transformation": {
+                        "old_title": "BE(CS)",
+                        "old_designation": "MBM University, Jodhpur",
+                        "new_title": "Cyber Security Expert",
+                        "new_designation": "MiniOrange"
                     }
                 }
             ]
@@ -347,7 +364,7 @@
                     "designation_name": "Associate Analytical Engineer",
                     "company_name": "Gartner",
                     "company_business_link": "https://www.linkedin.com/company/gartner/",
-                    "details": "I highly recommend this course at DataPlay."
+                    "details": "This course builds real analytical thinking, not just tool skills. The tool stack reflects what we use in the industry. I highly recommend this course at DataPlay as they use real projects, not dummy datasets."
                 }
             ]
         },
@@ -356,7 +373,23 @@
             "title": "Data Engineering",
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
-            "courses_content": [],
+            "courses_content": [
+                "Capstone Projects",
+                "Introduction to Data Analysis",
+                "Statistics",
+                "Understanding Data",
+                "Excel",
+                "SQL",
+                "Power BI",
+                "Python",
+                "Intro to Data Science",
+                "Pipeline Architecture & Design",
+                "Big Data Foundations",
+                "Orchestration & Automation",
+                "DevOps & Cloud Integration",
+                "Advanced Data Processing",
+                "Data Governance & Security"
+            ],
             "right_side_video_url": "",
             "user_section": [
                 {
@@ -366,7 +399,7 @@
                     "designation_name": "Data Engineer",
                     "company_name": "Shiprocket",
                     "company_business_link": "https://www.linkedin.com/company/shiprocket/",
-                    "details": "I highly recommend this course at DataPlay."
+                    "details": "They’re not just teaching tools — they’re teaching scalable thinking. They’re teaching proper orchestration and workflow management. I highly recommend this course at DataPlay."
                 }
             ]
         },
@@ -375,9 +408,30 @@
             "title": "Web Development",
             "sub_title": "Turn ideas into live websites. In this hands-on, project-first course, you’ll learn modern frontend & backend skills to ship production-ready web apps—fast, clean, and user-friendly.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480380/Group_218_uvhvtw.png",
-            "courses_content": [],
+            "courses_content": [
+                "Capstone Projects",
+                "Introduction to Web Development",
+                "HTML – Structure of Web Pages",
+                "CSS – Styling the Web",
+                "JavaScript – Adding Interactivity",
+                "Version Control with Git & GitHub",
+                "Advanced Frontend Concepts",
+                "Backend Basics",
+                "React.js Fundamentals",
+                "Databases"
+            ],
             "right_side_video_url": "",
-            "user_section": []
+            "user_section": [
+                {
+                    "img_url": "",
+                    "name": "",
+                    "linkdin_url": "",
+                    "designation_name": "",
+                    "company_name": "",
+                    "company_business_link": "",
+                    "details": ""
+                }
+            ]
         }
     ]
 }
