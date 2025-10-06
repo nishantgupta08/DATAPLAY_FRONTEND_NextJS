@@ -3,12 +3,13 @@
 import InnerBanner from "@/components/InnerBanner";
 import { Icon } from "@iconify/react";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import data from "@/app/assets/content.json"
 import SocialBadge from "@/components/SocialBadge";
 
 // Main App component
 const App = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const params = useParams<{ id: string; }>()
   const course_id = params?.id
   const coursesData = data.courses.find((course) => course.id === Number(course_id))
@@ -41,16 +42,44 @@ const App = () => {
                   Course Content
                 </h2>
                 <div className="relative space-y-2 sm:space-y-3 max-h-[400px] sm:max-h-[500px] overflow-y-auto overflow-x-hidden">
-                  {coursesData?.courses_content.map((item, index) => (
-                    <div
-                      key={index}
-                      className="relative flex items-center p-3 sm:p-4 bg-[#EEF2FF] border border-bor rounded-lg"
-                    >
-                      <span className="text-base sm:text-lg lg:text-xl font-semibold text-black">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                  {coursesData?.courses_content?.map((item, index) => {
+                    const isOpen = openIndex === index;
+
+                    return (
+                      <div key={index} className="bg-[#EEF2FF] border border-bor rounded-lg overflow-hidden">
+                        <button
+                          onClick={() => setOpenIndex(isOpen ? null : index)}
+                          className="w-full text-left flex justify-between items-center p-3 sm:p-4"
+                        >
+                          <span className="text-base sm:text-lg lg:text-xl font-semibold text-black">
+                            {item.title}
+                          </span>
+                          {item.content.length > 0 && <svg
+                            className={`w-5 h-5 transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                              }`}
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>}
+                        </button>
+
+                        {/* Collapsible content */}
+                        <div
+                          className={`transition-all duration-300 ease-in-out px-4 pb-4 ${isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+                            } overflow-hidden`}
+                        >
+                          <ul className="list-disc pl-5 space-y-1 text-sm text-gray-800">
+                            {item.content.map((point, idx) => (
+                              <li key={idx}>{point}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -77,7 +106,7 @@ const App = () => {
         </div>
       </div>
 
-      <div className="relative py-12 lg:py-16 overflow-auto scroll-hidden">
+      {coursesData?.user_section && coursesData?.user_section?.length > 0 && <div className="relative py-12 lg:py-16 overflow-auto scroll-hidden">
         <div className="container">
           <div className="relative w-screen flex items-center gap-10">
             {coursesData?.user_section.map((userData, index) => (
@@ -119,7 +148,7 @@ const App = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };

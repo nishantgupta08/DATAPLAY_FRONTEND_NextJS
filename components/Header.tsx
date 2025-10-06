@@ -12,8 +12,8 @@ const Header = () => {
     { name: "About Us", href: "/#about-us" },
     { name: "Courses", href: "/#courses" },
     { name: "Contact Us", href: "/#contact-us" },
-    { name: "Corporate Training", href: "/#corporate-training" },
-    { name: "Consultancy", href: "/#consultancy" },
+    { name: "Corporate Training", href: "" },
+    { name: "Consultancy", href: "" },
   ];
 
 
@@ -45,7 +45,7 @@ const Header = () => {
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="hover:text-orange text-base xl:text-lg 2xl:text-[22px] font-medium text-white transition-colors duration-200 whitespace-nowrap"
+                    className={`hover:text-orange text-base xl:text-lg 2xl:text-[22px] font-medium text-white transition-colors duration-200 whitespace-nowrap ${link.href?.length > 0 ? "" : "cursor-default"}`}
                   >
                     {link.name}
                   </Link>

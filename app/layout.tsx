@@ -4,7 +4,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Head from "next/head";
+import contentData from "@/app/assets/content.json";
+// 1. Import the Script component from next/script
+import Script from 'next/script';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,11 +15,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // ... existing metadata ...
   title: "Dataplay – Data Science Learning Platform",
   description:
     "Dataplay is your data science learning hub: structured paths, interview prep, daily problems, and more for aspiring data professionals.",
   metadataBase: new URL("https://dataplay.co.in"),
   themeColor: "#ffffff",
+  // ... other metadata fields ...
   openGraph: {
     title: "Dataplay – Data Science Learning Platform",
     description:
@@ -48,6 +52,156 @@ export const metadata: Metadata = {
   },
 };
 
+// --- START: Dynamic Schema Generation ---
+// ... existing dynamic schema generation logic ...
+const courseListElements = contentData.homepage.courses.courses.map((course, index) => {
+  // Determine the URL path based on course title (e.g., "Data Analyst" -> "data-analyst")
+  const urlSlug = course.title.toLowerCase().replace(/\s+/g, '-');
+  const courseUrl = `https://www.dataplay.co.in/courses/${urlSlug}`;
+  const description = contentData.courses.find(c => c.title === course.title)?.sub_title || `${course.title} course offered by Dataplay.`;
+
+  return {
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Course",
+      "name": course.title,
+      "description": description,
+      "url": courseUrl,
+      "provider": {
+        "@type": "Organization",
+        "name": "DataPlay",
+        "url": "https://www.dataplay.co.in"
+      }
+    }
+  };
+});
+
+// Create the dynamic ItemList schema
+const courseItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "DataPlay Courses",
+  "url": "https://www.dataplay.co.in/#courses",
+  "itemListOrder": "https://schema.org/ItemListOrderAscending",
+  "numberOfItems": courseListElements.length,
+  "itemListElement": courseListElements
+};
+// --- END: Dynamic Schema Generation ---
+
+// 3. Define the static schemas that don't need to change
+const staticSchemas = [
+  // ... existing static schema logic ...
+  // Static Organization Schema (updated to match the original Corporation schema)
+  {
+    "@context": "https://schema.org",
+    "@type": "Corporation",
+    "name": "Dataplay",
+    "alternateName": "Dataplay",
+    "url": "https://www.dataplay.co.in/",
+    "logo": "https://www.dataplay.co.in/Brand-Logo.svg",
+    "sameAs": [
+      "https://www.linkedin.com/company/data-play/",
+      "https://www.dataplay.co.in/",
+      "https://www.instagram.com/dataplay_dataplay/"
+    ]
+  },
+  // Static Consultancy Service Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Consultancy",
+    "url": "https://www.dataplay.co.in/#consultancy",
+    "description": "DataPlay offers expert consultancy services to help design your data science & design learning path, career roadmap, resume building, interview preparation, and personalized mentorship.",
+    "provider": {
+      "@type": "Organization",
+      "name": "DataPlay",
+      "url": "https://www.dataplay.co.in"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "audience": {
+      "@type": "Audience",
+      "description": "Individuals seeking guidance in data science, design careers, interview preparation, resume help"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Consultancy Packages",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Career Roadmap & Mentorship",
+          "description": "One‑on‑one mentorship including career planning, resume review, mock interview sessions",
+          "url": "https://www.dataplay.co.in/consultancy/roadmap‑mentorship",
+          "priceCurrency": "INR",
+          "price": "XXXX"
+        },
+        {
+          "@type": "Offer",
+          "name": "Resume & Interview Prep",
+          "description": "Professional resume crafting, interview coaching, behavioral & technical mock interviews",
+          "url": "https://www.dataplay.co.in/consultancy/resume‑interview",
+          "priceCurrency": "INR",
+          "price": "YYYY"
+        }
+      ]
+    },
+    "keywords": "consultancy, mentorship, career guidance, interview prep, resume building"
+  },
+  // Static Corporate Training Service Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Corporate Training",
+    "url": "https://www.dataplay.co.in/#corporate-training",
+    "description": "DataPlay offers corporate training programs tailored for companies to upskill their teams in Data Science, Data Engineering, Web Development, Design, and other cutting‑edge technologies.",
+    "provider": {
+      "@type": "Organization",
+      "name": "DataPlay",
+      "url": "https://www.dataplay.co.in"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "audience": {
+      "@type": "Audience",
+      "description": "Businesses, enterprises, HR teams seeking training solutions for their employees"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Corporate Training Programs",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Custom Data Science Training",
+          "description": "Hands‑on training in data science tools, machine learning, practical projects for corporate teams",
+          "url": "https://www.dataplay.co.in/corporate‑training/data‑science",
+          "priceCurrency": "INR",
+          "price": "XXXX"
+        },
+        {
+          "@type": "Offer",
+          "name": "Full Stack Web Development Program",
+          "description": "Training covering front‑end, back‑end, deployment & best practices for corporate developers",
+          "url": "https://www.dataplay.co.in/corporate‑training/web‑development",
+          "priceCurrency": "INR",
+          "price": "YYYY"
+        }
+      ]
+    },
+    "keywords": "corporate training, team upskilling, enterprise education, professional development"
+  }
+];
+
+// Combine all schemas: dynamic ItemList + static Services + Organization
+const allSchemas = [
+  ...staticSchemas,
+  courseItemListSchema
+];
+
 export default function RootLayout({
   children,
 }: {
@@ -55,6 +209,19 @@ export default function RootLayout({
 }) {
   return (
     <html className="scroll-smooth" lang="en">
+      {/* 2. GTM Script Component (The main GTM JS code) */}
+      <Script
+        id="google-tag-manager-script"
+        strategy="afterInteractive" // Loads after the hydration and during idle time
+        dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-MM2QG7MX');`,
+        }}
+      />
+
       <head>
         <link rel="icon" href="favicon.ico" sizes="any" />
         {/* Bing Webmaster Tools Verification */}
@@ -62,138 +229,26 @@ export default function RootLayout({
           name="msvalidate.01"
           content="2B92D95F597E2458DEB18E6BD8AF8363"
         />
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="n4oMg1W0qhvtHJnie+Xw5w" async></script>
       </head>
       <body className={`${inter.className} antialiased`}>
+        {/* 3. GTM Noscript Tag (Immediately after opening <body> tag) */}
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM2QG7MX"
+            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}>
+          </iframe>
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
         <Header />
         {children}
         <Footer />
 
-        {/* Structured Data (JSON-LD) */}
+        {/* Structured Data (JSON-LD) - Combined Static and Dynamic Schemas */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                name: "Dataplay",
-                alternateName: "Dataplay",
-                url: "https://dataplay.co.in",
-                logo: "https://dataplay.co.in/Brand-Logo.svg",
-                sameAs: [
-                  "https://www.instagram.com/dataplay_dataplay/",
-                  "https://www.youtube.com/@DataPlay-dataplay",
-                  "https://www.linkedin.com/company/data-play/",
-                ],
-                contactPoint: [
-                  {
-                    "@type": "ContactPoint",
-                    telephone: "+91 7427071631",
-                    contactType: "customer service",
-                    areaServed: "IN",
-                  },
-                  {
-                    "@type": "ContactPoint",
-                    email: "hr@dataplay.co.in",
-                    contactType: "support",
-                    areaServed: "IN",
-                  },
-                ],
-                description:
-                  "Dataplay is a navigation hub for learners in data science, offering guided learning paths, daily practice problems, interview prep, and industry insights.",
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebPage",
-                name: "Interview Prep – Dataplay",
-                url: "https://dataplay.co.in/interviewprep",
-                description:
-                  "Practice questions on Linear Regression, PCA, Decision Trees, and more. Prepare for data science interviews with Dataplay.",
-                breadcrumb: {
-                  "@type": "BreadcrumbList",
-                  itemListElement: [
-                    {
-                      "@type": "ListItem",
-                      position: 1,
-                      name: "Home",
-                      item: "https://dataplay.co.in",
-                    },
-                    {
-                      "@type": "ListItem",
-                      position: 2,
-                      name: "Interview Prep",
-                      item: "https://dataplay.co.in/interviewprep",
-                    },
-                  ],
-                },
-                mainEntity: {
-                  "@type": "CreativeWork",
-                  name: "Interview Prep",
-                  publisher: {
-                    "@type": "Organization",
-                    name: "Dataplay",
-                    url: "https://dataplay.co.in",
-                  },
-                },
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebPage",
-                name: "Blogs – Dataplay",
-                url: "https://dataplay.co.in/blogs",
-                description: "Dataplay’s blog & insights section (coming soon).",
-                breadcrumb: {
-                  "@type": "BreadcrumbList",
-                  itemListElement: [
-                    {
-                      "@type": "ListItem",
-                      position: 1,
-                      name: "Home",
-                      item: "https://dataplay.co.in",
-                    },
-                    {
-                      "@type": "ListItem",
-                      position: 2,
-                      name: "Blogs",
-                      item: "https://dataplay.co.in/blogs",
-                    },
-                  ],
-                },
-                mainEntity: {
-                  "@type": "CollectionPage",
-                  name: "Blogs",
-                  publisher: {
-                    "@type": "Organization",
-                    name: "Dataplay",
-                    url: "https://dataplay.co.in",
-                  },
-                },
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebPage",
-                name: "Contact – Dataplay",
-                url: "https://dataplay.co.in/contact",
-                description: "Get in touch with Dataplay — contact details and inquiry form.",
-                breadcrumb: {
-                  "@type": "BreadcrumbList",
-                  itemListElement: [
-                    {
-                      "@type": "ListItem",
-                      position: 1,
-                      name: "Home",
-                      item: "https://dataplay.co.in",
-                    },
-                    {
-                      "@type": "ListItem",
-                      position: 2,
-                      name: "Contact",
-                      item: "https://dataplay.co.in/contact",
-                    },
-                  ],
-                },
-              },
-            ]),
+            __html: JSON.stringify(allSchemas),
           }}
         />
       </body>
