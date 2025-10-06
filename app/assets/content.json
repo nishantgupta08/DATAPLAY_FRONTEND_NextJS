@@ -202,10 +202,27 @@
                         "designation": "AI Engineer"
                     },
                     "transformation": {
-                        "old_title": "BTech",
+                        "old_title": "BTech(CS)",
                         "old_designation": "JECRC University",
                         "new_title": "AI Engineer",
                         "new_designation": "Celebal Technologies"
+                    }
+                },
+                {
+                    "isTypeVideo": false,
+                    "video_url": "",
+                    "description": "Dataplay has really been a amazing experience. the way concepts are taught here, clarification of doubts and interaction for projects has helped me a lot to learn.We can also go through the recordings any time needed for further clarification. It was joyful to learn and practice here.",
+                    "person_detail": {
+                        "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759745882/Screenshot_2025-10-06_at_3.47.50_PM_hn8ror.png",
+                        "linkdin_profile": "https://www.linkedin.com/in/prateek-agrawal03/",
+                        "name": "Prateek Agarwal",
+                        "designation": "Cyber Security Expert"
+                    },
+                    "transformation": {
+                        "old_title": "BE(CS)",
+                        "old_designation": "MBM University, Jodhpur",
+                        "new_title": "Cyber Security Expert",
+                        "new_designation": "MiniOrange"
                     }
                 }
             ]
