@@ -274,13 +274,36 @@ export default function RootLayout({
 
       <head>
         <link rel="icon" href="favicon.ico" sizes="any" />
+
         {/* Bing Webmaster Tools Verification */}
         <meta
           name="msvalidate.01"
           content="2B92D95F597E2458DEB18E6BD8AF8363"
         />
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="n4oMg1W0qhvtHJnie+Xw5w" async></script>
+
+        {/* Ahrefs */}
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="n4oMg1W0qhvtHJnie+Xw5w"
+          async
+        ></script>
+
+        {/* Google Ads Global site tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17139511988"
+          strategy="afterInteractive"
+        />
+
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17139511988');
+    `}
+        </Script>
       </head>
+
       <body className={`${inter.className} antialiased`}>
         {/* 3. GTM Noscript Tag (Immediately after opening <body> tag) */}
         <noscript>
