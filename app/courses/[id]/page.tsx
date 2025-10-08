@@ -6,6 +6,49 @@ import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import data from "@/app/assets/content.json"
 import SocialBadge from "@/components/SocialBadge";
+const UserCard = ({ userData }: {
+  userData: {
+    img_url: string;
+    name: string;
+    linkdin_url: string;
+    designation_name: string;
+    company_name: string;
+    company_business_link: string;
+    details: string;
+  }
+}) => (
+  <div className="w-[320px] sm:w-[360px] lg:w-[400px] flex flex-col gap-2 bg-white rounded-2xl sm:rounded-3xl lg:rounded-4xl p-4 sm:p-6 text-center shadow-[0px_0px_20px_0px_#00000020] sm:shadow-[0px_0px_30px_0px_#00000025] lg:shadow-[0px_0px_40px_0px_#00000033]">
+    <img
+      src={userData.img_url}
+      alt="Testimonial"
+      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto border-2 sm:border-4 border-white"
+    />
+    <h3 className="flex items-center justify-center gap-2 text-lg sm:text-xl font-bold text-black mt-2">
+      <span>{userData.name}</span>
+      {userData.linkdin_url && (
+        <a
+          href={userData.linkdin_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon icon="skill-icons:linkedin" className="size-4" />
+        </a>
+      )}
+    </h3>
+    <p className="text-sm sm:text-base font-semibold text-black">
+      {userData.designation_name}
+    </p>
+    <a href={userData.company_business_link} target="_blank">
+      <p className="text-sm sm:text-base font-semibold text-black">
+        {userData.company_name}
+      </p>
+    </a>
+    <p className="text-black text-sm sm:text-base mt-2 leading-relaxed">
+      {userData.details}
+    </p>
+  </div>
+);
+
 
 // Main App component
 const App = () => {
@@ -106,49 +149,26 @@ const App = () => {
         </div>
       </div>
 
-      {coursesData?.user_section && coursesData?.user_section?.length > 0 && <div className="relative py-12 lg:py-16 overflow-auto scroll-hidden">
-        <div className="container">
-          <div className="relative w-screen flex items-center gap-10">
-            {coursesData?.user_section.map((userData, index) => (
-              <div
-                key={index}
-                className="relative flex flex-col gap-0.5 bg-white rounded-2xl sm:rounded-3xl lg:rounded-4xl p-4 sm:p-6 text-center shadow-[0px_0px_20px_0px_#00000020] sm:shadow-[0px_0px_30px_0px_#00000025] lg:shadow-[0px_0px_40px_0px_#00000033] min-w-[280px] sm:min-w-[320px] lg:min-w-0"
-              >
-                <img
-                  src={userData.img_url}
-                  alt="Testimonial"
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto border-2 sm:border-4 border-white"
-                />
-                <h3 className="relative flex items-center justify-center gap-2 text-lg sm:text-xl font-bold text-black mt-2">
-                  <span>{userData.name}</span>
-                  {userData.linkdin_url && (
-                    <a
-                      href={userData.linkdin_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    // className="absolute bottom-0 right-0"
-                    >
-                      <Icon icon="skill-icons:linkedin" className="size-3 sm:size-4" />
-                    </a>
-                  )}
-                </h3>
-                <p className="flex items-center justify-center gap-1 text-xs sm:text-sm font-semibold text-black">
-                  <span>{userData.designation_name}</span>
-                </p>
-                <a href={userData.company_business_link} target="_blank">
-                  <p className="flex items-center justify-center gap-1 text-xs sm:text-sm font-semibold text-black">
-                    <span>{userData.company_name}</span>
-                  </p>
-
-                </a>
-                <p className="text-black text-sm sm:text-base mt-2 leading-relaxed">
-                  {userData.details}
-                </p>
+      {coursesData?.user_section && coursesData.user_section.length > 0 && (
+        <div className="relative py-12 lg:py-16">
+          <div className="container">
+            {coursesData.user_section.length > 1 ? (
+              // MULTIPLE USER LAYOUT
+              <div className="relative w-screen flex items-center gap-10 overflow-auto scroll-hidden">
+                {coursesData.user_section.map((userData, index) => (
+                  <UserCard key={index} userData={userData} />
+                ))}
               </div>
-            ))}
+            ) : (
+              // SINGLE USER LAYOUT
+              <div className="flex justify-center">
+                <UserCard userData={coursesData.user_section[0]} />
+              </div>
+            )}
           </div>
         </div>
-      </div>}
+      )}
+
     </>
   );
 };
