@@ -514,13 +514,13 @@
             "right_side_video_url": "",
             "user_section": [
                 {
-                    "img_url": "",
-                    "name": "",
-                    "linkdin_url": "",
-                    "designation_name": "",
-                    "company_name": "",
-                    "company_business_link": "",
-                    "details": ""
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759645401/Screenshot_2025-10-05_at_11.52.11_AM_ybbunx.png",
+                    "name": "Anurag Srivastava",
+                    "linkdin_url": "https://www.linkedin.com/in/anurag-srivastava-9a7429192/",
+                    "designation_name": "Software Developer",
+                    "company_name": "Stealth Startup",
+                    "company_business_link": "https://www.linkedin.com/company/stealth-startup-community/",
+                    "details": "DataPlay's Web Development course genuinely has industry-relevant—solid fundamentals, modern stack, and hands-on projects that mirror real work. I’m happy to vouch for it: clear instruction, strong mentorship, and a portfolio boost that’s immediately useful on the job."
                 }
             ]
         }
