@@ -75,7 +75,8 @@ const Mentors = () => {
 
 
                   {/* Text Content */}
-                  <div className="w-full md:w-7/12 p-4 md:p-4 lg:p-6 flex flex-col justify-center relative z-20">
+                  <div className="w-full md:w-7/12 p-4 md:p-4 lg:p-6 flex flex-col justify-center items-center md:items-start text-center md:text-left relative z-20">
+
 
                     <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">
                       {mentor.name}
