@@ -374,82 +374,105 @@
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
             "courses_content": [
-                {
-                    "title": "Statistical Foundation",
-                    "content": [
-                        "Descriptive statistics (mean, median, mode, variance, standard deviation)",
-                        "Data distributions and outlier identification",
-                        "Correlation vs causation concepts",
-                        "Introduction to hypothesis testing basics"
-                    ]
-                },
-                     {
-                    "title": "Excel Mastery",
-                    "content": [
-                        "Basic Excel Formulas",
-                        "Advanced Excel functions (VLOOKUP, INDEX-MATCH, SUMIFS)",
-                        "Pivot tables, pivot charts, and slicers",
-                        "Data validation and conditional formatting"
-                    ]
-                },
-
-                    {
-                    "title": "Understanding Data",
-                    "content": [
-                        "Data types identification (numerical, categorical, temporal)",
-                        "Missing value patterns and handling strategies",
-                        "Data cleaning techniques",
-                        "Normalisation and Standardization",
-                        "Creating calculated fields and derived metrics",
-                        "Data aggregation and grouping techniques",
-                        "Feature engineering fundamentals"
-                    ]
-                },
-                {
-                   "title": "Database Fundamentals",
-                    "content": [
-                        "Types of Databases",
-                        "Relational database concepts and ACID properties",
-                        "Entity-relationship diagrams and normalization (1NF-3NF)",
-                        "Database design patterns and best practices"
-                    ]
-                },
-                
-                {
-                   "title": "SQL Operations",
-                    "content": [
-                        "Data Definition Language (DDL): CREATE, ALTER, DROP",
-                        "Data Manipulation Language (DML): SELECT, INSERT, UPDATE, DELETE",
-                        "Data types, constraints, and indexing strategies",
-                        "Transaction management and rollback procedures",
-                        "Complex joins (INNER, OUTER, CROSS, SELF joins)",
-                        "Subqueries, correlated subqueries, and EXISTS clause",
-                        "UNION, INTERSECT, and EXCEPT operations",
-                        "Query optimization and execution plansgeeksforgeeks",
-                        "Ranking functions (ROW_NUMBER, RANK, DENSE_RANK)",
-                        "Aggregate window functions and partitioning",
-                        "LEAD/LAG functions for time series analysis",
-                        "Statistical functions and percentiles",
-                        "Common Table Expressions (CTEs) and recursive queries",
-                        "Stored procedures, functions, and triggers",
-                        "View creation and materialized views",
-                        "Performance tuning and index optimization"
-                    ]
-                }
+            {
+            "title": "Statistical Foundation",
+            "content": [
+            "Descriptive statistics (mean, median, mode, variance, standard deviation)",
+            "Data distributions and outlier identification",
+            "Correlation vs causation concepts",
+            "Introduction to hypothesis testing basics"
+            ]
+            },
+            {
+            "title": "Excel Mastery",
+            "content": [
+            "Basic Excel Formulas",
+            "Advanced Excel functions (VLOOKUP, INDEX-MATCH, SUMIFS)",
+            "Pivot tables, pivot charts, and slicers",
+            "Data validation and conditional formatting"
+            ]
+            },
+            {
+            "title": "Understanding Data",
+            "content": [
+            "Data types identification (numerical, categorical, temporal)",
+            "Missing value patterns and handling strategies",
+            "Data cleaning techniques",
+            "Normalization and Standardization",
+            "Creating calculated fields and derived metrics",
+            "Data aggregation and grouping techniques",
+            "Feature engineering fundamentals"
+            ]
+            },
+            {
+            "title": "Database Fundamentals",
+            "content": [
+            "Types of Databases",
+            "Relational database concepts and ACID properties",
+            "Entity-relationship diagrams and normalization (1NF-3NF)",
+            "Database design patterns and best practices"
+            ]
+            },
+            {
+            "title": "SQL Operations",
+            "submodules": [
+            {
+            "title": "Database Foundations",
+            "content": [
+            "Relational database concepts and ACID properties",
+"Entity–Relationship (ER) diagrams and normalization (1NF–3NF)",
+"Database design patterns and best practices",
+"Introduction to Database Management Systems (DBMS)",
+"Data types and constraints (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK)"
+            ]
+            },
+            {
+            "title": "SQL Core Operations",
+            "content": [
+            "Data Definition Language (DDL): CREATE, ALTER, DROP",
+"Data Manipulation Language (DML): SELECT, INSERT, UPDATE, DELETE",
+"Indexing strategies and optimization basics",
+"Transaction management: COMMIT, ROLLBACK, SAVEPOINT",
+"Query optimization and execution plan fundamentals"
+            ]
+            },
+            {
+            "title": "Advanced SQL & Analytics",
+            "content": [
+            "Complex joins: INNER, OUTER, CROSS, SELF",
+"Subqueries and correlated subqueries, EXISTS clause",
+"Set operations: UNION, INTERSECT, EXCEPT",
+"Window functions: ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG",
+"Aggregate, statistical, and percentile functions",
+"Common Table Expressions (CTEs) and recursive queries"
+            ]
+            },
+            {
+            "title": "Implementation & Capstone Project",
+            "content": [
+            "Stored procedures, functions, and triggers",
+"Views and materialized views (creation and refresh)",
+"Performance tuning and index optimization",
+"Data cleaning pipelines and ETL processes",
+"Capstone Project: Multi-table student information system with analytical reporting"
+            ]
+            }
+            ]
+            }
             ],
             "right_side_video_url": "",
             "user_section": [
-                {
-                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
-                    "name": "Rajat Sinha",
-                    "linkdin_url": "https://www.linkedin.com/in/rajat-sinha-94aa22201/",
-                    "designation_name": "Data Engineer",
-                    "company_name": "Shiprocket",
-                    "company_business_link": "https://www.linkedin.com/company/shiprocket/",
-                    "details": "They’re not just teaching tools — they’re teaching scalable thinking. They’re teaching proper orchestration and workflow management. I highly recommend this course at DataPlay."
-                }
+            {
+            "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
+            "name": "Rajat Sinha",
+            "linkdin_url": "https://www.linkedin.com/in/rajat-sinha-94aa22201/",
+            "designation_name": "Data Engineer",
+            "company_name": "Shiprocket",
+            "company_business_link": "https://www.linkedin.com/company/shiprocket/",
+            "details": "They’re not just teaching tools — they’re teaching scalable thinking. They’re teaching proper orchestration and workflow management. I highly recommend this course at DataPlay."
+            }
             ]
-        },
+    },
         {
             "id": 3,
             "title": "Web Development",
