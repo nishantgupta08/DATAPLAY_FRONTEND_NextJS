@@ -374,64 +374,6 @@
             "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
             "courses_content": [
-                {
-                    "title": "Databases and SQL Fundamentals",
-                    "content": [
-                        "Introduction to Databases",
-                        "Types of databases: Relational (RDBMS) vs NoSQL",
-                        "Use cases and differences",
-                        "Relational Database Concepts",
-                        "Basic SQL Queries (select, joins, subquery, aggregation, Transaction handling)",
-                        "Advanced SQL Queries (CTE, Window functions, Stored procedure, Functions)",
-                        "Indexes and Performance Optimization",
-                        "Introduction to NoSQL Databases (Overview)"
-                    ]
-                },
-                {
-                    "title": "Excel for Data Analysis",
-                    "content": [
-                        "Data cleaning using Excel tools",
-                        "Pivot tables and VLOOKUP/XLOOKUP",
-                        "Charts and dashboards",
-                        "Basic Excel formulas for analysis"
-                    ]
-                },
-                {
-                    "title": "Statistics Fundamentals",
-                    "content": [
-                        "Descriptive vs Inferential Statistics",
-                        "Distributions and Probabilities",
-                        "Hypothesis Testing and Confidence Intervals",
-                        "Correlation vs Causation"
-                    ]
-                },
-                {
-                    "title": "Power BI",
-                    "content": [
-                        "Connecting data sources",
-                        "Building interactive dashboards",
-                        "DAX basics",
-                        "Publishing and sharing reports"
-                    ]
-                },
-                {
-                    "title": "Python for Data Analysis",
-                    "content": [
-                        "Python basics: variables, loops, conditionals",
-                        "Pandas and NumPy for data wrangling",
-                        "Data cleaning and transformation",
-                        "Working with APIs and files"
-                    ]
-                },
-                {
-                    "title": "Introduction to Data Science",
-                    "content": [
-                        "What is data science?",
-                        "Machine learning basics",
-                        "Project lifecycle overview",
-                        "Real-world use cases"
-                    ]
-                }
             ],
             "right_side_video_url": "",
             "user_section": [
@@ -452,64 +394,6 @@
             "sub_title": "Turn ideas into live websites. In this hands-on, project-first course, you’ll learn modern frontend & backend skills to ship production-ready web apps—fast, clean, and user-friendly.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480380/Group_218_uvhvtw.png",
             "courses_content": [
-                {
-                    "title": "Databases and SQL Fundamentals",
-                    "content": [
-                        "Introduction to Databases",
-                        "Types of databases: Relational (RDBMS) vs NoSQL",
-                        "Use cases and differences",
-                        "Relational Database Concepts",
-                        "Basic SQL Queries (select, joins, subquery, aggregation, Transaction handling)",
-                        "Advanced SQL Queries (CTE, Window functions, Stored procedure, Functions)",
-                        "Indexes and Performance Optimization",
-                        "Introduction to NoSQL Databases (Overview)"
-                    ]
-                },
-                {
-                    "title": "Excel for Data Analysis",
-                    "content": [
-                        "Data cleaning using Excel tools",
-                        "Pivot tables and VLOOKUP/XLOOKUP",
-                        "Charts and dashboards",
-                        "Basic Excel formulas for analysis"
-                    ]
-                },
-                {
-                    "title": "Statistics Fundamentals",
-                    "content": [
-                        "Descriptive vs Inferential Statistics",
-                        "Distributions and Probabilities",
-                        "Hypothesis Testing and Confidence Intervals",
-                        "Correlation vs Causation"
-                    ]
-                },
-                {
-                    "title": "Power BI",
-                    "content": [
-                        "Connecting data sources",
-                        "Building interactive dashboards",
-                        "DAX basics",
-                        "Publishing and sharing reports"
-                    ]
-                },
-                {
-                    "title": "Python for Data Analysis",
-                    "content": [
-                        "Python basics: variables, loops, conditionals",
-                        "Pandas and NumPy for data wrangling",
-                        "Data cleaning and transformation",
-                        "Working with APIs and files"
-                    ]
-                },
-                {
-                    "title": "Introduction to Data Science",
-                    "content": [
-                        "What is data science?",
-                        "Machine learning basics",
-                        "Project lifecycle overview",
-                        "Real-world use cases"
-                    ]
-                }
             ],
             "right_side_video_url": "",
             "user_section": [
