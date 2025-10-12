@@ -1,3 +1,4 @@
+import PrimaryCTASection from "@/components/cta/PrimaryCTASection";
 import HeroSection from "@/components/HeroSection";
 import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
