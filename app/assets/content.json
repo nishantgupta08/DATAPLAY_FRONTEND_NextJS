@@ -391,6 +391,50 @@
                         "Pivot tables, pivot charts, and slicers",
                         "Data validation and conditional formatting"
                     ]
+                },
+
+                    {
+                    "title": "Understanding Data",
+                    "content": [
+                        "Data types identification (numerical, categorical, temporal)",
+                        "Missing value patterns and handling strategies",
+                        "Data cleaning techniques",
+                        "Normalisation and Standardization",
+                        "Creating calculated fields and derived metrics",
+                        "Data aggregation and grouping techniques",
+                        "Feature engineering fundamentals"
+                    ]
+                },
+                {
+                   "title": "Database Fundamentals",
+                    "content": [
+                        "Types of Databases",
+                        "Relational database concepts and ACID properties",
+                        "Entity-relationship diagrams and normalization (1NF-3NF)",
+                        "Database design patterns and best practices"
+                    ]
+                },
+                
+                {
+                   "title": "SQL Operations",
+                    "content": [
+                        "Data Definition Language (DDL): CREATE, ALTER, DROP",
+                        "Data Manipulation Language (DML): SELECT, INSERT, UPDATE, DELETE",
+                        "Data types, constraints, and indexing strategies",
+                        "Transaction management and rollback procedures",
+                        "Complex joins (INNER, OUTER, CROSS, SELF joins)",
+                        "Subqueries, correlated subqueries, and EXISTS clause",
+                        "UNION, INTERSECT, and EXCEPT operations",
+                        "Query optimization and execution plansgeeksforgeeks",
+                        "Ranking functions (ROW_NUMBER, RANK, DENSE_RANK)",
+                        "Aggregate window functions and partitioning",
+                        "LEAD/LAG functions for time series analysis",
+                        "Statistical functions and percentiles",
+                        "Common Table Expressions (CTEs) and recursive queries",
+                        "Stored procedures, functions, and triggers",
+                        "View creation and materialized views",
+                        "Performance tuning and index optimization"
+                    ]
                 }
             ],
             "right_side_video_url": "",
