@@ -1,95 +1,132 @@
 "use client";
-
-import Image from "next/image";
-import React, { useState } from "react";
-import { Icon } from "@iconify/react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { Icon } from "@iconify/react";
 
-const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/#about-us" },
-    { name: "Courses", href: "/#courses" },
-    { name: "Contact Us", href: "/#contact-us" },
-  ];
+const links = [
+  { label: "Home", href: "#home" },
+  { label: "About Us", href: "#about-us" },
+  { label: "Courses", href: "#courses" },
+  { label: "Contact Us", href: "#contact-us" },
+];
 
+export default function Header() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="sticky top-0 z-50 bg-darkBlue text-white">
-      < div className="container mx-auto px-4" >
-        <div className="flex max-lg:justify-between items-center lg:gap-20 h-[62px] md:h-[100px]">
+    <header
+      className={[
+        "sticky top-0 z-50 transition-all",
+        "supports-[backdrop-filter]:bg-darkBlue/75 bg-darkBlue",
+        "backdrop-blur-md",
+        scrolled ? "shadow-[0_6px_24px_rgba(0,0,0,0.15)] border-b border-white/10" : "border-b border-transparent",
+      ].join(" ")}
+    >
+      <div className="container">
+        <div className="flex items-center justify-between h-[64px] md:h-[72px]">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/">
-              <Image
-                src="/Brand-Logo.svg"
-                alt="header-logo"
-                width={150}
-                height={28}
-                className="h-7 w-auto md:h-12 md:w-auto"
-              />
-            </Link>
-          </div>
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/Brand-Logo.svg"
+              alt="DATAPLAY"
+              width={150}
+              height={32}
+              className="h-8 w-auto md:h-10 md:w-auto"
+              priority
+            />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:block">
-            <ul className="flex items-center gap-4 xl:gap-6 2xl:gap-8">
-              {navLinks.map((link, index) => (
-                <li key={index}>
-                  <Link
-                    href={link.href}
-                    className={`hover:text-orange text-base xl:text-lg 2xl:text-[22px] font-medium text-white transition-colors duration-200 whitespace-nowrap ${link.href?.length > 0 ? "" : "cursor-default"}`}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-white/90 hover:text-white text-sm font-semibold tracking-wide"
+              >
+                {l.label}
+              </a>
+            ))}
           </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="#become-mentor"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-white/25 text-white/90 hover:text-white hover:border-white px-4 py-2 text-sm font-bold transition"
+            >
+              <Icon icon="mdi:account-tie-outline" className="text-base" />
+              Become a Mentor
+            </a>
+            <a
+              href="#courses"
+              className="inline-flex items-center gap-2 rounded-full bg-white text-black border-2 border-black px-4 py-2 text-sm font-extrabold shadow-[4px_4px_0_#FF2714] hover:translate-y-[-1px] active:translate-y-[1px] transition"
+            >
+              <Icon icon="mdi:rocket-launch-outline" className="text-base" />
+              Apply Now
+            </a>
+          </div>
 
           {/* Mobile menu button */}
           <button
-            onClick={toggleMobileMenu}
-            className="lg:hidden text-white hover:text-orange transition-colors duration-200 p-1 cursor-pointer"
-            aria-label="Toggle mobile menu"
+            aria-label="Open menu"
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden inline-flex items-center justify-center size-10 rounded-lg border border-white/20 text-white"
           >
-            <Icon
-              icon={isMobileMenuOpen ? "mdi:close" : "mdi:menu"}
-              className="h-[30px] w-[30px]"
-            />
+            <Icon icon={open ? "mdi:close" : "mdi:menu"} className="text-2xl" />
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation Menu */}
-        {
-          isMobileMenuOpen && (
-            <div className="lg:hidden absolute top-full left-0 right-0 bg-darkBlue border-t border-gray-700 shadow-lg z-50">
-              <nav className="px-4 py-4">
-                <ul className="flex flex-col space-y-3">
-                  {navLinks.map((link, index) => (
-                    <li key={index}>
-                      <a
-                        href={link.href}
-                        className="block hover:text-orange text-base font-medium text-white transition-colors duration-200 py-2 px-1"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          )
-        }
-      </div >
-    </div >
+      {/* Mobile drawer */}
+      <div
+        className={[
+          "lg:hidden overflow-hidden transition-[max-height] duration-300",
+          open ? "max-h-96" : "max-h-0",
+        ].join(" ")}
+      >
+        <div className="container pb-4">
+          <nav className="grid gap-2">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-2 text-white/90 hover:text-white hover:bg-white/10"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <a
+              href="#become-mentor"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/25 text-white/90 hover:text-white hover:border-white px-4 py-2 text-sm font-bold transition"
+            >
+              <Icon icon="mdi:account-tie-outline" className="text-base" />
+              Mentor
+            </a>
+            <a
+              href="#courses"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-black border-2 border-black px-4 py-2 text-sm font-extrabold shadow-[4px_4px_0_#FF2714]"
+            >
+              <Icon icon="mdi:rocket-launch-outline" className="text-base" />
+              Apply Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
   );
-};
-
-export default Header;
+}
