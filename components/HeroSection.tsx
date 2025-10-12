@@ -80,7 +80,7 @@ const HeroSection = () => {
           <div className="relative mt-10 lg:mt-0">
             {/* Main hero image (uses existing asset) */}
             <Image
-              src="/hero-img.png"
+              src="/hero-img2.png"
               alt="Learner pointing to growth"
               width={720}
               height={620}
