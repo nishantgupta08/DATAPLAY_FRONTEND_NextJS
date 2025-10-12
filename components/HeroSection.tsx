@@ -91,26 +91,30 @@ const HeroSection = () => {
 
                 {/* 4.9 ★ Google Rating */}
                 <div className="flex flex-col items-center gap-3">
-                  <div className="2xl:size-[72px] xl:size-[62px] size-[52px] bg-[#FF6F63] drop-shadow-[4px_4px_0_#FF2714] rounded-full flex-center">
-                    <Icon
-                      icon="iconoir:user-star"
-                      className="2xl:size-10 size-8 text-black"
-                      strokeWidth={2}
-                    />
-                  </div>
+                  <a href="https://www.google.com/search?q=data+play&rlz=1C1CHBF_enIN1134IN1134&oq=data+play&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQABgDMgcIAhAAGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgcIBRAAGIAEMgYIBhBFGDwyBggHEEUYPdIBCDc2MDhqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8&sei=tGjraNCGB9-EwbkP1cGUiAs#lrd=0x396db51e164bc47f:0x7c3ba500b836b5df,1,,,," target="_blank" rel="noopener noreferrer">
+                    <div className="2xl:size-[72px] xl:size-[62px] size-[52px] bg-[#FF6F63] drop-shadow-[4px_4px_0_#FF2714] rounded-full flex-center">
+                      <Icon
+                        icon="iconoir:user-star"
+                        className="2xl:size-10 size-8 text-black"
+                        strokeWidth={2}
+                      />
+                    </div>
+                  </a>
 
                   <div className="2xl:text-lg md:text-base text-sm font-bold text-black text-center">
                     4.9 <span className="text-yellow-500">★</span> Google Rating
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-3">
-                  <div className="2xl:size-[72px] xl:size-[62px] size-[52px] bg-[#01A5EC] drop-shadow-[4px_4px_0_#01688D] rounded-full flex-center">
-                    <Icon
-                      icon="circum:linkedin"
-                      className="2xl:size-10 size-8 text-black"
-                      strokeWidth={2}
-                    />
-                  </div>
+                <div className="flex flex-col items-center gap-3" >
+                  <a href="https://www.linkedin.com/company/data-play/" target="_blank" rel="noopener noreferrer">
+                    <div className="2xl:size-[72px] xl:size-[62px] size-[52px] bg-[#01A5EC] drop-shadow-[4px_4px_0_#01688D] rounded-full flex-center">
+                      <Icon
+                        icon="circum:linkedin"
+                        className="2xl:size-10 size-8 text-black"
+                        strokeWidth={2}
+                      />
+                    </div>
+                  </a>
 
                   <div className="2xl:text-lg md:text-base text-sm font-bold text-black text-center">
                     9K+ Community
