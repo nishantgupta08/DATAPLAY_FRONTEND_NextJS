@@ -5,21 +5,18 @@ import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
 
 /**
- * Redesigned hero:
- * - Strong headline & subhead
+ * Hero with:
+ * - Bold headline + subhead from content.json
  * - Primary/secondary CTAs
- * - Clickable trust badges (Google Rating + LinkedIn Community)
- * - Clear visual affordances (borders, shadows, hover, focus)
+ * - CLICKABLE trust badges (Google reviews + LinkedIn community)
+ * - Right-side hero image (public/hero-img.png)
+ * - Overlay “100% Satisfied Students” badge (public/satisfied-students.svg)
  */
 const HeroSection = () => {
   const hero = data.homepage.hero;
 
   return (
-    <section
-      id="home"
-      className="relative bg-[#F7EEFA] overflow-hidden"
-      aria-label="Hero"
-    >
+    <section id="home" className="relative bg-[#F7EEFA] overflow-hidden" aria-label="Hero">
       <div className="container">
         <div className="grid lg:grid-cols-2 2xl:gap-20 lg:gap-10 items-center">
           {/* Left */}
@@ -27,22 +24,18 @@ const HeroSection = () => {
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-black shadow-[4px_4px_0_#000] mb-5">
               <span className="text-xs font-bold uppercase tracking-wide text-black/80">
-                Never Stop
+                {hero?.tag_line?.normal_text ?? "Never Stop"}
               </span>
               <span className="px-2 py-0.5 rounded-md bg-[#CDB6FF] text-[11px] font-extrabold tracking-wide">
-                Learning
+                {hero?.tag_line?.highlighted_text ?? "Learning"}
               </span>
             </div>
 
             {/* Headline */}
-            <h1
-              className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-extrabold leading-tight text-black"
-              data-aos="fade-right"
-            >
-              {hero.heading}{" "}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-extrabold leading-tight text-black">
+              {hero?.heading ?? "Empowering Careers In DATA and"}
               <span className="relative inline-block">
-                {hero.underline_heading}
-                {/* underline accent */}
+                {hero?.underline_heading ?? " Design"}
                 <svg
                   width="227"
                   height="16"
@@ -51,19 +44,14 @@ const HeroSection = () => {
                   fill="none"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M1.5 10c70 0 155-3 224 0"
-                    stroke="#FF2714"
-                    strokeWidth="8"
-                    strokeLinecap="round"
-                  />
+                  <path d="M1.5 10c70 0 155-3 224 0" stroke="#FF2714" strokeWidth="8" strokeLinecap="round" />
                 </svg>
               </span>
             </h1>
 
             {/* Subhead */}
             <p className="mt-4 text-base md:text-lg text-black/70 max-w-xl">
-              {hero.subheading ?? "Let's Sculpt YOUR Path To Success, YOUR Way!"}
+              {hero?.sub_heading ?? "Let's Sculpt YOUR Path To Success, YOUR Way !"}
             </p>
 
             {/* CTAs */}
@@ -86,9 +74,9 @@ const HeroSection = () => {
               </a>
             </div>
 
-            {/* Trust badges (clickable) */}
+            {/* Trust badges (CLICKABLE) */}
             <div className="mt-8 grid grid-cols-3 gap-4 max-w-md">
-              {/* Upskilled stat (static info card) */}
+              {/* Upskilled stat (static) */}
               <div className="group rounded-2xl bg-white border-2 border-black p-4 text-center shadow-[4px_4px_0_#000]">
                 <div className="mx-auto mb-2 size-11 rounded-full grid place-items-center border-2 border-black">
                   <Icon icon="mdi:school-outline" className="text-xl" />
@@ -96,9 +84,9 @@ const HeroSection = () => {
                 <div className="text-sm font-bold text-black">3K+ Upskilled</div>
               </div>
 
-              {/* Google rating (CLICKABLE) */}
+              {/* Google Rating (CLICKABLE) */}
               <a
-                href={hero.google_reviews_url || "#"}
+                href="https://www.google.com/search?q=dataplay+reviews" // <— replace with your reviews URL
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group rounded-2xl bg-white border-2 border-black p-4 text-center shadow-[4px_4px_0_#000] hover:shadow-[6px_6px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
@@ -116,9 +104,9 @@ const HeroSection = () => {
                 </div>
               </a>
 
-              {/* LinkedIn community (CLICKABLE) */}
+              {/* LinkedIn (CLICKABLE) */}
               <a
-                href={hero.linkedin_url || "https://www.linkedin.com/company/data-play/"}
+                href="https://www.linkedin.com/company/data-play/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group rounded-2xl bg-white border-2 border-black p-4 text-center shadow-[4px_4px_0_#000] hover:shadow-[6px_6px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
@@ -136,34 +124,36 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right (visual) */}
-          <div className="relative mt-8 lg:mt-0">
-            {/* Illustration / hero image (keep your existing asset ref if any) */}
-            <div className="relative w-full h-auto">
-              {/* Example image placeholder; replace src if you have a local asset */}
-              <Image
-                src={hero.image_src || "/hero.png"}
-                alt={hero.image_alt || "Learner pointing to growth"}
-                width={720}
-                height={620}
-                className="w-full h-auto drop-shadow-xl"
-                priority
-              />
-            </div>
+          {/* Right (image + overlay badge) */}
+          <div className="relative mt-10 lg:mt-0">
+            {/* Main hero image (use your public asset) */}
+            <Image
+              src="/hero-img.png"
+              alt="Learner pointing to growth"
+              width={720}
+              height={620}
+              className="w-full h-auto drop-shadow-xl"
+              priority
+            />
 
-            {/* Decorative arrow / plus icons */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-6 top-8 rotate-6 opacity-80 hidden md:block"
+            {/* 100% Satisfied Students badge (overlay + clickable) */}
+            <a
+              href="https://www.google.com/search?q=dataplay+reviews" // <— replace if needed
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute left-1/2 -translate-x-1/2 top-6 md:top-8 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow"
+              aria-label="Open Google reviews"
             >
-              <Icon icon="mdi:arrow-top-right" className="text-5xl text-[#FF2714]" />
-            </div>
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -left-6 bottom-6 opacity-60 hidden md:block"
-            >
-              <Icon icon="mdi:plus" className="text-4xl text-[#6B5AED]" />
-            </div>
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/satisfied-students.svg"
+                  alt="100% Satisfied Students"
+                  width={210}
+                  height={54}
+                  className="h-10 w-auto"
+                />
+              </div>
+            </a>
           </div>
         </div>
       </div>
