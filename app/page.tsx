@@ -1,4 +1,7 @@
 import PrimaryCTASection from "@/components/cta/PrimaryCTASection";
+import BecomeMentorInlineForm from "@/components/cta/BecomeMentorInlineForm";
+import StickyCTA from "@/components/cta/StickyCTA";
+
 import HeroSection from "@/components/HeroSection";
 import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
