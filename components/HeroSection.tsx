@@ -5,33 +5,33 @@ import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
 
 /**
- * HeroSection (rewritten)
+ * HeroSection (compact, conversion-focused)
  * - Pulls copy from content.json: tag_line, heading, underline_heading, sub_heading
- * - Clear CTAs
- * - Clickable overlay badge (Google Rating) on the hero image
- * - No bottom stat cards (per request)
+ * - Prominent CTAs: Become a Mentor / Explore Courses
+ * - Clickable overlay badge: 4.9★ Google Rating
+ * - Tight layout to avoid empty space on large screens
  */
 const HeroSection = () => {
   const hero = data?.homepage?.hero ?? {};
 
   return (
     <section id="home" className="relative bg-[#F7EEFA] overflow-hidden" aria-label="Hero">
-      <div className="container">
-        <div className="grid lg:grid-cols-2 2xl:gap-20 lg:gap-12 items-center">
+      <div className="container max-w-screen-xl">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6 lg:gap-8 items-center min-h-[520px] md:min-h-[560px]">
           {/* Left column: copy + CTAs */}
-          <div className="relative py-14 md:py-18">
+          <div className="relative py-6 md:py-8">
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-black shadow-[4px_4px_0_#000] mb-5">
               <span className="text-[11px] font-bold uppercase tracking-wide text-black/80">
-                {(hero.tag_line && hero.tag_line.normal_text) || "Never Stop"}
+                {(hero?.tag_line && hero.tag_line.normal_text) || "Never Stop"}
               </span>
               <span className="px-2 py-0.5 rounded-md bg-[#CDB6FF] text-[11px] font-extrabold tracking-wide">
-                {(hero.tag_line && hero.tag_line.highlighted_text) || "Learning"}
+                {(hero?.tag_line && hero.tag_line.highlighted_text) || "Learning"}
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-extrabold leading-tight text-black">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-extrabold leading-[1.05] text-black max-w-[18ch]">
               {hero?.heading ?? "Empowering Careers In DATA and"}
               <span className="relative inline-block">
                 {hero?.underline_heading ?? " Design"}
@@ -50,12 +50,12 @@ const HeroSection = () => {
             </h1>
 
             {/* Subhead */}
-            <p className="mt-4 text-base md:text-lg text-black/70 max-w-xl">
+            <p className="mt-3 text-base md:text-lg text-black/70 max-w-xl">
               {hero?.sub_heading ?? "Let's Sculpt YOUR Path To Success, YOUR Way !"}
             </p>
 
             {/* CTAs */}
-            <div className="mt-7 flex flex-col sm:flex-row gap-3">
+            <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <a
                 href="#become-mentor"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full font-bold bg-black text-white border-2 border-black shadow-[6px_6px_0_#FF2714] hover:translate-y-[-1px] active:translate-y-[1px] transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
@@ -77,14 +77,14 @@ const HeroSection = () => {
           </div>
 
           {/* Right column: hero image + overlay badge */}
-          <div className="relative mt-10 lg:mt-0">
+          <div className="relative mt-6 lg:mt-0">
             {/* Main hero image (uses existing asset) */}
             <Image
-              src="/hero-img2.png"
+              src="/hero-img.png"
               alt="Learner pointing to growth"
               width={720}
               height={620}
-              className="w-full h-auto drop-shadow-xl"
+              className="w-full max-w-[560px] lg:max-w-[600px] h-auto drop-shadow-xl ml-auto"
               priority
             />
 
@@ -93,7 +93,7 @@ const HeroSection = () => {
               href="https://www.google.com/search?q=dataplay+reviews" // TODO: replace with your exact reviews URL
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute left-1/2 -translate-x-1/2 top-6 md:top-8 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              className="absolute left-[58%] -translate-x-1/2 top-4 md:top-5 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
               aria-label="Open Google reviews"
               title="Open Google reviews"
             >
