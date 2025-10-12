@@ -375,61 +375,65 @@
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
             "courses_content": [
                 {
-                    "title": "Databases and SQL Fundamentals",
+                    "title": "Statistical Foundation",
                     "content": [
-                        "Introduction to Databases",
-                        "Types of databases: Relational (RDBMS) vs NoSQL",
-                        "Use cases and differences",
-                        "Relational Database Concepts",
-                        "Basic SQL Queries (select, joins, subquery, aggregation, Transaction handling)",
-                        "Advanced SQL Queries (CTE, Window functions, Stored procedure, Functions)",
-                        "Indexes and Performance Optimization",
-                        "Introduction to NoSQL Databases (Overview)"
+                        "Descriptive statistics (mean, median, mode, variance, standard deviation)",
+                        "Data distributions and outlier identification",
+                        "Correlation vs causation concepts",
+                        "Introduction to hypothesis testing basics"
+                    ]
+                },
+                     {
+                    "title": "Excel Mastery",
+                    "content": [
+                        "Basic Excel Formulas",
+                        "Advanced Excel functions (VLOOKUP, INDEX-MATCH, SUMIFS)",
+                        "Pivot tables, pivot charts, and slicers",
+                        "Data validation and conditional formatting"
+                    ]
+                },
+
+                    {
+                    "title": "Understanding Data",
+                    "content": [
+                        "Data types identification (numerical, categorical, temporal)",
+                        "Missing value patterns and handling strategies",
+                        "Data cleaning techniques",
+                        "Normalisation and Standardization",
+                        "Creating calculated fields and derived metrics",
+                        "Data aggregation and grouping techniques",
+                        "Feature engineering fundamentals"
                     ]
                 },
                 {
-                    "title": "Excel for Data Analysis",
+                   "title": "Database Fundamentals",
                     "content": [
-                        "Data cleaning using Excel tools",
-                        "Pivot tables and VLOOKUP/XLOOKUP",
-                        "Charts and dashboards",
-                        "Basic Excel formulas for analysis"
+                        "Types of Databases",
+                        "Relational database concepts and ACID properties",
+                        "Entity-relationship diagrams and normalization (1NF-3NF)",
+                        "Database design patterns and best practices"
                     ]
                 },
+                
                 {
-                    "title": "Statistics Fundamentals",
+                   "title": "SQL Operations",
                     "content": [
-                        "Descriptive vs Inferential Statistics",
-                        "Distributions and Probabilities",
-                        "Hypothesis Testing and Confidence Intervals",
-                        "Correlation vs Causation"
-                    ]
-                },
-                {
-                    "title": "Power BI",
-                    "content": [
-                        "Connecting data sources",
-                        "Building interactive dashboards",
-                        "DAX basics",
-                        "Publishing and sharing reports"
-                    ]
-                },
-                {
-                    "title": "Python for Data Analysis",
-                    "content": [
-                        "Python basics: variables, loops, conditionals",
-                        "Pandas and NumPy for data wrangling",
-                        "Data cleaning and transformation",
-                        "Working with APIs and files"
-                    ]
-                },
-                {
-                    "title": "Introduction to Data Science",
-                    "content": [
-                        "What is data science?",
-                        "Machine learning basics",
-                        "Project lifecycle overview",
-                        "Real-world use cases"
+                        "Data Definition Language (DDL): CREATE, ALTER, DROP",
+                        "Data Manipulation Language (DML): SELECT, INSERT, UPDATE, DELETE",
+                        "Data types, constraints, and indexing strategies",
+                        "Transaction management and rollback procedures",
+                        "Complex joins (INNER, OUTER, CROSS, SELF joins)",
+                        "Subqueries, correlated subqueries, and EXISTS clause",
+                        "UNION, INTERSECT, and EXCEPT operations",
+                        "Query optimization and execution plansgeeksforgeeks",
+                        "Ranking functions (ROW_NUMBER, RANK, DENSE_RANK)",
+                        "Aggregate window functions and partitioning",
+                        "LEAD/LAG functions for time series analysis",
+                        "Statistical functions and percentiles",
+                        "Common Table Expressions (CTEs) and recursive queries",
+                        "Stored procedures, functions, and triggers",
+                        "View creation and materialized views",
+                        "Performance tuning and index optimization"
                     ]
                 }
             ],
@@ -452,75 +456,17 @@
             "sub_title": "Turn ideas into live websites. In this hands-on, project-first course, you’ll learn modern frontend & backend skills to ship production-ready web apps—fast, clean, and user-friendly.",
             "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480380/Group_218_uvhvtw.png",
             "courses_content": [
-                {
-                    "title": "Databases and SQL Fundamentals",
-                    "content": [
-                        "Introduction to Databases",
-                        "Types of databases: Relational (RDBMS) vs NoSQL",
-                        "Use cases and differences",
-                        "Relational Database Concepts",
-                        "Basic SQL Queries (select, joins, subquery, aggregation, Transaction handling)",
-                        "Advanced SQL Queries (CTE, Window functions, Stored procedure, Functions)",
-                        "Indexes and Performance Optimization",
-                        "Introduction to NoSQL Databases (Overview)"
-                    ]
-                },
-                {
-                    "title": "Excel for Data Analysis",
-                    "content": [
-                        "Data cleaning using Excel tools",
-                        "Pivot tables and VLOOKUP/XLOOKUP",
-                        "Charts and dashboards",
-                        "Basic Excel formulas for analysis"
-                    ]
-                },
-                {
-                    "title": "Statistics Fundamentals",
-                    "content": [
-                        "Descriptive vs Inferential Statistics",
-                        "Distributions and Probabilities",
-                        "Hypothesis Testing and Confidence Intervals",
-                        "Correlation vs Causation"
-                    ]
-                },
-                {
-                    "title": "Power BI",
-                    "content": [
-                        "Connecting data sources",
-                        "Building interactive dashboards",
-                        "DAX basics",
-                        "Publishing and sharing reports"
-                    ]
-                },
-                {
-                    "title": "Python for Data Analysis",
-                    "content": [
-                        "Python basics: variables, loops, conditionals",
-                        "Pandas and NumPy for data wrangling",
-                        "Data cleaning and transformation",
-                        "Working with APIs and files"
-                    ]
-                },
-                {
-                    "title": "Introduction to Data Science",
-                    "content": [
-                        "What is data science?",
-                        "Machine learning basics",
-                        "Project lifecycle overview",
-                        "Real-world use cases"
-                    ]
-                }
             ],
             "right_side_video_url": "",
             "user_section": [
                 {
-                    "img_url": "",
-                    "name": "",
-                    "linkdin_url": "",
-                    "designation_name": "",
-                    "company_name": "",
-                    "company_business_link": "",
-                    "details": ""
+                    "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759645401/Screenshot_2025-10-05_at_11.52.11_AM_ybbunx.png",
+                    "name": "Anurag Srivastava",
+                    "linkdin_url": "https://www.linkedin.com/in/anurag-srivastava-9a7429192/",
+                    "designation_name": "Software Developer",
+                    "company_name": "Stealth Startup",
+                    "company_business_link": "https://www.linkedin.com/company/stealth-startup-community/",
+                    "details": "DataPlay's Web Development course genuinely has industry-relevant—solid fundamentals, modern stack, and hands-on projects that mirror real work. I’m happy to vouch for it: clear instruction, strong mentorship, and a portfolio boost that’s immediately useful on the job."
                 }
             ]
         }
