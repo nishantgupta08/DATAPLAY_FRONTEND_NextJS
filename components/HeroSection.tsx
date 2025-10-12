@@ -6,11 +6,10 @@ import data from "@/app/assets/content.json";
 
 /**
  * Compact, conversion-focused hero
- * - Pulls copy from content.json (tag_line, heading, underline_heading, sub_heading)
+ * - Copy from content.json (tag_line, heading, underline_heading, sub_heading)
  * - CTAs: Become a Mentor / Explore Courses
  * - Clickable overlay: 4.9★ Google Rating
- * - Bottom band: 4 feature cards
- * - Tight layout (reduced gaps) + image anchored to the right
+ * - Bottom band: 4 feature cards with no extra top/side spacing
  */
 const HeroSection = () => {
   const hero = data?.homepage?.hero ?? {};
@@ -18,9 +17,9 @@ const HeroSection = () => {
 
   const featureCards = [
     { icon: "/lifetime.png",       title: featuresData[0] || "Lifetime Access to Live Classes" },
-    { icon: "/bytheindustry.png",  title: featuresData[1] || "By the Industry, For the Industry" },
+    { icon: "/bytheindustry.png",  title: featuresData[1] || "By the Industry For the Industry" },
     { icon: "/resume.png",         title: featuresData[2] || "Resume Refactoring & Mock Interviews" },
-    { icon: "/money.png",          title: featuresData[3] || "Affordability Meets Quality" },
+    { icon: "/money.png",          title: featuresData[3] || "Affordability meets Quality" },
   ];
 
   return (
@@ -124,24 +123,25 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Bottom band: four feature cards */}
-        <div className="mt-6 md:mt-7">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        {/* Bottom band: four feature cards (no extra top/side spacing) */}
+        {/* mt-0 removes the top gap; -mx-* removes side gutters; each item re-adds px to keep spacing even */}
+        <div className="mt-0 -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {featureCards.map((f, i) => (
-              <div
-                key={i}
-                className="rounded-2xl bg-white border-2 border-black p-4 sm:p-5 text-left shadow-[4px_4px_0_#000] hover:shadow-[6px_6px_0_#FF2714] transition-shadow"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex size-11 items-center justify-center rounded-xl border-2 border-black overflow-hidden">
-                    <Image src={f.icon} alt={f.title} width={28} height={28} className="w-7 h-7 object-contain" />
-                  </span>
-                  <h3 className="text-sm sm:text-base font-bold leading-snug text-black">{f.title}</h3>
+              <div key={i} className="px-4 sm:px-6 lg:px-8">
+                <div className="rounded-2xl bg-white border-2 border-black p-4 sm:p-5 text-left shadow-[4px_4px_0_#000] hover:shadow-[6px_6px_0_#FF2714] transition-shadow">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex size-11 items-center justify-center rounded-xl border-2 border-black overflow-hidden">
+                      <Image src={f.icon} alt={f.title} width={28} height={28} className="w-7 h-7 object-contain" />
+                    </span>
+                    <h3 className="text-sm sm:text-base font-bold leading-snug text-black">{f.title}</h3>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );
