@@ -20,7 +20,6 @@ export default function Home() {
       <Features />
       <FellowshipPrograms />
       <Courses />
-      <PrimaryCTASection />
       <Mentors />
       <BecomeMentorInlineForm />
       <StickyCTA />
