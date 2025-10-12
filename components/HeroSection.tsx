@@ -5,30 +5,30 @@ import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
 
 /**
- * HeroSection (compact with 4 cards band)
- * - Copy from content.json: tag_line, heading, underline_heading, sub_heading
+ * Compact, conversion-focused hero
+ * - Pulls copy from content.json (tag_line, heading, underline_heading, sub_heading)
  * - CTAs: Become a Mentor / Explore Courses
- * - Clickable overlay badge: 4.9★ Google Rating
- * - Bottom band: 4 feature cards (from content.json + /public icons)
+ * - Clickable overlay: 4.9★ Google Rating
+ * - Bottom band: 4 feature cards
+ * - Tight layout (reduced gaps) + image anchored to the right
  */
 const HeroSection = () => {
   const hero = data?.homepage?.hero ?? {};
   const featuresData: string[] = data?.homepage?.features ?? [];
 
-  // Map features to icons used elsewhere in the site
   const featureCards = [
-    { icon: "/lifetime.png", title: featuresData[0] || "Lifetime access to live classes" },
-    { icon: "/bytheindustry.png", title: featuresData[1] || "Built by industry experts" },
-    { icon: "/resume.png", title: featuresData[2] || "Resume & interview prep" },
-    { icon: "/money.png", title: featuresData[3] || "Value for money" },
+    { icon: "/lifetime.png",       title: featuresData[0] || "Lifetime Access to Live Classes" },
+    { icon: "/bytheindustry.png",  title: featuresData[1] || "By the Industry, For the Industry" },
+    { icon: "/resume.png",         title: featuresData[2] || "Resume Refactoring & Mock Interviews" },
+    { icon: "/money.png",          title: featuresData[3] || "Affordability Meets Quality" },
   ];
 
   return (
     <section id="home" className="relative bg-[#F7EEFA] overflow-hidden" aria-label="Hero">
-      <div className="container max-w-screen-xl">
+      <div className="container max-w-[1100px]">
         {/* Main row */}
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6 lg:gap-8 items-center min-h-[520px] md:min-h-[560px]">
-          {/* Left: copy + CTAs */}
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-8 items-center min-h-[520px] md:min-h-[560px]">
+          {/* Left column: copy + CTAs */}
           <div className="relative py-6 md:py-8">
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-black shadow-[4px_4px_0_#000] mb-5">
@@ -85,28 +85,29 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right: hero image + rating overlay */}
-          <div className="relative mt-6 lg:mt-0">
+          {/* Right column: image anchored to the edge + overlay */}
+          <div className="relative mt-3 lg:mt-0 justify-self-end lg:-mr-6 xl:-mr-10">
             <Image
               src="/hero-img.png"
               alt="Learner pointing to growth"
               width={720}
               height={620}
-              className="w-full max-w-[560px] lg:max-w-[600px] h-auto drop-shadow-xl ml-auto"
+              className="h-auto drop-shadow-xl w-[520px] sm:w-[560px] lg:w-[620px] xl:w-[680px]"
               priority
             />
 
             {/* Clickable Google Rating overlay */}
             <a
-              href="https://www.google.com/search?q=dataplay+reviews" // replace with exact link
+              href="https://www.google.com/search?q=dataplay+reviews" // replace with your exact reviews URL
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute left-[58%] -translate-x-1/2 top-4 md:top-5 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              className="absolute left-[60%] -translate-x-1/2 top-3 md:top-4 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
               aria-label="Open Google reviews"
               title="Open Google reviews"
             >
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center size-7 rounded-full border-2 border-black">
+                  {/* Google icon (inline SVG) */}
                   <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
                     <path
                       fill="currentColor"
@@ -123,7 +124,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Bottom band: 4 feature cards (always visible) */}
+        {/* Bottom band: four feature cards */}
         <div className="mt-6 md:mt-7">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {featureCards.map((f, i) => (
@@ -133,7 +134,6 @@ const HeroSection = () => {
               >
                 <div className="flex items-center gap-3">
                   <span className="inline-flex size-11 items-center justify-center rounded-xl border-2 border-black overflow-hidden">
-                    {/* Using next/image keeps layout stable */}
                     <Image src={f.icon} alt={f.title} width={28} height={28} className="w-7 h-7 object-contain" />
                   </span>
                   <h3 className="text-sm sm:text-base font-bold leading-snug text-black">{f.title}</h3>
