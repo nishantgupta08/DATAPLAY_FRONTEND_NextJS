@@ -1,14 +1,18 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 
-const links = [
+type NavLink = { label: string; href: string };
+
+const LINKS: NavLink[] = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about-us" },
   { label: "Courses", href: "#courses" },
   { label: "Contact Us", href: "#contact-us" },
+  { label: "FAQ", href: "/faq" }, // ← new
 ];
 
 export default function Header() {
@@ -20,6 +24,13 @@ export default function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close mobile menu on route/hash change
+  useEffect(() => {
+    const onHashChange = () => setOpen(false);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
   return (
@@ -34,7 +45,7 @@ export default function Header() {
       <div className="container">
         <div className="flex items-center justify-between h-[64px] md:h-[72px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2" aria-label="Go to homepage">
             <Image
               src="/Brand-Logo.svg"
               alt="DATAPLAY"
@@ -45,9 +56,9 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav */}
+          {/* Desktop navigation */}
           <nav className="hidden lg:flex items-center gap-6">
-            {links.map((l) => (
+            {LINKS.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
@@ -58,7 +69,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <a
               href="#become-mentor"
@@ -78,7 +89,9 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
-            aria-label="Open menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
             className="lg:hidden inline-flex items-center justify-center size-10 rounded-lg border border-white/20 text-white"
           >
@@ -89,6 +102,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       <div
+        id="mobile-nav"
         className={[
           "lg:hidden overflow-hidden transition-[max-height] duration-300",
           open ? "max-h-96" : "max-h-0",
@@ -96,7 +110,7 @@ export default function Header() {
       >
         <div className="container pb-4">
           <nav className="grid gap-2">
-            {links.map((l) => (
+            {LINKS.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
@@ -107,6 +121,7 @@ export default function Header() {
               </a>
             ))}
           </nav>
+
           <div className="mt-3 grid grid-cols-2 gap-2">
             <a
               href="#become-mentor"

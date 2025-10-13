@@ -30,14 +30,43 @@ const HeroSection = () => {
           {/* Left column: copy + CTAs */}
           <div className="relative py-6 md:py-8">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-black shadow-[4px_4px_0_#000] mb-5">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-black shadow-[4px_4px_0_#000] mb-5">
               <span className="text-[11px] font-bold uppercase tracking-wide text-black/80">
                 {(hero?.tag_line && hero.tag_line.normal_text) || "Never Stop"}
               </span>
               <span className="px-2 py-0.5 rounded-md bg-[#CDB6FF] text-[11px] font-extrabold tracking-wide">
                 {(hero?.tag_line && hero.tag_line.highlighted_text) || "Learning"}
               </span>
-            </div>
+            </div> */}
+
+            {/* Eyebrow: original "Never Stop Learning" */}
+            <h5 className="text-darkBlue 2xl:text-4xl xl:text-3xl text-2xl font-semibold mb-4">
+            Never Stop
+            <span className="relative ml-3 inline-flex items-center justify-center text-white font-bold">
+            <span className="relative z-[1]">Learning</span>
+            <svg
+            className="absolute h-full w-full scale-110"
+            viewBox="0 0 211 56"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            >
+            <path
+            d="M210.918 11.866C211.794 5.45292 205.441 4.56218 202.155 4.38404C144.754 -2.88408 47.5176 2.24637 6.62183 6.52173C-1.26521 6.52173 -0.315843 11.6878 0.597016 14.0036L4.9787 45.5344C4.9787 51.5199 9.9081 52.8382 11.5512 53.0163C83.849 59.0018 166.188 53.7289 198.321 50.3442C204.345 50.3442 207.266 47.494 207.084 45.5345C207.084 34.3116 208.727 21.1292 210.918 11.866Z"
+            fill="hashtag#8073E5" // fixed: remove 'hashtag'
+            />
+            </svg>
+            <img
+            alt="Learning Vector 2"
+            width="53"
+            height="53"
+            decoding="async"
+            src="/learning-vector2.svg"
+            className="absolute -right-12 md:-right-16 -top-12"
+            style={{ color: "transparent" }}
+            />
+            </span>
+            </h5>
 
             {/* Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-extrabold leading-[1.05] text-black max-w-[18ch]">
@@ -100,8 +129,8 @@ const HeroSection = () => {
               href="https://www.google.com/search?q=dataplay+reviews" // replace with your exact reviews URL
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute left-[60%] -translate-x-1/2 top-3 md:top-4 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
-              aria-label="Open Google reviews"
+              // className="absolute left-[60%] -translate-x-1/2 top-3 md:top-4 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              className="absolute left-0 -translate-x-1/2 md:-translate-x-2/3 top-10 md:top-30 z-10 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_hashtag#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_hashtag#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"              aria-label="Open Google reviews"
               title="Open Google reviews"
             >
               <div className="flex items-center gap-2">
