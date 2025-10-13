@@ -1,54 +1,61 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import { Icon } from "@iconify/react";
 import cx from "classnames";
 
-/**
- * Inline, collapsible form meant to live inside the Mentors section.
- * - Minimal client-state only (no external libs)
- * - Accessible labels, keyboard focus states
- * - Tailwind aesthetics aligned with the rest of the site
- */
-export default function BecomeMentorInlineForm() {
+type MentorForm = {
+  name: string;
+  email: string;
+  linkedin: string;
+  expertise: string;
+  experienceYears: string;
+  availability: string;
+  notes: string;
+};
+
+const INITIAL_FORM: MentorForm = {
+  name: "",
+  email: "",
+  linkedin: "",
+  expertise: "",
+  experienceYears: "",
+  availability: "",
+  notes: "",
+};
+
+export default function BecomeMentorInlineForm(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    linkedin: "",
-    expertise: "",
-    experienceYears: "",
-    availability: "",
-    notes: "",
-  });
+  const [form, setForm] = useState<MentorForm>(INITIAL_FORM);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((s) => ({ ...s, [name]: value }));
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     setSuccess(null);
+
     try {
       const res = await fetch("/api/mentor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(form satisfies MentorForm),
       });
+
       if (!res.ok) throw new Error("Failed to submit. Please try again.");
+
       setSuccess("Thanks! We’ll review your profile and get back to you shortly.");
-      setForm({
-        name: "", email: "", linkedin: "", expertise: "",
-        experienceYears: "", availability: "", notes: ""
-      });
+      setForm(INITIAL_FORM);
       setOpen(false);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong.";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -68,7 +75,7 @@ export default function BecomeMentorInlineForm() {
                 Want to become a Mentor?
               </h3>
               <p className="text-sm md:text-base text-black/70">
-                Share your expertise and guide learners. Quick 60‑second signup.
+                Share your expertise and guide learners. Quick 60-second signup.
               </p>
             </div>
           </div>
@@ -156,7 +163,7 @@ export default function BecomeMentorInlineForm() {
               <div className="grid gap-2">
                 <label htmlFor="experienceYears" className="font-semibold">Years of Experience</label>
                 <input
-                  id="experienceYears" name="experienceYears" type="number" min="0" max="50" required
+                  id="experienceYears" name="experienceYears" type="number" min={0} max={50} required
                   value={form.experienceYears} onChange={onChange}
                   className="px-4 py-3 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-black"
                   placeholder="5"
