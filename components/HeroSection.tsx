@@ -23,8 +23,8 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="home" className="relative bg-[#F7EEFA] overflow-hidden" aria-label="Hero">
-      <div className="container-fluid bg-red-500 max-w-[1300px]">
+    <section id="home" className="relative bg-[#F7EEFA] bg-green-300 overflow-hidden" aria-label="Hero">
+      <div className="container-fluid p-5 bg-red-500">
         {/* Main row */}
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-8 items-center min-h-[520px] md:min-h-[560px]">
           {/* Left column: copy + CTAs */}
