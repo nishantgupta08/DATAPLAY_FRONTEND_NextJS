@@ -24,7 +24,7 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="relative bg-[#F7EEFA] overflow-hidden" aria-label="Hero">
-      <div className="container max-w-[1100px]">
+      <div className="container-fluid bg-red-500 max-w-[1300px]">
         {/* Main row */}
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-8 items-center min-h-[520px] md:min-h-[560px]">
           {/* Left column: copy + CTAs */}
@@ -87,7 +87,7 @@ const HeroSection = () => {
           {/* Right column: image anchored to the edge + overlay */}
           <div className="relative mt-3 lg:mt-0 justify-self-end lg:-mr-6 xl:-mr-10">
             <Image
-              src="/hero-img.png"
+              src="/hero-img3.png"
               alt="Learner pointing to growth"
               width={720}
               height={620}
