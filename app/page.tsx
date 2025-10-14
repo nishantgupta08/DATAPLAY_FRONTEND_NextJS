@@ -15,9 +15,9 @@ export default function Home() {
     <>
       <SocialBadge />
       <HeroSection />
-      <Features />
+      {/* <Features /> */}
       <FellowshipPrograms />
-      <Courses />
+      {/* <Courses /> */}
       <CourseSectionPro />
       <Mentors />
       <Testimonials />

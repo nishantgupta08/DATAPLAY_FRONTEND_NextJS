@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
+import Link from "next/link";
 
 type Course = {
   id: number | string;
@@ -24,21 +25,21 @@ const palette: Record<string, string> = {
 };
 
 export default function CoursesSectionPro() {
-  const block = (data as any)?.homepage?.courses;
-  const courses: Course[] = block?.courses ?? [];
-  console.log(courses)
+  const block = data?.courses;
+  const courses: Course[] = block
+  console.log("Devvvvvvvvvvvvvvvvv", courses)
 
   return (
     <section id="courses" aria-label="Courses" className="bg-white py-10 md:py-16">
       <div className="container">
-        <header className="mb-6 md:mb-8">
+        {/* <header className="mb-6 md:mb-8">
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
             {block?.title ?? "Courses"}
           </h2>
           <p className="mt-1 text-slate-600">
             {block?.sub_title ?? "Learn with production-grade projects and expert mentorship."}
           </p>
-        </header>
+        </header> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
           {courses.map((c) => {
@@ -116,13 +117,6 @@ export default function CoursesSectionPro() {
 
                   {/* Actions */}
                   <div className="mt-4 flex items-center gap-3">
-                    <a
-                      href={`/courses/${encodeURIComponent(String(c.id))}`}
-                      className="inline-flex items-center justify-center px-4 py-2 rounded-full border-2 border-black bg-black text-white font-bold text-sm hover:-translate-y-0.5 transition"
-                    >
-                      View Course
-                    </a>
-
                     {c.syllabus_url && (
                       <a
                         href={c.syllabus_url}
@@ -134,6 +128,11 @@ export default function CoursesSectionPro() {
                       </a>
                     )}
                   </div>
+                  <Link href={`/courses/${c.id}`} className="!cursor-pointer bottom-0">
+                    <button className="!cursor-pointer w-full bg-gradient-to-r from-orange to-orange/50 text-white py-2.5 sm:py-3 text-base sm:text-lg md:text-xl rounded-xl sm:rounded-2xl font-semibold transition duration-300 hover:from-orange/90 hover:to-orange/40">
+                      View Course
+                    </button>
+                  </Link>
                 </div>
               </article>
             );
