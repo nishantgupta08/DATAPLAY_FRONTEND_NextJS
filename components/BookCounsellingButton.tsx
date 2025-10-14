@@ -13,10 +13,10 @@ export default function BookCounsellingButton({ className = '' }: Props) {
       type="button"
       onClick={open}
       className={`inline-flex items-center justify-center gap-2 rounded-xl bg-black text-white px-6 py-3 font-bold hover:bg-darkBlue focus:outline-none focus-visible:ring-2 focus-visible:ring-black ${className}`}
-      aria-label="Book 1:1 Counselling Session"
+      aria-label="Book Counselling Session"
     >
       <Icon icon="mdi:rocket-launch-outline" className="mr-2 text-xl" />
-      Book 1:1 Counselling Session
+      Book Counselling Session
     </button>
   );
 }
