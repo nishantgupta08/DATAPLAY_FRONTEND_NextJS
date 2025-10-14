@@ -1,18 +1,11 @@
-// components/CounsellingForm.tsx
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 
 type Props = { onSuccess?: () => void };
 
 export default function CounsellingForm({ onSuccess }: Props) {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    notes: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -36,7 +29,6 @@ export default function CounsellingForm({ onSuccess }: Props) {
     if (!validate()) return;
     setSubmitting(true);
     try {
-      // TODO: replace with your actual submit (fetch/axios). This is a stub.
       await new Promise((r) => setTimeout(r, 600));
       onSuccess?.();
     } finally {
@@ -45,18 +37,7 @@ export default function CounsellingForm({ onSuccess }: Props) {
   }
 
   return (
-    <motion.form
-      onSubmit={onSubmit}
-      className="rounded-2xl border border-gray-200 p-6 shadow-sm space-y-4"
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      role="form"
-      aria-labelledby="counselling-title"
-    >
-      <h2 id="counselling-title" className="text-lg font-semibold">
-        Counselling Intake
-      </h2>
-
+    <form onSubmit={onSubmit} className="space-y-4" noValidate>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Field
           label="Name"
@@ -98,37 +79,23 @@ export default function CounsellingForm({ onSuccess }: Props) {
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-gray-300 hover:bg-gray-50 disabled:opacity-50"
-        aria-busy={submitting}
-      >
-        {submitting ? "Submitting…" : "Submit"}
-      </button>
-    </motion.form>
+      <div className="flex items-center justify-end gap-3">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-gray-300 hover:bg-gray-50 disabled:opacity-50"
+          aria-busy={submitting}
+        >
+          {submitting ? "Submitting…" : "Submit"}
+        </button>
+      </div>
+    </form>
   );
 }
 
 function Field({
-  label,
-  id,
-  type = "text",
-  value,
-  onChange,
-  error,
-  required,
-  autoComplete,
-}: {
-  label: string;
-  id: string;
-  type?: "text" | "email" | "tel";
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
-  required?: boolean;
-  autoComplete?: string;
-}) {
+  label, id, type = "text", value, onChange, error, required, autoComplete,
+}: any) {
   return (
     <div className="space-y-1">
       <label htmlFor={id} className="text-sm font-medium">
@@ -155,22 +122,8 @@ function Field({
 }
 
 function TextArea({
-  label,
-  id,
-  value,
-  onChange,
-  error,
-  placeholder,
-  className = "",
-}: {
-  label: string;
-  id: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  error?: string;
-  placeholder?: string;
-  className?: string;
-}) {
+  label, id, value, onChange, error, placeholder, className = "",
+}: any) {
   return (
     <div className={`space-y-1 ${className}`}>
       <label htmlFor={id} className="text-sm font-medium">

@@ -1,18 +1,18 @@
 // app/page.tsx
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from "react";
 
-// Example imports — use your actual paths
-import SocialBadge from '@/components/SocialBadge';
-import HeroSection from '@/components/HeroSection';
-import CounsellingForm from '@/components/CounsellingForm';
-import FellowshipPrograms from '@/components/FellowshipPrograms';
-import CourseSectionPro from '@/components/CourseSectionPro';
-import Mentors from '@/components/Mentors';
-import Testimonials from '@/components/Testimonials';
-import WhoCanApply from '@/components/WhoCanApply';
-import WorkshopGallery from '@/components/WorkshopGallery';
+// Import your actual components
+import SocialBadge from "@/components/SocialBadge";
+import HeroSection from "@/components/HeroSection";
+import CounsellingForm from "@/components/CounsellingForm";
+import FellowshipPrograms from "@/components/FellowshipPrograms";
+import CourseSectionPro from "@/components/CourseSectionPro";
+import Mentors from "@/components/Mentors";
+import Testimonials from "@/components/Testimonials";
+import WhoCanApply from "@/components/WhoCanApply";
+import WorkshopGallery from "@/components/WorkshopGallery";
 
 function Modal({
   open,
@@ -29,6 +29,7 @@ function Modal({
     <div
       aria-modal="true"
       role="dialog"
+      aria-labelledby="counselling-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
       {/* Backdrop with blur */}
@@ -36,8 +37,9 @@ function Modal({
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
-      {/* Modal panel */}
-      <div className="relative z-10 w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
+
+      {/* Modal content */}
+      <div className="relative z-10 w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl outline-none">
         <button
           onClick={onClose}
           className="absolute right-3 top-3 rounded-full px-3 py-1 text-sm font-medium text-gray-600 hover:bg-gray-100"
@@ -45,6 +47,9 @@ function Modal({
         >
           ✕
         </button>
+        <h2 id="counselling-title" className="sr-only">
+          Book a Counselling Session
+        </h2>
         {children}
       </div>
     </div>
@@ -54,23 +59,35 @@ function Modal({
 export default function Home() {
   const [open, setOpen] = useState(false);
 
+  // Listen for clicks on the "Book Counselling" button in HeroSection
+  useEffect(() => {
+    const handleClick = (e: Event) => {
+      let el = e.target as HTMLElement | null;
+      while (el && el !== document.body) {
+        if (el.hasAttribute("data-counselling-open")) {
+          e.preventDefault();
+          setOpen(true);
+          break;
+        }
+        el = el.parentElement;
+      }
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  // Lock body scroll while modal is open
+  useEffect(() => {
+    if (open) document.body.classList.add("overflow-hidden");
+    else document.body.classList.remove("overflow-hidden");
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [open]);
+
   return (
     <>
-      {/* Top content */}
+      {/* Landing sections */}
       <SocialBadge />
-      <HeroSection />
-
-      {/* Trigger: put this wherever you want to open the form */}
-      <div className="my-8 flex justify-center">
-        <button
-          onClick={() => setOpen(true)}
-          className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition hover:shadow-lg"
-        >
-          Apply / Open Counselling Form
-        </button>
-      </div>
-
-      {/* Rest of the page */}
+      <HeroSection /> {/* <-- ensure your Book Counselling button inside HeroSection has data-counselling-open */}
       <FellowshipPrograms />
       <CourseSectionPro />
       <Mentors />
@@ -80,7 +97,7 @@ export default function Home() {
 
       {/* Modal with blurred background */}
       <Modal open={open} onClose={() => setOpen(false)}>
-        <CounsellingForm />
+        <CounsellingForm onSuccess={() => setOpen(false)} />
       </Modal>
     </>
   );

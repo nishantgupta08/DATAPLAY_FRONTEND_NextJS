@@ -25,9 +25,9 @@ const HeroSection = () => {
           <div className="relative py-16 md:py-20">
             {/* Eyebrow */}
             <h5 className="text-darkBlue 2xl:text-4xl xl:text-3xl text-2xl font-semibold mb-4">
-              {hero.tag_line.normal_text}
+              {hero.tag_line?.normal_text}
               <span className="relative ml-3 inline-flex items-center justify-center text-white font-bold ">
-                <span className="relative z-[1] ">{hero.tag_line.highlighted_text}</span>
+                <span className="relative z-[1] ">{hero.tag_line?.highlighted_text}</span>
                 <svg
                   className="absolute h-full w-full scale-110"
                   viewBox="0 0 211 56"
@@ -82,8 +82,10 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3">
-              {/* Client button triggers the modal */}
-              <BookCounsellingButton />
+              {/* Wrap the existing button so clicks trigger the modal */}
+              <span data-counselling-open className="z-30 inline-flex" role="none">
+                <BookCounsellingButton />
+              </span>
 
               <a
                 href="#courses"
@@ -126,7 +128,7 @@ const HeroSection = () => {
                 <span className="text-sm font-extrabold tracking-tight">4.9</span>
                 <span className="text-yellow-500 text-sm">★</span>
                 <span className="text-sm font-semibold">Google Rating</span>
-                <span className="ml-2 text-[11px] text-black/60 underline decoration-dotted">Read reviews</span>
+                <span className="ml-2 text-[11px] text:black/60 underline decoration-dotted">Read reviews</span>
               </div>
             </a>
           </div>
@@ -158,7 +160,13 @@ const HeroSection = () => {
                   ].join(" ")}
                 >
                   <div className="flex items-start gap-4">
-                    <span className={["inline-flex size-12 items-center justify-center rounded-[14px] text-white shadow-md bg-gradient-to-b", tones.grad].join(" ")} aria-hidden="true">
+                    <span
+                      className={[
+                        "inline-flex size-12 items-center justify-center rounded-[14px] text-white shadow-md bg-gradient-to-b",
+                        tones.grad,
+                      ].join(" ")}
+                      aria-hidden="true"
+                    >
                       <Image
                         src={f.icon}
                         alt=""
