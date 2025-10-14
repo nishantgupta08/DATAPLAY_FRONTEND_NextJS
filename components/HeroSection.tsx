@@ -85,10 +85,10 @@ const HeroSection = () => {
               <a
                 href="#contact-us"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full font-bold bg-black text-white border-2 border-black shadow-[6px_6px_0_#FF2714] hover:-translate-y-0.5 active:translate-y-[1px] transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
-                aria-label="Become a Mentor"
+                aria-label="Book Counselling Session"
               >
                 <Icon icon="mdi:rocket-launch-outline" className="mr-2 text-xl" />
-                Become a Mentor
+                Book Counselling Session
               </a>
 
               <a
