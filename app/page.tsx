@@ -22,7 +22,7 @@ export default function Home() {
       <Mentors />
       <Testimonials />
       <WhoCanApply />
-      <Gallery />
+      {/* <Gallery /> */}
       <WorkshopGallery />
 
     </>

@@ -27,12 +27,13 @@ function formatDate(iso: string) {
   const d = new Date(iso);
   return isNaN(d.getTime())
     ? iso
-    : d.toLocaleDateString(undefined, {
+    : d.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
 }
+
 
 function linkedinHref(li?: LinkedInMeta | null): string | null {
   if (!li) return null;
@@ -54,7 +55,7 @@ function WorkshopCard({ w, i }: { w: WorkshopItem; i: number }) {
 
   return (
     <article
-      key={`${w.college}-${w.date}-${i}`}
+      key={`${w.college}-${w.date}-${i + 100}`}
       role="listitem"
       className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-md transition h-full flex flex-col" // Added flex-col for consistent card height in Swiper
     >
@@ -177,17 +178,19 @@ export default function WorkshopsGallery() {
   const useCarousel = items.length > 3;
 
   const renderWorkshopCards = () => {
-    return items.map((w, i) => (
-      <React.Fragment key={`${w.college}-${w.date}-${i}`}>
-        {useCarousel ? (
-          <SwiperSlide className="h-auto pb-2">
+    return items.map((w, i) => {
+      const key = `${w.college}-${w.date}-${i}`;
+      if (useCarousel) {
+        return (
+          <SwiperSlide className="h-auto pb-2" key={key}>
             <WorkshopCard w={w} i={i} />
           </SwiperSlide>
-        ) : (
-          <WorkshopCard w={w} i={i} />
-        )}
-      </React.Fragment>
-    ));
+        );
+      }
+
+      // Static grid
+      return <WorkshopCard w={w} i={i} key={key} />;
+    });
   };
 
   return (
