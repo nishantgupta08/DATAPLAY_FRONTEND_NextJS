@@ -17,7 +17,7 @@ export default function Home() {
       <SocialBadge />
       <HeroSection />
       {/* <Features /> */}
-      <CounsellingForm />
+      {/* <CounsellingForm /> */}
       <FellowshipPrograms />
       {/* <Courses /> */}
       <CourseSectionPro />

@@ -14,8 +14,8 @@ const Footer = () => {
 
   const serviceLinks = [
     { label: "Courses", href: "#" },
-   { label: "FAQ", href: "#" },
- 
+    { label: "FAQ", href: "#" },
+
   ];
 
   const socialMediaLinks = [
