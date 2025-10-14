@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
+import BookCounsellingButton from "./BookCounsellingButton";
 
 type Feature = { icon: string; title: string; href?: string };
 
@@ -22,7 +23,7 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 2xl:gap-20 lg:gap-10 items-end">
           {/* Left column */}
           <div className="relative py-16 md:py-20">
-            {/* Eyebrow — keep original “Never Stop Learning” look */}
+            {/* Eyebrow */}
             <h5 className="text-darkBlue 2xl:text-4xl xl:text-3xl text-2xl font-semibold mb-4">
               {hero.tag_line.normal_text}
               <span className="relative ml-3 inline-flex items-center justify-center text-white font-bold ">
@@ -74,7 +75,6 @@ const HeroSection = () => {
               </span>
             </h1>
 
-
             {/* Subhead */}
             <p className="text-darkBlue 2xl:text-[28px] xl:text-2xl text-xl font-bold mt-3 mb-5">
               {hero?.sub_heading ?? "Let's Sculpt YOUR Path To Success, YOUR Way !"}
@@ -82,14 +82,8 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="#contact-us"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-full font-bold bg-black text-white border-2 border-black shadow-[6px_6px_0_#FF2714] hover:-translate-y-0.5 active:translate-y-[1px] transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
-                aria-label="Book Counselling Session"
-              >
-                <Icon icon="mdi:rocket-launch-outline" className="mr-2 text-xl" />
-                Book Counselling Session
-              </a>
+              {/* Client button triggers the modal */}
+              <BookCounsellingButton />
 
               <a
                 href="#courses"
@@ -102,19 +96,16 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right column: transparent hero image + reviews pill positioned in the gap */}
+          {/* Right column */}
           <div className="relative max-md:-mt-20 max-md:w-[120%] w-full block right-0">
-            {/* Soft radial glow behind the cutout (only visible if image truly transparent) */}
-            <div className="right-0 pointer-events-none absolute -z-10  top-6 h-[520px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_#E9E1FF_0%,_#F7EEFA_45%,_transparent_70%)] blur-2xl opacity-90" />
-            {/* <div className="relative max-md:-mt-20 max-md:w-[120%] w-full block right-0"> */}
+            <div className="right-0 pointer-events-none absolute -z-10 top-6 h-[520px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_#E9E1FF_0%,_#F7EEFA_45%,_transparent_70%)] blur-2xl opacity-90" />
             <img
               src="/final-hero-image.png"
               alt="banner-img"
               className="relative block  h-9/10"
             />
-            {/* </div> */}
 
-            {/* Google reviews pill — slightly right & down inside the center gap */}
+            {/* Google reviews pill */}
             <a
               href="https://www.google.com/search?q=dataplay+reviews"
               target="_blank"
@@ -124,7 +115,7 @@ const HeroSection = () => {
               title="Open Google reviews"
             >
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center justify-center sm:size-7  rounded-full border-2 border-black">
+                <span className="inline-flex items-center justify-center sm:size-7 rounded-full border-2 border-black">
                   <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
                     <path
                       fill="currentColor"
@@ -141,8 +132,8 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Feature cards — refined, light UI */}
-        <section className="" aria-label="Program highlights">
+        {/* Feature cards */}
+        <section aria-label="Program highlights">
           <div role="list" className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
             {features.map((f, i) => {
               const tones = [
@@ -151,7 +142,7 @@ const HeroSection = () => {
                 { grad: "from-pink-500 to-fuchsia-500", ring: "ring-pink-100" },
                 { grad: "from-orange-500 to-orange-600", ring: "ring-orange-100" },
               ][i % 4];
-              const Tag = (f.href ? "a" : "div")
+              const Tag = (f.href ? "a" : "div") as any;
 
               return (
                 <Tag
@@ -167,7 +158,6 @@ const HeroSection = () => {
                   ].join(" ")}
                 >
                   <div className="flex items-start gap-4">
-                    {/* colored icon tile */}
                     <span className={["inline-flex size-12 items-center justify-center rounded-[14px] text-white shadow-md bg-gradient-to-b", tones.grad].join(" ")} aria-hidden="true">
                       <Image
                         src={f.icon}
@@ -187,7 +177,6 @@ const HeroSection = () => {
           </div>
         </section>
       </div>
-
     </section>
   );
 };
