@@ -1,31 +1,18 @@
 // app/page.tsx
-'use client';
+"use client";
 
 import { useState } from 'react';
 
 // Example imports — use your actual paths
 import SocialBadge from '@/components/SocialBadge';
 import HeroSection from '@/components/HeroSection';
-// import CounsellingForm from '@/components/CounsellingForm';
+import CounsellingForm from '@/components/CounsellingForm';
 import FellowshipPrograms from '@/components/FellowshipPrograms';
 import CourseSectionPro from '@/components/CourseSectionPro';
 import Mentors from '@/components/Mentors';
 import Testimonials from '@/components/Testimonials';
 import WhoCanApply from '@/components/WhoCanApply';
 import WorkshopGallery from '@/components/WorkshopGallery';
-
-// app/page.tsx
-import type { Metadata } from 'next';
-import HomeClient from '@/components/HomeClient';
-
-export const metadata: Metadata = {
-  title: 'Home',
-};
-
-// export default function Page() {
-//   // Server component; no "use client" here
-//   return <HomeClient />;
-// }
 
 function Modal({
   open,
