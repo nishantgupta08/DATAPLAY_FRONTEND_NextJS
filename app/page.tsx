@@ -9,6 +9,7 @@ import CourseSectionPro from "@/components/CourseSectionPro";
 import Features from "@/components/Features";
 import FellowshipPrograms from "@/components/FellowshipPrograms";
 import SocialBadge from "@/components/SocialBadge";
+import CounsellingForm from "@/components/counelling_form";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <SocialBadge />
       <HeroSection />
       {/* <Features /> */}
+      <CounsellingForm />
       <FellowshipPrograms />
       {/* <Courses /> */}
       <CourseSectionPro />

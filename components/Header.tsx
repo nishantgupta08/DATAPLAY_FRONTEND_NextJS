@@ -72,18 +72,6 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="#become-mentor">
-              <span className="inline-flex items-center gap-2 rounded-full border-2 border-white/25 text-white/90 hover:text-white hover:border-white px-4 py-2 text-sm font-bold transition">
-                <Icon icon="mdi:account-tie-outline" className="text-base" />
-                Become a Mentor
-              </span>
-            </Link>
-            <Link href="#courses">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white text-black border-2 border-black px-4 py-2 text-sm font-extrabold shadow-[4px_4px_0_#FF2714] hover:translate-y-[-1px] active:translate-y-[1px] transition">
-                <Icon icon="mdi:rocket-launch-outline" className="text-base" />
-                Apply Now
-              </span>
-            </Link>
           </div>
 
           {/* Mobile menu toggle */}
@@ -127,15 +115,6 @@ export default function Header() {
               >
                 <Icon icon="mdi:account-tie-outline" className="text-base" />
                 Mentor
-              </span>
-            </Link>
-            <Link href="#courses">
-              <span
-                onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-black border-2 border-black px-4 py-2 text-sm font-extrabold shadow-[4px_4px_0_#FF2714]"
-              >
-                <Icon icon="mdi:rocket-launch-outline" className="text-base" />
-                Apply Now
               </span>
             </Link>
           </div>
