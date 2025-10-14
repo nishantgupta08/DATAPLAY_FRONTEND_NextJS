@@ -372,6 +372,8 @@
       "title": "Data Analyst",
       "sub_title": "Make businesses smarter with data. In this hands-on, project-first course, you’ll learn to wrangle messy datasets, build dashboards people actually use, and present insights that drive action. No fluff—just the skills hiring managers ask for.",
       "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480655/Group_217_youx1q.png",
+      "duration_weeks":12,
+      "next_cohort_date":"2025-21-10",
       "courses_content": [
         {
           "title": "Databases and SQL Fundamentals",

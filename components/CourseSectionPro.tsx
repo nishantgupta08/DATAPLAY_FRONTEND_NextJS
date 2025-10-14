@@ -26,6 +26,7 @@ const palette: Record<string, string> = {
 export default function CoursesSectionPro() {
   const block = (data as any)?.homepage?.courses;
   const courses: Course[] = block?.courses ?? [];
+  console.log(courses)
 
   return (
     <section id="courses" aria-label="Courses" className="bg-white py-10 md:py-16">
@@ -41,6 +42,7 @@ export default function CoursesSectionPro() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
           {courses.map((c) => {
+            console.log(c.duration_weeks);
             const tag = (c.highlighted_title || "").toUpperCase().trim();
             const cover = c.cover_url || c.img_url || "/images/courses/placeholder.jpg";
             const tagStyle =
