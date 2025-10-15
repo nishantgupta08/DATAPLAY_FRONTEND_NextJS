@@ -70,10 +70,10 @@
         {
           "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759594855/Nishant_final-removebg-preview_szf9zb.png",
           "name": "Nishant Gupta",
-          "current_company": "Senior Data Scientist @ Gurgaon",
-          "company_details_2": "Ex Senior Data Scientist @ MediaCorp, Singapore",
+          "current_company": "Ex Lead Data Scientist @ Mediacorp Singapore",
+          "company_details_2": "",
           "description": "With 9 years of experience, he excels at simplifying complex concepts, ensuring comprehensive understanding from the very roots.",
-          "linkdin_profile": "https://www.linkedin.com/in/nishantthewriter/"
+          "linkdin_profile": ""
         },
         {
           "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759594860/Mahima_final-removebg-preview_eztyfm.png",
@@ -81,7 +81,7 @@
           "current_company": "Data Scientist @ Bangalore",
           "company_details_2": "",
           "description": "With 5 years of expertise, she adeptly identifies students' weak points, introducing effective techniques to help them excel by addressing their shortcomings",
-          "linkdin_profile": "https://www.linkedin.com/in/mahima-gupta1997/"
+          "linkdin_profile": ""
         }
       ]
     },
@@ -175,8 +175,8 @@
           }
         },
         {
-          "isTypeVideo": false,
-          "video_url": "",
+          "isTypeVideo": true,
+          "video_url": "https://www.youtube.com/embed/8zdIhzvzjdk?si=3AB3iRXiM2DrMJI3",
           "description": "The sessions from DataPlay's ML classes have been outstanding. The content is well-structured, and the clarity in explanations makes even complex topics easy to grasp. Each session adds real value, and the learning experience has been truly enriching.",
           "person_detail": {
             "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759420105/Screenshot_2025-10-02_211744_yv3zxi.png",
@@ -211,6 +211,23 @@
         {
           "isTypeVideo": false,
           "video_url": "",
+          "description": "One fine day, I applied for the training and internship program at DataPlay and that was seriously one of the best things I've ever done. The mentors there, Nishant sir, Mahima ma'am and Soumya ma'am helped me build my concepts from scratch, guided me patiently whenever I had the stupidest of doubts and made me believe that I can do it, that there is a clear path ahead, that I can become a good AI engineer even if I am from a different background.",
+          "person_detail": {
+            "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760331924/1719160228267_b9xi4d.jpg",
+            "linkdin_profile": "https://www.linkedin.com/in/nathanmenon14/",
+            "name": "Nathan Christopher Menon",
+            "designation": "MS(AI),Aston University"
+          },
+          "transformation": {
+            "old_title": "BTech(Aerospace Engineering)",
+            "old_designation": "Hindustan University",
+            "new_title": "MS(AI)",
+            "new_designation": "Aston University"
+          }
+        },
+        {
+          "isTypeVideo": true,
+          "video_url": "https://www.youtube.com/embed/BgS_40tcL3Y?si=2nW8aqaq6h75vm1d",
           "description": "Dataplay has really been a amazing experience. the way concepts are taught here, clarification of doubts and interaction for projects has helped me a lot to learn.We can also go through the recordings any time needed for further clarification. It was joyful to learn and practice here.",
           "person_detail": {
             "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759745882/Screenshot_2025-10-06_at_3.47.50_PM_hn8ror.png",
@@ -317,7 +334,7 @@
           "Mahima Gupta"
         ],
         "linkedin": {
-          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7263230876228952064",
+          "url": "",
           "urn": "urn:li:ugcPost:7123456789012345678"
         }
       },
@@ -331,7 +348,35 @@
           "Mahima Gupta"
         ],
         "linkedin": {
-          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7263230876228952064",
+          "url": "https://www.linkedin.com/posts/data-play_%F0%9D%90%84%F0%9D%90%B1%F0%9D%90%9C%F0%9D%90%A2%F0%9D%90%AD%F0%9D%90%A2%F0%9D%90%A7%F0%9D%90%A0-%F0%9D%90%83%F0%9D%90%9A%F0%9D%90%B2-%F0%9D%90%9A%F0%9D%90%AD-malaviya-activity-7263230876228952064-7ujp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAByP_hcBKyWLga98n0mNfd0eghs9ZOBha3w",
+          "urn": "urn:li:ugcPost:7123456789012345678"
+        }
+      },
+      {
+        "college": "DataPlay Certification",
+        "city": "Jaipur",
+        "date": "2024-08-01",
+        "cover": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416329/IMG20240825162617_igtxmm.jpg",
+        "speakers": [
+          "Nishant Gupta",
+          "Mahima Gupta"
+        ],
+        "linkedin": {
+          "url": "",
+          "urn": "urn:li:ugcPost:7123456789012345678"
+        }
+      },
+      {
+        "college": "Vardhman International School",
+        "city": "Jaipur",
+        "date": "2024-05-01",
+        "cover": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416334/IMG-20240721-WA0004_erug8s.jpg",
+        "speakers": [
+          "Nishant Gupta",
+          "Mahima Gupta"
+        ],
+        "linkedin": {
+          "url": "",
           "urn": "urn:li:ugcPost:7123456789012345678"
         }
       },
@@ -352,8 +397,8 @@
       {
         "college": "Mahaveer College Jaipur",
         "city": "Jaipur",
-        "date": "2024-12-14",
-        "cover": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416307/DSC03361_ut0jh0.jpg",
+        "date": "2025-10-15",
+        "cover": "",
         "speakers": [
           "Nishant Gupta",
           "Kushwant Singh"
@@ -373,7 +418,7 @@
       "sub_title": "Make businesses smarter with data. In this hands-on, project-first course, you’ll learn to wrangle messy datasets, build dashboards people actually use, and present insights that drive action. No fluff—just the skills hiring managers ask for.",
       "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480655/Group_217_youx1q.png",
       "duration_weeks":12,
-      "next_cohort_date":"2025-21-10",
+      "next_cohort_date":"2025-24-10",
       "courses_content": [
         {
           "title": "Data Foundations & Excel Analytics",
@@ -660,6 +705,8 @@
       "title": "Data Engineering",
       "sub_title": "Be the person who makes data usable. In this hands-on, project-first course, you’ll learn to design, build, and operate modern data pipelines that feed dashboards, ML, and AI—cleanly and at scale.",
       "img_url": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759480378/rd_Umage_u6r6np.png",
+      "duration_weeks":20,
+      "next_cohort_date":"2025-24-10",
       "courses_content": [
         {
           "title": "Data Foundations & Excel Analytics",
