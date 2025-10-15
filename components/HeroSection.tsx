@@ -105,37 +105,39 @@ const HeroSection = () => {
           {/* Right column: transparent hero image + reviews pill positioned in the gap */}
           <div className="relative max-md:-mt-20 max-md:w-[120%] w-full block right-0">
             {/* Soft radial glow behind the cutout (only visible if image truly transparent) */}
-            <div className="right-0 pointer-events-none absolute -z-10  top-6 h-[520px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_#E9E1FF_0%,_#F7EEFA_45%,_transparent_70%)] blur-2xl opacity-90" />
+            <div className="left-0 pointer-events-none absolute -z-10 	top-6 h-[520px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_#E9E1FF_0%,_#F7EEFA_45%,_transparent_70%)] blur-2xl opacity-90" />
             {/* <div className="relative max-md:-mt-20 max-md:w-[120%] w-full block right-0"> */}
             <img
               src="/final-hero-image.png"
               alt="banner-img"
-              className="relative block  h-9/10"
+              className="relative block 	h-9/10"
+            // Add a max-height or max-width utility for better mobile scaling if needed
             />
             {/* </div> */}
 
-            {/* Google reviews pill — slightly right & down inside the center gap */}
+            {/* Google reviews pill — ADJUSTED FOR RESPONSIVENESS */}
             <a
               href="https://www.google.com/search?q=dataplay+reviews"
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute ml-20 sm:left-0 -translate-x-[36%] md:-translate-x-[32%] top-20 md:top-24 z-10 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-4 py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              className="absolute left-32  -translate-x-1/2 sm:left-0 sm:-translate-x-[36%] md:-translate-x-[32%] top-16 sm:top-20 md:top-24 z-10 rounded-xl bg-white/95 backdrop-blur border-2 border-black shadow-[6px_6px_0_#6B5AED] px-3 py-1.5 sm:px-4 sm:py-2 hover:shadow-[8px_8px_0_#FF2714] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
               aria-label="Open Google reviews"
               title="Open Google reviews"
             >
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center justify-center sm:size-7  rounded-full border-2 border-black">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                {/* Google Icon */}
+                <span className="inline-flex size-6 sm:size-7 items-center justify-center rounded-full border-2 border-black">
+                  <svg viewBox="0 0 24 24" className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true">
                     <path
                       fill="currentColor"
                       d="M21.35 11.1H12v2.9h5.38C16.98 16.14 15.09 17.5 12 17.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5c1.65 0 3.15.62 4.29 1.63l2.06-2.06C16.76 2.65 14.49 1.75 12 1.75 6.89 1.75 2.75 5.89 2.75 11S6.89 20.25 12 20.25c5.04 0 8.75-3.53 8.75-8.5 0-.52-.06-1.05-.17-1.55z"
                     />
                   </svg>
                 </span>
-                <span className="text-sm font-extrabold tracking-tight">4.9</span>
-                <span className="text-yellow-500 text-sm">★</span>
-                <span className="text-sm font-semibold">Google Rating</span>
-                <span className="ml-2 text-[11px] text-black/60 underline decoration-dotted">Read reviews</span>
+                <span className="text-xs sm:text-sm font-extrabold tracking-tight">4.9</span>
+                <span className="text-yellow-500 text-xs sm:text-sm">★</span>
+                <span className="text-xs sm:text-sm font-semibold">Google Rating</span>
+                <span className="ml-1 text-[10px] sm:text-[11px] text-black/60 underline decoration-dotted">Read reviews</span>
               </div>
             </a>
           </div>

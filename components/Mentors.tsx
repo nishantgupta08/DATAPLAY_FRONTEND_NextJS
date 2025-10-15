@@ -84,11 +84,9 @@ const Mentors = () => {
                     <h4 className="text-base md:text-lg font-semibold mb-1 opacity-95">
                       {mentor.current_company}
                     </h4>
-                    {mentor.company_details_2 && (
-                      <h5 className="text-xs md:text-sm font-medium mb-3 md:mb-4 opacity-90">
-                        {mentor.company_details_2}
-                      </h5>
-                    )}
+                    <h5 className="text-xs md:text-sm font-medium mb-3 md:mb-4 opacity-90">
+                      {mentor.company_details_2 || '\u00A0'}
+                    </h5>
                     <p className="text-xs md:text-sm opacity-90 mb-4 md:mb-6 leading-relaxed">
                       {mentor.description}
                     </p>
