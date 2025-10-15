@@ -34,7 +34,7 @@ export default async function Page() {
                 Data Analyst <span className="text-[var(--brand-700)]">Pay After Placement</span> Program
               </h1>
               <p className="mt-3 text-base sm:text-lg text-gray-700 max-w-2xl">
-                Learn data analysis hands-on with real projects, interview prep, and career support. Join with ₹0 upfront and pay only after you get placed.
+                Total fee <strong>₹30,000</strong>. Pay <strong>₹7,500</strong> to start; pay the remaining <strong>₹22,500</strong> only after placement.
               </p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <a href="#apply" className="inline-flex justify-center rounded-xl bg-[var(--brand-600)] px-5 py-3 text-white font-semibold shadow hover:bg-[var(--brand-700)]">Start Free Counselling</a>
@@ -101,14 +101,14 @@ export default async function Page() {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
           <h2 className="text-2xl sm:text-3xl font-bold">How payment works</h2>
           <ol className="mt-8 grid gap-4 sm:gap-6 md:grid-cols-3">
-            <StepCard step="01" title="Join with ₹0 upfront" desc="Start learning without any enrollment fee." />
+            <StepCard step="01" title="Enroll with ₹7,500" desc="Secure your seat with an upfront payment." />
             <StepCard step="02" title="Train & build" desc="Live mentorship, projects, interview prep, and referrals." />
-            <StepCard step="03" title="Pay after placement" desc="After you accept an eligible offer, pay a capped amount over time." />
+            <StepCard step="03" title="After placement: ₹22,500" desc="Pay the remaining fee once you accept an eligible offer." />
           </ol>
 
           <div className="mt-8 rounded-xl border border-[var(--brand-200)] bg-[var(--brand-50)] p-4 sm:p-5 text-[var(--brand-900)]">
-            <p className="font-semibold">Transparent terms</p>
-            <p className="text-sm">No interest, no surprises. Full details are provided during admissions.</p>
+            <p className="font-semibold">Fee summary</p>
+            <p className="text-sm">Total: <strong>₹30,000</strong> (₹7,500 upfront + ₹22,500 after placement). Detailed terms are shared during admissions.</p>
           </div>
         </div>
       </section>
@@ -125,10 +125,10 @@ export default async function Page() {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
           <h2 className="text-2xl sm:text-3xl font-bold">Frequently asked</h2>
           <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-2">
-            <Faq q="Do I really pay only after placement?" a="Yes. There is no upfront tuition. A capped payment starts only after you accept an eligible job offer, with terms shared during admissions." />
+            <Faq q="What are the fees?" a="Total fee is ₹30,000 — pay ₹7,500 to enroll and ₹22,500 after placement." />
             <Faq q="Who is this program for?" a="Motivated learners seeking a structured, mentor-led path into data roles, including freshers and upskillers." />
             <Faq q="How long until I’m job-ready?" a="Typical timelines range from 10–16 weeks depending on your background and weekly commitment." />
-            <Faq q="Is there a refund?" a="Since there’s no upfront fee, there’s nothing to refund. You only pay after a successful outcome." />
+            <Faq q="Is the upfront amount refundable?" a="Refund/deferral policy is explained during admissions; please review the terms shared before enrolling." />
           </div>
         </div>
       </section>
