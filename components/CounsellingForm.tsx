@@ -8,6 +8,7 @@ export default function CounsellingForm({ onSuccess }: Props) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", notes: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [serverMsg, setServerMsg] = useState<string | null>(null);
 
   const onChange =
     (key: keyof typeof form) =>
@@ -26,11 +27,29 @@ export default function CounsellingForm({ onSuccess }: Props) {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setServerMsg(null);
     if (!validate()) return;
+
     setSubmitting(true);
     try {
-      await new Promise((r) => setTimeout(r, 600));
-      onSuccess?.();
+      const res = await fetch("/api/counselling", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        if (data?.errors) setErrors(data.errors);
+        setServerMsg(data?.error || "Unable to submit. Please try again.");
+        return;
+      }
+
+      setServerMsg("Submitted successfully. We’ll get back to you soon.");
+      onSuccess?.(); // close modal
+    } catch (err) {
+      console.error(err);
+      setServerMsg("Network error. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -79,6 +98,12 @@ export default function CounsellingForm({ onSuccess }: Props) {
         />
       </div>
 
+      {serverMsg && (
+        <p className="text-sm text-gray-600" role="status" aria-live="polite">
+          {serverMsg}
+        </p>
+      )}
+
       <div className="flex items-center justify-end gap-3">
         <button
           type="submit"
@@ -94,8 +119,24 @@ export default function CounsellingForm({ onSuccess }: Props) {
 }
 
 function Field({
-  label, id, type = "text", value, onChange, error, required, autoComplete,
-}: any) {
+  label,
+  id,
+  type = "text",
+  value,
+  onChange,
+  error,
+  required,
+  autoComplete,
+}: {
+  label: string;
+  id: string;
+  type?: "text" | "email" | "tel";
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  required?: boolean;
+  autoComplete?: string;
+}) {
   return (
     <div className="space-y-1">
       <label htmlFor={id} className="text-sm font-medium">
@@ -122,8 +163,22 @@ function Field({
 }
 
 function TextArea({
-  label, id, value, onChange, error, placeholder, className = "",
-}: any) {
+  label,
+  id,
+  value,
+  onChange,
+  error,
+  placeholder,
+  className = "",
+}: {
+  label: string;
+  id: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  error?: string;
+  placeholder?: string;
+  className?: string;
+}) {
   return (
     <div className={`space-y-1 ${className}`}>
       <label htmlFor={id} className="text-sm font-medium">
