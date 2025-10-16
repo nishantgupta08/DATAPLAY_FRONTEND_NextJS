@@ -1,10 +1,19 @@
 // app/landing/page.tsx
-// TypeScript rewrite — no `any`, JSON-typed syllabus, bold UI.
+// TypeScript rewrite — JSON-typed syllabus, bold UI, dynamic mentors from content.json
 
 import Testimonials from "@/components/Testimonials";
 import EnrollForm from "@/components/EnrollForm"; // client component (has onSubmit, WA opt-in default)
 import contentJson from "../assets/content.json";
 import { JSX } from "react";
+// In your page.tsx (where you want the section to appear)
+import IndiaLearnersMap from "@/components/IndiaLearnersMap";
+
+{/* …somewhere after “Led by Industry Experts” or before Testimonials */}
+<IndiaLearnersMap
+  mapSrc="/india-map.svg" // put an India silhouette in /public
+  title="Learners Across India"
+  subtitle="From Jaipur to Bengaluru — a growing community from top institutes."
+/>
 
 /* ===========================
    Types for content.json
@@ -41,18 +50,68 @@ export interface Course {
   user_section?: UserTestimonial[];
 }
 
-export type CoursesRoot = { courses: Course[] } | Course[];
+export interface Partner {
+  name: string;
+  logo?: string;
+}
 
-function isWrapped(root: CoursesRoot): root is { courses: Course[] } {
+export interface Expert {
+  name: string;
+  role?: string;
+  img?: string;
+  linkedin?: string;
+  description?: string;
+}
+
+// Minimal shape for nested mentors in homepage.mentors.mentors
+export interface MentorRaw {
+  role: string | undefined;
+  img?: string;
+  name?: string;
+  current_company?: string; // e.g. "Data Engineer @ Shiprocket"
+  description?: string;
+  linkdin_profile?: string;
+  // alternates seen elsewhere
+  full_name?: string;
+  title?: string;
+  designation?: string;
+  designation_name?: string;
+  company?: string;
+  company_name?: string;
+  details?: string;
+  linkedin?: string;
+  linkedin_url?: string;
+  linkdin_url?: string;
+  image?: string;
+  photo?: string;
+  avatar?: string;
+  img_url?: string;
+}
+
+export type ContentRoot =
+  | {
+      homepage?: { mentors?: { mentors?: MentorRaw[] } };
+      mentors?: MentorRaw[];
+      experts?: Expert[];
+      courses: Course[];
+    }
+  | Course[];
+
+function isWrapped(root: ContentRoot): root is Exclude<ContentRoot, Course[]> {
   return (root as { courses?: unknown }).courses !== undefined;
 }
 
 /* ===========================
    Data & helpers (typed)
 =========================== */
-const CONTENT: CoursesRoot = (contentJson as unknown) as CoursesRoot;
+const CONTENT: ContentRoot = (contentJson as unknown) as ContentRoot;
 
-function pickTrack(raw: CoursesRoot | null, keyword: "analyst" | "engineer"): Course {
+function getCourseList(raw: ContentRoot | null): Course[] {
+  if (!raw) return [];
+  return isWrapped(raw) ? raw.courses : (raw as Course[]);
+}
+
+function pickTrack(raw: ContentRoot | null, keyword: "analyst" | "engineer"): Course {
   const fallback: Course =
     keyword === "analyst"
       ? {
@@ -76,9 +135,9 @@ function pickTrack(raw: CoursesRoot | null, keyword: "analyst" | "engineer"): Co
           right_side_video_url: "",
         };
 
-  if (!raw) return fallback;
+  const list: Course[] = getCourseList(raw);
+  if (list.length === 0) return fallback;
 
-  const list: Course[] = isWrapped(raw) ? raw.courses : (raw as Course[]);
   const needle = keyword === "analyst" ? "analyst" : "engineering";
   return list.find((c) => c.title.toLowerCase().includes(needle)) ?? fallback;
 }
@@ -137,15 +196,100 @@ function condenseModules(modules: Module[]): { outline: OutlineItem[]; capstone:
   return { outline, capstone };
 }
 
-interface Partner {
-  name: string;
-  logo?: string;
+/* ===========================
+   Mentor extraction (typed)
+=========================== */
+function asRecord(x: unknown): x is Record<string, unknown> {
+  return typeof x === "object" && x !== null;
 }
-interface Expert {
-  name: string;
-  role?: string;
-  img?: string;
-  linkedin?: string;
+
+function sanitizeExperts(raw: unknown): Expert[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((item) => {
+      const e = item as Partial<Expert> & { description?: unknown };
+      const name = e.name ? String(e.name) : "";
+      if (!name) return null;
+      return {
+        name,
+        role: e.role ? String(e.role) : undefined,
+        img: e.img ? String(e.img) : undefined,
+        linkedin: e.linkedin ? String(e.linkedin) : undefined,
+        description: e.description ? String(e.description) : undefined,
+      } as Expert;
+    })
+    .filter((x): x is Expert => Boolean(x));
+}
+
+function sanitizeMentors(raw: unknown): Expert[] {
+  if (!Array.isArray(raw)) return [];
+  return (raw as unknown[])
+    .map((m) => {
+      const obj = asRecord(m) ? (m as unknown as MentorRaw) : ({} as MentorRaw);
+      const name = obj.name ?? obj.full_name ?? obj.title;
+      const roleRaw = obj.role ?? obj.designation ?? obj.designation_name ?? obj.current_company;
+      const companyRaw = obj.company ?? obj.company_name ?? obj.current_company;
+      const img = obj.img ?? obj.image ?? obj.photo ?? obj.avatar ?? obj.img_url;
+      const linkedin = obj.linkedin ?? obj.linkedin_url ?? obj.linkdin_url ?? obj.linkdin_profile;
+      const description = obj.description ?? obj.details;
+
+      const nameStr = name ? String(name) : "";
+      if (!nameStr) return null;
+
+      // Build a clean role string. If role already contains '@', don't append company.
+      const rolePieces: string[] = [];
+      if (roleRaw) rolePieces.push(String(roleRaw));
+      const roleAlreadyHasAt = roleRaw ? String(roleRaw).includes("@") : false;
+      if (companyRaw && !roleAlreadyHasAt) rolePieces.push(String(companyRaw));
+      let role = rolePieces.join(roleAlreadyHasAt ? " " : ", ");
+
+      // De-duplicate comma-separated parts (e.g., "Data Engineer, Shiprocket, Shiprocket")
+      if (role) {
+        const parts = role.split(/,\s*/);
+        const unique = Array.from(new Set(parts));
+        role = unique.join(", ");
+      }
+
+      return {
+        name: nameStr,
+        role: role || undefined,
+        img: img ? String(img) : undefined,
+        linkedin: linkedin ? String(linkedin) : undefined,
+        description: description ? String(description) : undefined,
+      } as Expert;
+    })
+    .filter((x): x is Expert => Boolean(x));
+}
+
+function extractExperts(raw: ContentRoot): Expert[] {
+  // Preferred: top-level `experts` array
+  if (isWrapped(raw)) {
+    const fromTop = (raw as { experts?: unknown }).experts;
+    const expertsTop = sanitizeExperts(fromTop);
+    if (expertsTop.length > 0) return expertsTop;
+  }
+
+  // Fallback 1: top-level `mentors` array
+  if (isWrapped(raw)) {
+    const mentorsTop = (raw as { mentors?: unknown }).mentors;
+    const expertsFromMentorsTop = sanitizeMentors(mentorsTop);
+    if (expertsFromMentorsTop.length > 0) return expertsFromMentorsTop;
+  }
+
+  // Fallback 2: nested `homepage.mentors.mentors` (as in provided content.json)
+  if (isWrapped(raw)) {
+    const homepage = (raw as { homepage?: unknown }).homepage;
+    if (asRecord(homepage)) {
+      const mentorsWrap = (homepage as { mentors?: unknown }).mentors;
+      if (asRecord(mentorsWrap)) {
+        const nested = (mentorsWrap as { mentors?: unknown }).mentors;
+        const expertsFromHomepage = sanitizeMentors(nested);
+        if (expertsFromHomepage.length > 0) return expertsFromHomepage;
+      }
+    }
+  }
+
+  return [];
 }
 
 /* ===========================
@@ -162,7 +306,7 @@ export default function Page(): JSX.Element {
   const daWeeks = Number(dataAnalyst.duration_weeks || 12);
   const deWeeks = Number(dataEngineering.duration_weeks || 20);
 
-  // Replace logo paths with real files under /public/logos
+  // Replace logo paths with real files under /public/logos — slightly larger visuals
   const partners: Partner[] = [
     { name: "Celebal", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760617723/celebal_technologies_m7f4s7.jpg" },
     { name: "Polestar", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760618195/Polestar_Logo_dltnrw.jpg" },
@@ -172,20 +316,8 @@ export default function Page(): JSX.Element {
     { name: "Neos Alpha", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760618477/neos_alpha_ly4os5.jpg" },
   ];
 
-  const experts: Expert[] = [
-    {
-      name: "Rajat Sinha",
-      role: "Data Engineer, Shiprocket",
-      img: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
-      linkedin: "https://www.linkedin.com/in/rajat-sinha-94aa22201/",
-    },
-    {
-      name: "Soumya Awasthi",
-      role: "Associate Analytical Engineer, Gartner",
-      img: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416237/Soumya_Awasthi_bebpm3.jpg",
-      linkedin: "https://www.linkedin.com/in/soumyaawasthi08/",
-    },
-  ];
+  // Dynamic experts from content.json (experts/mentors or homepage.mentors.mentors)
+  const experts: Expert[] = extractExperts(CONTENT);
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
@@ -225,13 +357,6 @@ export default function Page(): JSX.Element {
                 Industry-led. Project-first. Job-focused. Start with a small
                 enrollment, pay the balance after placement.
               </p>
-
-              {/* <div className="mt-5 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs">
-                <Chip>Online</Chip>
-                <Chip>Offline</Chip>
-                <Chip>Recordings available</Chip>
-                <Chip>{classTime}</Chip>
-              </div> */}
 
               {/* View Syllabus — single button with dropdown */}
               <div className="mt-6 flex">
@@ -319,7 +444,7 @@ export default function Page(): JSX.Element {
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Why these programs</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <FeatureCard title="Lifetime Access" desc="Content updates, recordings, templates — forever." />
-            <FeatureCard title="By The Industry, For The Industry" desc="Built with hiring managers & working pros." />
+            <FeatureCard title="By Industry, For Industry" desc="Built with hiring managers & working pros." />
             <FeatureCard title="Resume Refactoring" desc="1:1 resume/LinkedIn overhaul tailored to role." />
             <FeatureCard title="Mock Interviews" desc="Regular analytics & system rounds with feedback." />
           </div>
@@ -330,11 +455,17 @@ export default function Page(): JSX.Element {
       <section id="experts" className="bg-gray-50">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
           <h2 className="text-3xl font-extrabold sm:text-4xl">Led by Industry Experts</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            {experts.map((e) => (
-              <ExpertCard key={e.name} {...e} />
-            ))}
-          </div>
+          {experts.length > 0 ? (
+            <div className="mt-8 grid gap-6 sm:grid-cols-2">
+              {experts.map((e) => (
+                <ExpertCard key={e.name} {...e} />
+              ))}
+            </div>
+          ) : (
+            <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-600">
+              Mentor profiles coming soon. Add them under <code>homepage.mentors.mentors</code> in <code>app/assets/content.json</code> with fields: {`{ name, img?, description?, linkdin_profile? }`}.
+            </div>
+          )}
         </div>
       </section>
 
@@ -616,10 +747,10 @@ function PartnersRow({ items }: { items: Partner[] }): JSX.Element {
   return (
     <div className="mt-2 flex flex-wrap items-center justify-center gap-4">
       {items.map((p) => (
-        <div key={p.name} className="flex h-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-3 backdrop-blur">
+        <div key={p.name} className="flex h-12 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-4 backdrop-blur">
           {p.logo ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={p.logo} alt={p.name} className="max-h-6 w-auto opacity-90" />
+            <img src={p.logo} alt={p.name} className="max-h-8 w-auto opacity-90" />
           ) : (
             <span className="text-xs text-white/85">{p.name}</span>
           )}
@@ -629,25 +760,39 @@ function PartnersRow({ items }: { items: Partner[] }): JSX.Element {
   );
 }
 
-function ExpertCard({ name, role, img, linkedin }: Expert): JSX.Element {
+function ExpertCard({ name, role, img, linkedin, description }: Expert): JSX.Element {
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      {img ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={img} alt={name} className="h-14 w-14 rounded-full object-cover" />
-      ) : (
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--brand-100)] text-[var(--brand-700)] font-semibold">
-          {name.split(" ").map((n) => n[0]).join("")}
+    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+      <div className="absolute inset-0 -z-10 opacity-[0.06] bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)]" />
+      <div className="flex items-start gap-4">
+        {img ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={img} alt={name} className="h-14 w-14 flex-none rounded-full object-cover ring-2 ring-[var(--brand-200)]" />
+        ) : (
+          <div className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-[var(--brand-100)] text-[var(--brand-700)] font-semibold ring-2 ring-[var(--brand-200)]">
+            {name.split(" ").map((n) => n[0]).join("")}
+          </div>
+        )}
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <p className="truncate text-base font-semibold text-gray-900">{name}</p>
+            {linkedin ? (
+              <a
+                href={linkedin}
+                className="inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-700)] ring-1 ring-inset ring-[var(--brand-300)] hover:bg-[var(--brand-50)]"
+                aria-label={`${name} on LinkedIn`}
+              >
+                LinkedIn
+              </a>
+            ) : null}
+          </div>
+          {role ? <p className="truncate text-sm text-gray-600">{role}</p> : null}
+          {description ? (
+            <p className="mt-2 text-sm text-gray-700">{description}</p>
+          ) : (
+            <p className="mt-2 text-sm text-gray-600">Industry professional bringing hands-on experience to our learners.</p>
+          )}
         </div>
-      )}
-      <div className="min-w-0">
-        <p className="truncate text-base font-semibold text-gray-900">{name}</p>
-        {role ? <p className="truncate text-sm text-gray-600">{role}</p> : null}
-        {linkedin ? (
-          <a href={linkedin} className="mt-1 inline-flex text-xs font-medium text-[var(--brand-700)] hover:underline">
-            LinkedIn
-          </a>
-        ) : null}
       </div>
     </div>
   );

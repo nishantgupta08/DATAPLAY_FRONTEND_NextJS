@@ -48,7 +48,7 @@ export default function EnrollForm(): JSX.Element {
 
   return (
     <div className="rounded-2xl border border-white/15 bg-white/10 p-5 sm:p-6 text-white shadow-xl backdrop-blur">
-      <h3 className="text-xl font-bold text-center">Enroll Now!</h3>
+      <h3 className="text-xl font-bold text-center">Talk To Academic Advisor!</h3>
 
       <form className="mt-4 grid grid-cols-1 gap-3" onSubmit={onSubmit}>
         {/* Program choice */}
