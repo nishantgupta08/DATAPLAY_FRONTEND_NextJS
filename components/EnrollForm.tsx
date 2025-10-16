@@ -4,7 +4,7 @@
 import * as React from "react";
 import { JSX } from "react";
 
-const SALES_NUMBER = "919876543210"; // your WhatsApp number, no leading +
+const SALES_NUMBER = "7427071631"; // your WhatsApp number, no leading +
 
 function openWhatsApp(payload: { name: string; program: string; experience?: string }) {
   const text = encodeURIComponent(
@@ -27,7 +27,6 @@ export default function EnrollForm(): JSX.Element {
       program: String(fd.get("program") ?? ""),
       experience: String(fd.get("experience") ?? ""),
       company: String(fd.get("company") ?? ""),
-      dreamCompany: String(fd.get("dreamCompany") ?? ""),
       whatsappOptIn: !!fd.get("whatsappOptIn"),
       consentAt: new Date().toISOString(),
       source: "landing_hero",
@@ -86,8 +85,6 @@ export default function EnrollForm(): JSX.Element {
           </select>
           <input className="rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-white placeholder-white/60 focus:border-[var(--brand-400)] focus:outline-none" placeholder="Company name" name="company" />
         </div>
-
-        <input className="rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-white placeholder-white/60 focus:border-[var(--brand-400)] focus:outline-none" placeholder="Dream company" name="dreamCompany" />
 
         <label className="mt-1 flex items-center gap-2 text-xs text-white/80">
           <input name="whatsappOptIn" type="checkbox" className="accent-[var(--brand-500)]" />

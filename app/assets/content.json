@@ -82,6 +82,22 @@
           "company_details_2": "",
           "description": "With 5 years of expertise, she adeptly identifies students' weak points, introducing effective techniques to help them excel by addressing their shortcomings",
           "linkdin_profile": ""
+        },
+        {
+          "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416236/Rajat_Sinha_p1lgdb.jpg",
+          "name": "Rajat Sinha",
+          "current_company": "Data Engineer @ Shiprocket",
+          "company_details_2": "",
+          "description": "",
+          "linkdin_profile": "https://www.linkedin.com/in/rajat-sinha-94aa22201/"
+        },
+        {
+          "img": "https://res.cloudinary.com/dd0e4iwau/image/upload/v1759416237/Soumya_Awasthi_bebpm3.jpg",
+          "name": "Soumya Awasthi",
+          "current_company": "Associate Analytical Engineer @ Gartner",
+          "company_details_2": "",
+          "description": "",
+          "linkdin_profile": "https://www.linkedin.com/in/soumyaawasthi08/#/"
         }
       ]
     },

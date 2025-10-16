@@ -212,23 +212,26 @@ export default function Page(): JSX.Element {
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             {/* LEFT: headline + chips + syllabus button */}
             <div className="lg:col-span-6 text-white">
+              
+              <h1 className="mt-3 text-4xl font-extrabold leading-tight text-white drop-shadow-[0_8px_30px_rgba(99,102,241,0.45)] sm:text-5xl md:text-6xl">
+                Data Analyst & Data Engineering  Programs
+              </h1>
+
               <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--brand-400)]">
                 Hybrid Pay After Placement
               </h2>
-              <h1 className="mt-3 text-4xl font-extrabold leading-tight text-white drop-shadow-[0_8px_30px_rgba(99,102,241,0.45)] sm:text-5xl md:text-6xl">
-                Data Analyst & Data Engineering Programs
-              </h1>
+
               <p className="mt-3 max-w-xl text-base sm:text-lg text-white/85">
-                Mentor-led. Project-first. Job-focused. Start with a small
+                Industry-led. Project-first. Job-focused. Start with a small
                 enrollment, pay the balance after placement.
               </p>
 
-              <div className="mt-5 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs">
+              {/* <div className="mt-5 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs">
                 <Chip>Online</Chip>
                 <Chip>Offline</Chip>
                 <Chip>Recordings available</Chip>
                 <Chip>{classTime}</Chip>
-              </div>
+              </div> */}
 
               {/* View Syllabus — single button with dropdown */}
               <div className="mt-6 flex">
@@ -316,7 +319,7 @@ export default function Page(): JSX.Element {
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Why these programs</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <FeatureCard title="Lifetime Access" desc="Content updates, recordings, templates — forever." />
-            <FeatureCard title="By Industry, For Industry" desc="Built with hiring managers & working pros." />
+            <FeatureCard title="By The Industry, For The Industry" desc="Built with hiring managers & working pros." />
             <FeatureCard title="Resume Refactoring" desc="1:1 resume/LinkedIn overhaul tailored to role." />
             <FeatureCard title="Mock Interviews" desc="Regular analytics & system rounds with feedback." />
           </div>
@@ -326,7 +329,7 @@ export default function Page(): JSX.Element {
       {/* EXPERTS */}
       <section id="experts" className="bg-gray-50">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Backed by Industry Experts</h2>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Led by Industry Experts</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             {experts.map((e) => (
               <ExpertCard key={e.name} {...e} />
