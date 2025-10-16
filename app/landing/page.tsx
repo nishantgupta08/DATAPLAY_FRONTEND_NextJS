@@ -1,22 +1,17 @@
 // app/landing/page.tsx
-// TypeScript rewrite — JSON-typed syllabus, bold UI, dynamic mentors from content.json
+// Full rewrite: typed, dynamic mentors from content.json, upgraded CTAs,
+// enrolled students + India map component inlined for easy drop-in.
 
+import React from "react";
 import Testimonials from "@/components/Testimonials";
-import EnrollForm from "@/components/EnrollForm"; // client component (has onSubmit, WA opt-in default)
+import EnrollForm from "@/components/EnrollForm";
 import contentJson from "../assets/content.json";
 import { JSX } from "react";
-// In your page.tsx (where you want the section to appear)
-import IndiaLearnersMap from "@/components/IndiaLearnersMap";
-
-{/* …somewhere after “Led by Industry Experts” or before Testimonials */}
-<IndiaLearnersMap
-  mapSrc="/india-map.svg" // put an India silhouette in /public
-  title="Learners Across India"
-  subtitle="From Jaipur to Bengaluru — a growing community from top institutes."
-/>
+import image from '../assets/hero-img3.png'
+import Image from "next/image";
 
 /* ===========================
-   Types for content.json
+   Types
 =========================== */
 export interface Submodule {
   title: string;
@@ -43,10 +38,10 @@ export interface Course {
   title: string;
   sub_title: string;
   img_url: string;
-  duration_weeks: number;
-  next_cohort_date: string; // e.g. "2025-24-10"
-  courses_content: Module[];
-  right_side_video_url: string;
+  duration_weeks?: number;
+  next_cohort_date?: string; // e.g. "2025-24-10"
+  courses_content?: Module[];
+  right_side_video_url?: string;
   user_section?: UserTestimonial[];
 }
 
@@ -63,15 +58,14 @@ export interface Expert {
   description?: string;
 }
 
-// Minimal shape for nested mentors in homepage.mentors.mentors
-export interface MentorRaw {
+/* Minimal mentor raw shape used in your content.json */
+interface MentorRaw {
   role: string | undefined;
   img?: string;
   name?: string;
-  current_company?: string; // e.g. "Data Engineer @ Shiprocket"
+  current_company?: string;
   description?: string;
   linkdin_profile?: string;
-  // alternates seen elsewhere
   full_name?: string;
   title?: string;
   designation?: string;
@@ -88,12 +82,13 @@ export interface MentorRaw {
   img_url?: string;
 }
 
+/* content.json root */
 export type ContentRoot =
   | {
       homepage?: { mentors?: { mentors?: MentorRaw[] } };
       mentors?: MentorRaw[];
       experts?: Expert[];
-      courses: Course[];
+      courses?: Course[];
     }
   | Course[];
 
@@ -102,13 +97,13 @@ function isWrapped(root: ContentRoot): root is Exclude<ContentRoot, Course[]> {
 }
 
 /* ===========================
-   Data & helpers (typed)
+   Data helpers
 =========================== */
 const CONTENT: ContentRoot = (contentJson as unknown) as ContentRoot;
 
 function getCourseList(raw: ContentRoot | null): Course[] {
   if (!raw) return [];
-  return isWrapped(raw) ? raw.courses : (raw as Course[]);
+  return isWrapped(raw) ? (raw.courses ?? []) : (raw as Course[]);
 }
 
 function pickTrack(raw: ContentRoot | null, keyword: "analyst" | "engineer"): Course {
@@ -142,13 +137,12 @@ function pickTrack(raw: ContentRoot | null, keyword: "analyst" | "engineer"): Co
   return list.find((c) => c.title.toLowerCase().includes(needle)) ?? fallback;
 }
 
-function formatCohortDate(raw: string): string {
-  // accept formats like YYYY-MM-DD or YYYY-DD-MM (given: "2025-24-10")
+function formatCohortDate(raw?: string): string {
   if (!raw) return "";
   const parts = raw.split("-");
   const year = parts[0];
-  let month = parts[1];
-  let day = parts[2];
+  let month = parts[1] ?? "";
+  let day = parts[2] ?? "";
   if (parts.length === 3) {
     const p2 = Number(parts[1]);
     const p3 = Number(parts[2]);
@@ -168,15 +162,13 @@ export interface OutlineItem {
   title: string;
   topics: string[];
 }
-
-function condenseModules(modules: Module[]): { outline: OutlineItem[]; capstone: string[] } {
+function condenseModules(modules: Module[] = []): { outline: OutlineItem[]; capstone: string[] } {
   const outline: OutlineItem[] = [];
   const capstone: string[] = [];
 
   modules.forEach((m) => {
     const subs = Array.isArray(m?.submodules) ? m.submodules : [];
 
-    // Collect capstone/projects bullets
     const cap = subs.find((s) => /capstone/i.test(s.title)) || subs.find((s) => /project/i.test(s.title));
     if (cap && Array.isArray(cap.content)) {
       cap.content.forEach((line) => {
@@ -184,7 +176,6 @@ function condenseModules(modules: Module[]): { outline: OutlineItem[]; capstone:
       });
     }
 
-    // Main topics = submodule titles excluding prerequisites/projects/capstone
     const mains = subs
       .filter((s) => !/prereq|project|capstone/i.test(s.title))
       .map((s) => s.title)
@@ -197,7 +188,7 @@ function condenseModules(modules: Module[]): { outline: OutlineItem[]; capstone:
 }
 
 /* ===========================
-   Mentor extraction (typed)
+   Mentor extraction
 =========================== */
 function asRecord(x: unknown): x is Record<string, unknown> {
   return typeof x === "object" && x !== null;
@@ -236,14 +227,12 @@ function sanitizeMentors(raw: unknown): Expert[] {
       const nameStr = name ? String(name) : "";
       if (!nameStr) return null;
 
-      // Build a clean role string. If role already contains '@', don't append company.
       const rolePieces: string[] = [];
       if (roleRaw) rolePieces.push(String(roleRaw));
       const roleAlreadyHasAt = roleRaw ? String(roleRaw).includes("@") : false;
       if (companyRaw && !roleAlreadyHasAt) rolePieces.push(String(companyRaw));
       let role = rolePieces.join(roleAlreadyHasAt ? " " : ", ");
 
-      // De-duplicate comma-separated parts (e.g., "Data Engineer, Shiprocket, Shiprocket")
       if (role) {
         const parts = role.split(/,\s*/);
         const unique = Array.from(new Set(parts));
@@ -261,30 +250,30 @@ function sanitizeMentors(raw: unknown): Expert[] {
     .filter((x): x is Expert => Boolean(x));
 }
 
-function extractExperts(raw: ContentRoot): Expert[] {
-  // Preferred: top-level `experts` array
-  if (isWrapped(raw)) {
-    const fromTop = (raw as { experts?: unknown }).experts;
-    const expertsTop = sanitizeExperts(fromTop);
-    if (expertsTop.length > 0) return expertsTop;
+function extractExperts(root: ContentRoot): Expert[] {
+  // top-level experts array
+  if (isWrapped(root)) {
+    const fromTop = (root as { experts?: unknown }).experts;
+    const top = sanitizeExperts(fromTop);
+    if (top.length > 0) return top;
   }
 
-  // Fallback 1: top-level `mentors` array
-  if (isWrapped(raw)) {
-    const mentorsTop = (raw as { mentors?: unknown }).mentors;
-    const expertsFromMentorsTop = sanitizeMentors(mentorsTop);
-    if (expertsFromMentorsTop.length > 0) return expertsFromMentorsTop;
+  // top-level mentors array
+  if (isWrapped(root)) {
+    const mentorsTop = (root as { mentors?: unknown }).mentors;
+    const fromMentors = sanitizeMentors(mentorsTop);
+    if (fromMentors.length > 0) return fromMentors;
   }
 
-  // Fallback 2: nested `homepage.mentors.mentors` (as in provided content.json)
-  if (isWrapped(raw)) {
-    const homepage = (raw as { homepage?: unknown }).homepage;
+  // nested homepage.mentors.mentors
+  if (isWrapped(root)) {
+    const homepage = (root as { homepage?: unknown }).homepage;
     if (asRecord(homepage)) {
       const mentorsWrap = (homepage as { mentors?: unknown }).mentors;
       if (asRecord(mentorsWrap)) {
         const nested = (mentorsWrap as { mentors?: unknown }).mentors;
-        const expertsFromHomepage = sanitizeMentors(nested);
-        if (expertsFromHomepage.length > 0) return expertsFromHomepage;
+        const fromNested = sanitizeMentors(nested);
+        if (fromNested.length > 0) return fromNested;
       }
     }
   }
@@ -293,20 +282,44 @@ function extractExperts(raw: ContentRoot): Expert[] {
 }
 
 /* ===========================
-   Page (typed)
+   Enrolled students (provided data)
+   We'll show these on the map + list
+=========================== */
+type EnrolledStudent = { id: string; institute: string; program: string; city?: string };
+
+const ENROLLED: EnrolledStudent[] = [
+  { id: "341533", institute: "Jagannath University", program: "BTech", city: "Jaipur" },
+  { id: "322023", institute: "PG Programs in Data Science & Analytics", program: "BTech", city: "Jaipur" },
+  { id: "751030", institute: "NIT Rourkela", program: "MSc", city: "Rourkela" },
+  { id: "302031", institute: "Poornima College of Engineering", program: "BTech", city: "Jaipur" },
+  { id: "500035", institute: "Dr. BR Ambedkar Open University", program: "BA", city: "Hyderabad" },
+  { id: "311001", institute: "Electronics and Computer Engineering", program: "B.E", city: "Bhilwara" },
+  { id: "700118", institute: "IIIT Bangalore", program: "PG Diploma", city: "Bengaluru" },
+  { id: "302034", institute: "Rajasthan University, CS & IT Dept", program: "M.Sc IT", city: "Jaipur" },
+  { id: "302021", institute: "B.Tech (Electronics & Control)", program: "BTech", city: "Jaipur" },
+  { id: "302034-2", institute: "RCEW", program: "MTech", city: "Jaipur" },
+  { id: "302012-1", institute: "SBCET", program: "BTech", city: "Jaipur" },
+  { id: "302012-2", institute: "Sri Balaji College of Engineering and Technology", program: "BTech", city: "Jaipur" },
+  { id: "302012-3", institute: "Maharishi Arvind School of Management Studies", program: "BCA", city: "Jaipur" },
+];
+
+const COHORT_CAPACITY = 25;
+const enrolledCount = ENROLLED.length;
+const seatsLeft = Math.max(COHORT_CAPACITY - enrolledCount, 0);
+const fillPct = Math.min(Math.round((enrolledCount / COHORT_CAPACITY) * 100), 100);
+
+/* ===========================
+   Page component
 =========================== */
 export default function Page(): JSX.Element {
   const dataAnalyst = pickTrack(CONTENT, "analyst");
   const dataEngineering = pickTrack(CONTENT, "engineer");
-
-  const cohortDisplay = formatCohortDate(
-    dataAnalyst.next_cohort_date || dataEngineering.next_cohort_date || ""
-  );
+  const cohortDisplay = formatCohortDate(dataAnalyst.next_cohort_date || dataEngineering.next_cohort_date || "");
   const classTime = "6–8 pm IST";
-  const daWeeks = Number(dataAnalyst.duration_weeks || 12);
-  const deWeeks = Number(dataEngineering.duration_weeks || 20);
+  const daWeeks = Number(dataAnalyst.duration_weeks ?? 12);
+  const deWeeks = Number(dataEngineering.duration_weeks ?? 20);
 
-  // Replace logo paths with real files under /public/logos — slightly larger visuals
+  // partners (slightly larger visuals)
   const partners: Partner[] = [
     { name: "Celebal", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760617723/celebal_technologies_m7f4s7.jpg" },
     { name: "Polestar", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760618195/Polestar_Logo_dltnrw.jpg" },
@@ -316,12 +329,10 @@ export default function Page(): JSX.Element {
     { name: "Neos Alpha", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760618477/neos_alpha_ly4os5.jpg" },
   ];
 
-  // Dynamic experts from content.json (experts/mentors or homepage.mentors.mentors)
-  const experts: Expert[] = extractExperts(CONTENT);
+  const experts = extractExperts(CONTENT);
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
-      {/* Theme tokens — move into globals.css when ready */}
       <style>{`
         :root {
           --brand-50:#eef2ff; --brand-100:#e0e7ff; --brand-200:#c7d2fe; --brand-300:#a5b4fc;
@@ -332,7 +343,6 @@ export default function Page(): JSX.Element {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#050814]">
-        {/* dark art */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_50%_-10%,_rgba(79,70,229,0.5),_transparent_60%)]" />
           <div className="absolute inset-0 bg-[conic-gradient(from_140deg_at_50%_50%,_rgba(99,102,241,0.25),_transparent_60%)]" />
@@ -342,70 +352,64 @@ export default function Page(): JSX.Element {
 
         <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-            {/* LEFT: headline + chips + syllabus button */}
+            {/* LEFT */}
             <div className="lg:col-span-6 text-white">
-              
               <h1 className="mt-3 text-4xl font-extrabold leading-tight text-white drop-shadow-[0_8px_30px_rgba(99,102,241,0.45)] sm:text-5xl md:text-6xl">
-                Data Analyst & Data Engineering  Programs
+                Data Analyst & Data Engineering Programs
               </h1>
 
               <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--brand-400)]">
-                Hybrid Pay After Placement
+                Hybrid • Pay After Placement
               </h2>
 
               <p className="mt-3 max-w-xl text-base sm:text-lg text-white/85">
-                Industry-led. Project-first. Job-focused. Start with a small
-                enrollment, pay the balance after placement.
+                Industry-led. Project-first. Job-focused. Start with a small enrollment, pay the balance after placement.
               </p>
 
-              {/* View Syllabus — single button with dropdown */}
-              <div className="mt-6 flex">
+              <div className="mt-6 flex items-center gap-3">
                 <details className="group relative">
                   <summary className="list-none inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-2 text-white backdrop-blur hover:bg-white/15 [&::-webkit-details-marker]:hidden">
-                    {/* icon */}
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path
-                        d="M12 3v14m0 0l-4-4m4 4l4-4M6 21h12"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                      <path d="M12 3v14m0 0l-4-4m4 4l4-4M6 21h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     View Syllabus
-                    {/* chevron */}
                     <svg className="ml-1" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path
-                        d="M6 9l6 6 6-6"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </summary>
 
-                  {/* dropdown */}
                   <div className="absolute left-0 z-20 mt-2 w-64 overflow-hidden rounded-xl border border-white/15 bg-[#0b1220] p-1 text-sm text-white shadow-xl backdrop-blur">
-                    <a href="#analyst" className="block rounded-lg px-3 py-2 hover:bg-white/10">
-                      Data Analyst
-                    </a>
-                    <a href="#engineering" className="block rounded-lg px-3 py-2 hover:bg-white/10">
-                      Data Engineering
-                    </a>
+                    <a href="#analyst" className="block rounded-lg px-3 py-2 hover:bg-white/10">Data Analyst</a>
+                    <a href="#engineering" className="block rounded-lg px-3 py-2 hover:bg-white/10">Data Engineering</a>
                   </div>
                 </details>
+
+                {/* Primary CTA: Explore Full Syllabus */}
+                <a
+                  href="#analyst"
+                  className="ml-2 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-5 py-2.5 font-semibold text-white shadow hover:opacity-95"
+                >
+                  Explore Full Syllabus →
+                </a>
+
+                {/* Secondary CTA: Book Mentor Call */}
+                <a
+                  href="#apply"
+                  className="ml-2 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 hover:bg-white/7"
+                >
+                  Book a Free Mentor Call
+                </a>
               </div>
 
-              {/* Partners */}
-              <div className="mt-8">
+              {/* Enrolled proof (avatars + seats) */}
+              <div className="mt-6">
                 <p className="text-xs uppercase tracking-wide text-white/60">Select hiring partners</p>
                 <PartnersRow items={partners} />
                 <p className="mt-2 text-xs text-white/60">growing network</p>
               </div>
             </div>
 
-            {/* RIGHT: top form (client component) */}
+            {/* RIGHT: form */}
             <div className="lg:col-span-6">
               <EnrollForm />
             </div>
@@ -415,11 +419,8 @@ export default function Page(): JSX.Element {
         {/* sticky mobile CTA */}
         <div className="fixed inset-x-0 bottom-3 z-30 mx-auto w-[92%] sm:hidden">
           <div className="rounded-2xl border border-white/15 bg-white/10 p-2 backdrop-blur">
-            <a
-              href="#apply"
-              className="block w-full rounded-xl bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-5 py-3 text-center font-semibold text-white shadow"
-            >
-              Start Free Counselling
+            <a href="#analyst" className="block w-full rounded-xl bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-5 py-3 text-center font-semibold text-white shadow">
+              Explore Full Syllabus
             </a>
           </div>
         </div>
@@ -444,7 +445,7 @@ export default function Page(): JSX.Element {
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Why these programs</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <FeatureCard title="Lifetime Access" desc="Content updates, recordings, templates — forever." />
-            <FeatureCard title="By Industry, For Industry" desc="Built with hiring managers & working pros." />
+            <FeatureCard title="By The Industry, For The Industry" desc="Built with hiring managers & working pros." />
             <FeatureCard title="Resume Refactoring" desc="1:1 resume/LinkedIn overhaul tailored to role." />
             <FeatureCard title="Mock Interviews" desc="Regular analytics & system rounds with feedback." />
           </div>
@@ -463,11 +464,14 @@ export default function Page(): JSX.Element {
             </div>
           ) : (
             <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-600">
-              Mentor profiles coming soon. Add them under <code>homepage.mentors.mentors</code> in <code>app/assets/content.json</code> with fields: {`{ name, img?, description?, linkdin_profile? }`}.
+              Mentor profiles coming soon. Add them under <code>homepage.mentors.mentors</code> in <code>app/assets/content.json</code>.
             </div>
           )}
         </div>
       </section>
+
+      {/* INDIA MAP + ENROLLED STUDENTS */}
+      <IndiaLearnersMap students={ENROLLED} mapSrc="../../india-map.svg" />
 
       {/* DA ⊂ DE */}
       <section id="subset" className="bg-white">
@@ -487,6 +491,7 @@ export default function Page(): JSX.Element {
                 <div key={`de-${i}`} className="h-3 bg-[var(--brand-800)]" />
               ))}
             </div>
+
             <div className="mt-3 grid gap-3 sm:grid-cols-2 text-sm text-gray-700">
               <div className="flex items-start gap-2">
                 <span className="mt-1 inline-block h-2 w-2 rounded bg-[var(--brand-600)]" />
@@ -516,7 +521,7 @@ export default function Page(): JSX.Element {
         feeUpfrontLabel="Enroll with ₹7,500"
         feeAfterLabel="After placement: ₹30,000"
         totalLabel="Total: ₹37,500"
-        modules={dataAnalyst.courses_content}
+        modules={dataAnalyst.courses_content ?? []}
         duration={`${daWeeks} weeks`}
       />
 
@@ -529,11 +534,11 @@ export default function Page(): JSX.Element {
         feeUpfrontLabel="Enroll with ₹10,000"
         feeAfterLabel="After placement: ₹30,000"
         totalLabel="Total: ₹40,000"
-        modules={dataEngineering.courses_content}
+        modules={dataEngineering.courses_content ?? []}
         duration={`${deWeeks} weeks`}
       />
 
-      {/* TESTIMONIALS (as-is) */}
+      {/* TESTIMONIALS */}
       <section className="bg-white">
         <div className="container mx-auto max-w-7xl px-0 py-16">
           <Testimonials />
@@ -575,7 +580,7 @@ export default function Page(): JSX.Element {
 }
 
 /* ===========================
-   UI components (typed)
+   UI: small components
 =========================== */
 function Chip({ children }: { children: React.ReactNode }): JSX.Element {
   return (
@@ -633,18 +638,14 @@ function CourseSection(props: {
               <Badge>Recordings available</Badge>
             </div>
 
-            {/* MAIN TOPICS */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {outline.length > 0 ? (
                 outline.map((m) => <OutlineCard key={m.title} title={m.title} topics={m.topics} />)
               ) : (
-                <div className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 text-sm text-gray-600">
-                  Syllabus coming soon.
-                </div>
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 text-sm text-gray-600">Syllabus coming soon.</div>
               )}
             </div>
 
-            {/* CAPSTONE / PROJECTS */}
             {capstone.length > 0 && (
               <div className="mt-8">
                 <CapstoneCard bullets={capstone} />
@@ -661,21 +662,21 @@ function CourseSection(props: {
               <h3 className="text-lg font-bold">How payment works</h3>
               <ol className="mt-4 space-y-3 text-sm">
                 <li className="flex items-start gap-3">
-                  <StepDot />{" "}
+                  <StepDot />
                   <div>
                     <p className="font-semibold">{feeUpfrontLabel}</p>
                     <p>Secure your seat.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <StepDot />{" "}
+                  <StepDot />
                   <div>
                     <p className="font-semibold">Train & build</p>
                     <p>Live mentorship, projects, interview prep, and referrals.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <StepDot />{" "}
+                  <StepDot />
                   <div>
                     <p className="font-semibold">{feeAfterLabel}</p>
                     <p>Pay the remaining amount after you accept an eligible offer.</p>
@@ -686,11 +687,8 @@ function CourseSection(props: {
                 <p className="font-semibold">Fee summary</p>
                 <p className="text-sm">{totalLabel}</p>
               </div>
-              <a
-                href="#apply"
-                className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-5 py-3 font-semibold text-white shadow hover:opacity-95"
-              >
-                Start Free Counselling
+              <a href="#analyst" className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-5 py-3 font-semibold text-white shadow hover:opacity-95">
+                Explore Full Syllabus
               </a>
             </div>
           </div>
@@ -770,28 +768,20 @@ function ExpertCard({ name, role, img, linkedin, description }: Expert): JSX.Ele
           <img src={img} alt={name} className="h-14 w-14 flex-none rounded-full object-cover ring-2 ring-[var(--brand-200)]" />
         ) : (
           <div className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-[var(--brand-100)] text-[var(--brand-700)] font-semibold ring-2 ring-[var(--brand-200)]">
-            {name.split(" ").map((n) => n[0]).join("")}
+            {name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
           </div>
         )}
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <p className="truncate text-base font-semibold text-gray-900">{name}</p>
             {linkedin ? (
-              <a
-                href={linkedin}
-                className="inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-700)] ring-1 ring-inset ring-[var(--brand-300)] hover:bg-[var(--brand-50)]"
-                aria-label={`${name} on LinkedIn`}
-              >
+              <a href={linkedin} className="inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-700)] ring-1 ring-inset ring-[var(--brand-300)] hover:bg-[var(--brand-50)]" aria-label={`${name} on LinkedIn`}>
                 LinkedIn
               </a>
             ) : null}
           </div>
           {role ? <p className="truncate text-sm text-gray-600">{role}</p> : null}
-          {description ? (
-            <p className="mt-2 text-sm text-gray-700">{description}</p>
-          ) : (
-            <p className="mt-2 text-sm text-gray-600">Industry professional bringing hands-on experience to our learners.</p>
-          )}
+          {description ? <p className="mt-2 text-sm text-gray-700">{description}</p> : <p className="mt-2 text-sm text-gray-600">Industry professional bringing hands-on experience to our learners.</p>}
         </div>
       </div>
     </div>
@@ -810,14 +800,124 @@ function FeatureCard({ title, desc }: { title: string; desc: string }): JSX.Elem
 }
 
 function Faq({ q, a, dark }: { q: string; a: string; dark?: boolean }): JSX.Element {
-  const base = dark
-    ? "rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90"
-    : "rounded-2xl border border-gray-200 bg-white p-5";
+  const base = dark ? "rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90" : "rounded-2xl border border-gray-200 bg-white p-5";
   const ans = dark ? "mt-2 text-sm text-white/80" : "mt-2 text-sm text-gray-700";
   return (
     <div className={`${base} transition hover:bg-white/10`}>
       <p className="font-semibold">{q}</p>
       <p className={ans}>{a}</p>
+    </div>
+  );
+}
+
+/* ===========================
+   India map component (inline)
+   - expects /public/india-map.svg (simple silhouette)
+   - positions are approximate and can be nudged
+=========================== */
+export function IndiaLearnersMap({ students, mapSrc = "/india-map.svg" }: { students: EnrolledStudent[]; mapSrc?: string }): JSX.Element {
+  // Cluster by city (simple grouping)
+  const byCity: Record<string, EnrolledStudent[]> = {};
+  students.forEach((s) => {
+    const city = (s.city || "Unknown").trim();
+    if (!byCity[city]) byCity[city] = [];
+    byCity[city].push(s);
+  });
+
+  // Provide rough percent positions for key cities used in our data
+  const cityPositions: Record<string, { top: number; left: number; cityLabel?: string }> = {
+    Jaipur: { top: 38, left: 44 },
+    Rourkela: { top: 48, left: 66 },
+    Bengaluru: { top: 82, left: 55 },
+    Hyderabad: { top: 67, left: 53 },
+    Bhilwara: { top: 44, left: 43 },
+    Unknown: { top: 50, left: 50 },
+  };
+
+  const nodes = Object.keys(byCity).map((city) => {
+    const pos = cityPositions[city] ?? cityPositions["Unknown"];
+    return { city, items: byCity[city], top: pos.top, left: pos.left };
+  });
+
+  const enrolledTotal = students.length;
+
+  return (
+    <section className="bg-white">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-3xl font-extrabold sm:text-4xl">Learners Across India</h2>
+            <p className="mt-1 text-gray-700">From Jaipur to Bengaluru — a growing community from top institutes.</p>
+          </div>
+
+          <div className="mt-2 sm:mt-0 min-w-[220px]">
+            <div className="flex items-center justify-between text-xs text-gray-700">
+              <span className="uppercase tracking-wide">This cohort</span>
+              <span className="font-semibold">{seatsLeft} seats left</span>
+            </div>
+            <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-gray-200">
+              <div className="h-full bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)]" style={{ width: `${fillPct}%` }} />
+            </div>
+            <p className="mt-1 text-[11px] text-gray-500">{enrolledTotal} learners already enrolled</p>
+          </div>
+        </div>
+
+        <div className="relative mx-auto mt-8 w-full max-w-4xl rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+          {/* map image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <Image src={mapSrc} width="800" height={800} alt="India map" className="pointer-events-none mx-auto w-full max-w-[880px] opacity-95" />
+
+          {/* overlay pins — we use a positioned container that matches the image box via padding-bottom trick */}
+          <div className="pointer-events-none relative -mt-[calc(100%+16px)] h-0 w-full pb-[100%] sm:pb-[70%]">
+            {nodes.map((n) => (
+              <MapPin key={n.city} city={n.city} items={n.items} top={n.top} left={n.left} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {students.slice(0, 6).map((s) => (
+            <div key={s.id} className="flex items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-2">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium text-gray-900">{s.institute}</p>
+                <p className="truncate text-[11px] text-gray-600">ID: {s.id} • {s.city}</p>
+              </div>
+              <span className="ml-2 shrink-0 rounded-full bg-[var(--brand-50)] px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-700)] ring-1 ring-inset ring-[var(--brand-200)]">
+                {s.program}
+              </span>
+            </div>
+          ))}
+          {students.length > 6 && (
+            <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-600">+{students.length - 6} more enrolled…</div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MapPin({ city, items, top, left }: { city: string; items: EnrolledStudent[]; top: number; left: number }) {
+  return (
+    <div className="pointer-events-auto absolute" style={{ top: `${top}%`, left: `${left}%`, transform: "translate(-50%, -50%)" }}>
+      <div className="group relative">
+        <div className="h-3.5 w-3.5 rounded-full bg-[var(--brand-600)] ring-2 ring-white shadow-md" />
+        <div className="absolute inset-0 -z-10 animate-ping rounded-full bg-[var(--brand-400)] opacity-30" />
+
+        <div className="invisible absolute left-1/2 top-6 z-10 w-[260px] -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3 text-xs text-gray-800 shadow-xl group-hover:visible">
+          <div className="flex items-center justify-between">
+            <p className="font-semibold text-gray-900">{city}</p>
+            <span className="rounded-full bg-[var(--brand-50)] px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-700)] ring-1 ring-inset ring-[var(--brand-200)]">
+              {items.length} {items.length === 1 ? "learner" : "learners"}
+            </span>
+          </div>
+          <ul className="mt-2 space-y-1">
+            {items.slice(0, 4).map((i) => (
+              <li key={i.id} className="line-clamp-1">• {i.institute} — <span className="text-gray-600">{i.program}</span></li>
+            ))}
+            {items.length > 4 && <li className="text-[11px] text-gray-500">+{items.length - 4} more…</li>}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
