@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, memo, useMemo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -30,20 +30,20 @@ export type Testimonial = {
   };
 };
 
-const Testimonials = () => {
-  const testimonialData = data.homepage.testimonial;
+const Testimonials = memo(() => {
+  const testimonialData = useMemo(() => data.homepage.testimonial, []);
   const [modalContent, setModalContent] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (content: string) => {
+  const openModal = useCallback((content: string) => {
     setModalContent(content);
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setModalContent(null);
-  };
+  }, []);
 
   return (
     <section className="relative py-16 lg:py-20 bg-white">
@@ -140,6 +140,8 @@ const Testimonials = () => {
 
     </section >
   );
-};
+});
+
+Testimonials.displayName = 'Testimonials';
 
 export default Testimonials;

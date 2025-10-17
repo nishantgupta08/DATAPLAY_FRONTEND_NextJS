@@ -2,19 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 
-type PersonDetail = {
-    img: string;
-    name: string;
-    designation: string;
-    linkdin_profile?: string;
-};
-
-type Transformation = {
-    old_designation: string;
-    old_title: string;
-    new_designation: string;
-    new_title: string;
-};
+import { PersonDetail, Transformation } from "@/types";
 
 type Testimonial = {
     id: number;

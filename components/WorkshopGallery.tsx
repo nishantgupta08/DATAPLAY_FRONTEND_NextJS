@@ -10,18 +10,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-// --- Types and Utility Functions (Keep as is) ---
-type LinkedInMeta = { url?: string | null; urn?: string | null };
-type WorkshopItem = {
-  college: string;
-  city?: string | null;
-  date: string; // ISO date
-  cover: string; // /public path or remote
-  attendees?: number | null;
-  satisfaction?: number | null; // 0–100
-  speakers?: string[] | null;
-  linkedin?: LinkedInMeta | null;
-};
+import { LinkedInMeta, WorkshopItem } from "@/types";
 
 function formatDate(iso: string) {
   const d = new Date(iso);

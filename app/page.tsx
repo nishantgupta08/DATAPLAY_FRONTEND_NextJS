@@ -1,20 +1,20 @@
 // app/page.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo, Suspense, lazy } from "react";
 
-// Import your actual components
-import SocialBadge from "@/components/SocialBadge";
-import HeroSection from "@/components/HeroSection";
-import CounsellingForm from "@/components/CounsellingForm";
-import FellowshipPrograms from "@/components/FellowshipPrograms";
-import CourseSectionPro from "@/components/CourseSectionPro";
-import Mentors from "@/components/Mentors";
-import Testimonials from "@/components/Testimonials";
-import WhoCanApply from "@/components/WhoCanApply";
-import WorkshopGallery from "@/components/WorkshopGallery";
+// Lazy load components for better performance
+const SocialBadge = lazy(() => import("@/components/SocialBadge"));
+const HeroSection = lazy(() => import("@/components/HeroSection"));
+const CounsellingForm = lazy(() => import("@/components/CounsellingForm"));
+const FellowshipPrograms = lazy(() => import("@/components/FellowshipPrograms"));
+const CourseSectionPro = lazy(() => import("@/components/CourseSectionPro"));
+const Mentors = lazy(() => import("@/components/Mentors"));
+const Testimonials = lazy(() => import("@/components/Testimonials"));
+const WhoCanApply = lazy(() => import("@/components/WhoCanApply"));
+const WorkshopGallery = lazy(() => import("@/components/WorkshopGallery"));
 
-function Modal({
+const Modal = memo(function Modal({
   open,
   onClose,
   children,
@@ -54,9 +54,9 @@ function Modal({
       </div>
     </div>
   );
-}
+});
 
-export default function Home() {
+const Home = memo(function Home() {
   const [open, setOpen] = useState(false);
 
   // Listen for clicks on the "Book Counselling" button in HeroSection
@@ -85,20 +85,40 @@ export default function Home() {
 
   return (
     <>
-      {/* Landing sections */}
-      <SocialBadge />
-      <HeroSection /> {/* <-- ensure your Book Counselling button inside HeroSection has data-counselling-open */}
-      <FellowshipPrograms />
-      <CourseSectionPro />
-      <Mentors />
-      <Testimonials />
-      <WhoCanApply />
-      <WorkshopGallery />
+      {/* Landing sections with Suspense for lazy loading */}
+      <Suspense fallback={<div className="h-16 bg-gray-100 animate-pulse" />}>
+        <SocialBadge />
+      </Suspense>
+      <Suspense fallback={<div className="h-96 bg-gray-100 animate-pulse" />}>
+        <HeroSection />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+        <FellowshipPrograms />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+        <CourseSectionPro />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+        <Mentors />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+        <Testimonials />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+        <WhoCanApply />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+        <WorkshopGallery />
+      </Suspense>
 
       {/* Modal with blurred background */}
       <Modal open={open} onClose={() => setOpen(false)}>
-        <CounsellingForm onSuccess={() => setOpen(false)} />
+        <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
+          <CounsellingForm onSuccess={() => setOpen(false)} />
+        </Suspense>
       </Modal>
     </>
   );
-}
+});
+
+export default Home;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useCallback, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -16,7 +16,7 @@ const LINKS: NavLink[] = [
   { label: "FAQ", href: "/faq" },
 ];
 
-export default function Header() {
+const Header = memo(function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -33,6 +33,10 @@ export default function Header() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  const toggleMenu = useCallback(() => {
+    setOpen(prev => !prev);
+  }, []);
 
   return (
     <header
@@ -79,7 +83,7 @@ export default function Header() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
-            onClick={() => setOpen((v) => !v)}
+            onClick={toggleMenu}
             className="lg:hidden inline-flex items-center justify-center size-10 rounded-lg border border-white/20 text-white"
           >
             <Icon icon={open ? "mdi:close" : "mdi:menu"} className="text-2xl" />
@@ -122,4 +126,8 @@ export default function Header() {
       </div>
     </header>
   );
-}
+});
+
+Header.displayName = 'Header';
+
+export default Header;
