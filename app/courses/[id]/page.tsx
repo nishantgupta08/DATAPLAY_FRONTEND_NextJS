@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { Icon } from "@iconify/react";
 
-import data from "@/app/assets/content.json";
+import data from "@/data/content.json";
 import InnerBanner from "@/components/ui/InnerBanner";
 import SocialBadge from "@/components/ui/SocialBadge";
 

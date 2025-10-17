@@ -5,8 +5,8 @@
 import React, { memo, useMemo } from "react";
 import Testimonials from "@/components/sections/Testimonials";
 import EnrollForm from "@/components/forms/EnrollForm";
-import contentJson from "../assets/content.json";
-import learnersData from "../assets/learners.json";
+import contentJson from "../../data/content.json";
+import learnersData from "../../data/learners.json";
 import { JSX } from "react";
 import { Expert, Partner, EnrolledStudent, Module, Course, MentorRaw } from "@/types";
 

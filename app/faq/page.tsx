@@ -3,7 +3,7 @@
 
 import React, { useState, useId } from "react";
 import { Icon } from "@iconify/react";
-import data from "@/app/assets/content.json";
+import data from "@/data/content.json";
 
 // Inline type + data (pulled from content.json if present)
 type FAQItem = { q: string; a: string };

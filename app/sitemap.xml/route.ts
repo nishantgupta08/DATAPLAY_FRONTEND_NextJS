@@ -1,4 +1,4 @@
-import contentData from "@/app/assets/content.json"; // 1. Import your JSON data
+import contentData from "@/data/content.json"; // 1. Import your JSON data
 
 // Base URL for the domain
 const URL = "https://www.dataplay.co.in";

@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Button from "@/components/ui/Button";
 import { Icon } from "@iconify/react";
-import data from "@/app/assets/content.json";
+import data from "@/data/content.json";
 import TestimonialCard from "@/components/ui/TestimonialCard";
 
 export type Testimonial = {

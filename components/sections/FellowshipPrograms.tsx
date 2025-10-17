@@ -1,4 +1,4 @@
-import data from "@/app/assets/content.json"
+import data from "@/data/content.json"
 const FellowshipPrograms = () => {
   const aboutUsData = data.homepage.about_us
   return (

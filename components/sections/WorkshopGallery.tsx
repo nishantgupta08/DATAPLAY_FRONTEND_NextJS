@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo } from "react";
 import Image from "next/image";
-import data from "@/app/assets/content.json";
+import data from "@/data/content.json";
 
 // 1. Import Swiper components and modules
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import dynamic from 'next/dynamic';
-import learnersData from '../assets/learners.json';
+import learnersData from '../../data/learners.json';
 import { EnrolledStudent } from "@/types";
 
 // Dynamically import map components to prevent SSR issues

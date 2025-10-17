@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import contentData from "@/app/assets/content.json";
+import contentData from "@/data/content.json";
 // 1. Import the Script component from next/script
 import Script from 'next/script';
 

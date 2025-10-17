@@ -3,7 +3,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { EnrolledStudent } from "@/types";
 import CacheManager from '@/components/maps/CacheManager';
-import learnersData from '../assets/learners.json';
+import learnersData from '../../data/learners.json';
 
 // Dynamically import the map component to prevent SSR issues
 const AutoGeocodeMap = dynamic(() => import('@/components/maps/AutoGeocodeMap'), {

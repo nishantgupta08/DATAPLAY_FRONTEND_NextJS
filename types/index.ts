@@ -1,5 +1,9 @@
-// Centralized type definitions to eliminate duplication
+// Main types barrel export
+export * from './api';
+export * from './forms';
+export * from './maps';
 
+// Re-export all types from the original index for backward compatibility
 export type EnrolledStudent = { 
   id: string; 
   institute: string; 

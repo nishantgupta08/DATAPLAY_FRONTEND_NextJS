@@ -2,7 +2,7 @@
 "use client";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
-import data from "@/app/assets/content.json";
+import data from "@/data/content.json";
 import Link from "next/link";
 
 type Course = {

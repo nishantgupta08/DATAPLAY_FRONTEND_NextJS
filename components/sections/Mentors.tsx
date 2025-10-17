@@ -7,7 +7,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import data from "@/app/assets/content.json"
+import data from "@/data/content.json"
 const Mentors = () => {
   const mentorsData = data.homepage.mentors
 
