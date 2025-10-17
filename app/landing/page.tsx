@@ -7,7 +7,6 @@ import Testimonials from "@/components/Testimonials";
 import EnrollForm from "@/components/EnrollForm";
 import contentJson from "../assets/content.json";
 import { JSX } from "react";
-import image from '../assets/hero-img3.png'
 import Image from "next/image";
 
 /* ===========================
@@ -471,7 +470,7 @@ export default function Page(): JSX.Element {
       </section>
 
       {/* INDIA MAP + ENROLLED STUDENTS */}
-      <IndiaLearnersMap students={ENROLLED} mapSrc="../../india-map.svg" />
+      <IndiaLearnersMap students={ENROLLED} mapSrc="/india-map.svg" />
 
       {/* DA ⊂ DE */}
       <section id="subset" className="bg-white">
@@ -824,13 +823,19 @@ export function IndiaLearnersMap({ students, mapSrc = "/india-map.svg" }: { stud
     byCity[city].push(s);
   });
 
-  // Provide rough percent positions for key cities used in our data
+  // Accurate percent positions for key cities based on India's geographical coordinates
   const cityPositions: Record<string, { top: number; left: number; cityLabel?: string }> = {
-    Jaipur: { top: 38, left: 44 },
-    Rourkela: { top: 48, left: 66 },
-    Bengaluru: { top: 82, left: 55 },
-    Hyderabad: { top: 67, left: 53 },
-    Bhilwara: { top: 44, left: 43 },
+    Jaipur: { top: 35, left: 42 }, // Rajasthan, North India
+    Rourkela: { top: 45, left: 68 }, // Odisha, East India  
+    Bengaluru: { top: 78, left: 52 }, // Karnataka, South India
+    Hyderabad: { top: 65, left: 50 }, // Telangana, South-Central India
+    Bhilwara: { top: 38, left: 41 }, // Rajasthan, near Jaipur
+    // Additional major cities for future use
+    Delhi: { top: 25, left: 45 }, // National Capital
+    Mumbai: { top: 55, left: 35 }, // Maharashtra, West India
+    Chennai: { top: 80, left: 65 }, // Tamil Nadu, South India
+    Kolkata: { top: 40, left: 70 }, // West Bengal, East India
+    Pune: { top: 50, left: 38 }, // Maharashtra, West India
     Unknown: { top: 50, left: 50 },
   };
 
