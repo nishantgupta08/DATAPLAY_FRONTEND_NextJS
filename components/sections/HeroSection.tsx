@@ -11,12 +11,6 @@ type Feature = {
   href?: string;
 };
 
-const tonesArr = [
-  { grad: "from-blue-500 to-blue-600", ring: "ring-blue-100" },
-  { grad: "from-lime-500 to-lime-600", ring: "ring-lime-100" },
-  { grad: "from-pink-500 to-fuchsia-500", ring: "ring-pink-100" },
-  { grad: "from-orange-500 to-orange-600", ring: "ring-orange-100" },
-] as const;
 
 const HeroSection: React.FC = () => {
   const hero = data?.homepage?.hero ?? {};

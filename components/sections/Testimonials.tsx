@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState, useRef, useEffect, memo, useMemo, useCallback } from "react";
+import React, { useState, memo, useMemo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Button from "@/components/ui/Button";
-import { Icon } from "@iconify/react";
 import data from "@/data/content.json";
 import TestimonialCard from "@/components/ui/TestimonialCard";
 

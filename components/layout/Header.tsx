@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, memo, useCallback, useMemo } from "react";
+import React, { useEffect, useState, memo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -54,7 +54,7 @@ const Header = memo(function Header() {
           {/* Logo */}
           <Link href="/" aria-label="Go to homepage" className="flex items-center gap-2">
             <Image
-              src="/logos/Brand-Logo.svg"
+              src="/Brand-Logo.svg"
               alt="DATAPLAY"
               width={150}
               height={32}

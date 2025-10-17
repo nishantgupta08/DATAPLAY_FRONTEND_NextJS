@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // Security headers middleware
-export function securityHeaders(request: NextRequest) {
+export function securityHeaders() {
   const response = NextResponse.next();
   
   // Security headers
@@ -44,7 +44,7 @@ export function rateLimit(request: NextRequest, limit: number = 100, windowMs: n
 }
 
 // CORS middleware
-export function corsHeaders(request: NextRequest) {
+export function corsHeaders() {
   const response = NextResponse.next();
   
   response.headers.set('Access-Control-Allow-Origin', '*');
@@ -57,7 +57,7 @@ export function corsHeaders(request: NextRequest) {
 // Main middleware function
 export function middleware(request: NextRequest) {
   // Apply security headers
-  let response = securityHeaders(request);
+  let response = securityHeaders();
   
   // Apply rate limiting for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
@@ -66,7 +66,7 @@ export function middleware(request: NextRequest) {
   
   // Apply CORS for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
-    response = corsHeaders(request);
+    response = corsHeaders();
   }
   
   return response;

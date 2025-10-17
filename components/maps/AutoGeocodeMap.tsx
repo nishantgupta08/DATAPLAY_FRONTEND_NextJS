@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, memo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, GeoJSON } from 'react-leaflet';
+import { MapContainer, Marker, Popup, Tooltip, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { EnrolledStudent } from "@/types";

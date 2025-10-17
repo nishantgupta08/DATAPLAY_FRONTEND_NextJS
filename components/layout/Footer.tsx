@@ -18,24 +18,6 @@ const Footer = () => {
 
   ];
 
-  const socialMediaLinks = [
-    {
-      icon: "uil:linkedin",
-      href: "https://www.linkedin.com/company/data-play/",
-    },
-    {
-      icon: "fa7-brands:square-twitter",
-      href: "https://www.instagram.com/dataplay_dataplay/",
-    },
-    {
-      icon: "ant-design:facebook-filled",
-      href: "#",
-    },
-    {
-      icon: "ant-design:instagram-filled",
-      href: "#",
-    },
-  ];
 
   const bottomFooterLinks = [
     { label: "Term of Use", href: "#" },
@@ -51,7 +33,7 @@ const Footer = () => {
           <div className="lg:col-span-4 space-y-4 text-center lg:text-left">
             <div className="flex justify-center lg:justify-start">
               <Image
-                src="/logos/Brand-Logo.svg"
+                src="/Brand-Logo.svg"
                 alt="footer-logo"
                 width={230}
                 height={50}

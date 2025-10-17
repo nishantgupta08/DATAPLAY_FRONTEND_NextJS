@@ -20,7 +20,7 @@ export function generateMetadata(config: SEOConfig): Metadata {
     title,
     description,
     keywords = [],
-    image = '/logos/Brand-Logo.svg',
+    image = '/Brand-Logo.svg',
     url = 'https://dataplay.co.in',
     type = 'website' as const,
     publishedTime,
@@ -125,7 +125,7 @@ export function generateOrganizationStructuredData() {
     '@type': 'EducationalOrganization',
     name: 'Dataplay',
     url: 'https://dataplay.co.in',
-    logo: 'https://dataplay.co.in/logos/Brand-Logo.svg',
+    logo: 'https://dataplay.co.in/Brand-Logo.svg',
     description: 'Data Science Learning Platform',
     address: {
       '@type': 'PostalAddress',

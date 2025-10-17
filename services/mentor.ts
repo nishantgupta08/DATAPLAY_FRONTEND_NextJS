@@ -5,8 +5,8 @@ import { ApiResponse } from '@/types/api';
 export interface MentorService {
   getAllMentors(): Promise<ApiResponse>;
   getMentorById(id: string): Promise<ApiResponse>;
-  createMentor(data: any): Promise<ApiResponse>;
-  updateMentor(id: string, data: any): Promise<ApiResponse>;
+  createMentor(data: unknown): Promise<ApiResponse>;
+  updateMentor(id: string, data: unknown): Promise<ApiResponse>;
   deleteMentor(id: string): Promise<ApiResponse>;
 }
 
@@ -21,12 +21,12 @@ export const mentorService: MentorService = {
     return response.data;
   },
 
-  async createMentor(data: any) {
+  async createMentor(data: unknown) {
     const response = await apiClient.post('/mentors', data);
     return response.data;
   },
 
-  async updateMentor(id: string, data: any) {
+  async updateMentor(id: string, data: unknown) {
     const response = await apiClient.put(`/mentors/${id}`, data);
     return response.data;
   },

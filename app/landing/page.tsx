@@ -8,7 +8,7 @@ import EnrollForm from "@/components/forms/EnrollForm";
 import contentJson from "../../data/content.json";
 import learnersData from "../../data/learners.json";
 import { JSX } from "react";
-import { Expert, Partner, EnrolledStudent, Module, Course, MentorRaw } from "@/types";
+import { Expert, Partner, EnrolledStudent, Course, MentorRaw } from "@/types";
 
 // Import extracted components
 import StatCard from "@/components/maps/StatCard";
@@ -108,30 +108,6 @@ function formatCohortDate(raw?: string): string {
 export interface OutlineItem {
   title: string;
   topics: string[];
-}
-function condenseModules(modules: Module[] = []): { outline: OutlineItem[]; capstone: string[] } {
-  const outline: OutlineItem[] = [];
-  const capstone: string[] = [];
-
-  modules.forEach((m) => {
-    const subs = Array.isArray(m?.submodules) ? m.submodules : [];
-
-    const cap = subs.find((s) => /capstone/i.test(s.title)) || subs.find((s) => /project/i.test(s.title));
-    if (cap && Array.isArray(cap.content)) {
-      cap.content.forEach((line) => {
-        if (capstone.length < 12) capstone.push(String(line));
-      });
-    }
-
-    const mains = subs
-      .filter((s) => !/prereq|project|capstone/i.test(s.title))
-      .map((s) => s.title)
-      .slice(0, 6);
-
-    outline.push({ title: m.title, topics: mains });
-  });
-
-  return { outline, capstone };
 }
 
 /* ===========================
@@ -237,10 +213,6 @@ function extractExperts(root: ContentRoot): Expert[] {
 // Use data from JSON file
 const ENROLLED: EnrolledStudent[] = learnersData as EnrolledStudent[];
 
-const COHORT_CAPACITY = 25;
-const enrolledCount = ENROLLED.length;
-const seatsLeft = Math.max(COHORT_CAPACITY - enrolledCount, 0);
-const fillPct = Math.min(Math.round((enrolledCount / COHORT_CAPACITY) * 100), 100);
 
 /* ===========================
    Page component

@@ -1,52 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
-import Button from "@/components/ui/Button";
 import data from "@/data/content.json"
 
-const galleryData = [
-  {
-    id: 1,
-    title: "Excel Workshop",
-    image: "/images/gallery/1.png",
-    width: 800,
-    height: 600,
-  },
-  {
-    id: 2,
-    title: "Art Workshop",
-    image: "/images/gallery/2.png",
-    width: 800,
-    height: 600,
-  },
-  {
-    id: 3,
-    title: "Design Workshop",
-    image: "/images/gallery/3.png",
-    width: 800,
-    height: 600,
-  },
-  {
-    id: 4,
-    title: "Excel Workshop",
-    image: "/images/gallery/4.png",
-    width: 1200,
-    height: 900,
-  },
-  {
-    id: 5,
-    title: "Art Workshop",
-    image: "/images/gallery/5.png",
-    width: 600,
-    height: 450,
-  },
-  {
-    id: 6,
-    title: "Design Workshop",
-    image: "/images/gallery/6.png",
-    width: 600,
-    height: 450,
-  },
-];
 
 const Gallery = () => {
   const galleryData = data.homepage.gallery
