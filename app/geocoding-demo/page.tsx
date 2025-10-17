@@ -2,11 +2,11 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { EnrolledStudent } from "@/types";
-import CacheManager from '@/components/landing/CacheManager';
+import CacheManager from '@/components/maps/CacheManager';
 import learnersData from '../assets/learners.json';
 
 // Dynamically import the map component to prevent SSR issues
-const AutoGeocodeMap = dynamic(() => import('@/components/landing/AutoGeocodeMap'), {
+const AutoGeocodeMap = dynamic(() => import('@/components/maps/AutoGeocodeMap'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
 });

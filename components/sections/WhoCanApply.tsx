@@ -1,4 +1,4 @@
-import Button from "./widgets/Button";
+import Button from "@/components/ui/Button";
 import data from "@/app/assets/content.json"
 
 /* eslint-disable @next/next/no-img-element */

@@ -6,8 +6,8 @@ import { useParams } from "next/navigation";
 import { Icon } from "@iconify/react";
 
 import data from "@/app/assets/content.json";
-import InnerBanner from "@/components/InnerBanner";
-import SocialBadge from "@/components/SocialBadge";
+import InnerBanner from "@/components/ui/InnerBanner";
+import SocialBadge from "@/components/ui/SocialBadge";
 
 /* ---------- Types ---------- */
 type Submodule = { title: string; content: string[] };

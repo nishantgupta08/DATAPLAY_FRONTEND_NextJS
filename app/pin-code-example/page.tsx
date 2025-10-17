@@ -5,12 +5,12 @@ import learnersData from '../assets/learners.json';
 import { EnrolledStudent } from "@/types";
 
 // Dynamically import map components to prevent SSR issues
-const LeafletPinCodeMap = dynamic(() => import('@/components/landing/LeafletPinCodeMap'), {
+const LeafletPinCodeMap = dynamic(() => import('@/components/maps/LeafletPinCodeMap'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
 });
 
-const PinCodeMap = dynamic(() => import('@/components/landing/PinCodeMap'), {
+const PinCodeMap = dynamic(() => import('@/components/maps/PinCodeMap'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
 });
@@ -74,7 +74,7 @@ export default function PinCodeExamplePage() {
             <div>
               <h4 className="font-medium text-blue-800 mb-2">2. Use the Component:</h4>
               <pre className="text-xs bg-white p-3 rounded border overflow-x-auto">
-{`import LeafletPinCodeMap from '@/components/landing/LeafletPinCodeMap';
+{`import LeafletPinCodeMap from '@/components/maps/LeafletPinCodeMap';
 
 <LeafletPinCodeMap 
   students={students} 

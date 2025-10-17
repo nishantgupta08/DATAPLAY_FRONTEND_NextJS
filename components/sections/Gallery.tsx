@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
-import Button from "@/components/widgets/Button";
+import Button from "@/components/ui/Button";
 import data from "@/app/assets/content.json"
 
 const galleryData = [

@@ -3,22 +3,22 @@
 // Optimized landing page with extracted components and performance improvements
 
 import React, { memo, useMemo } from "react";
-import Testimonials from "@/components/Testimonials";
-import EnrollForm from "@/components/EnrollForm";
+import Testimonials from "@/components/sections/Testimonials";
+import EnrollForm from "@/components/forms/EnrollForm";
 import contentJson from "../assets/content.json";
 import learnersData from "../assets/learners.json";
 import { JSX } from "react";
 import { Expert, Partner, EnrolledStudent, Module, Course, MentorRaw } from "@/types";
 
 // Import extracted components
-import StatCard from "@/components/landing/StatCard";
-import FeatureCard from "@/components/landing/FeatureCard";
-import ExpertCard from "@/components/landing/ExpertCard";
-import PartnersRow from "@/components/landing/PartnersRow";
-import CourseSection from "@/components/landing/CourseSection";
+import StatCard from "@/components/maps/StatCard";
+import FeatureCard from "@/components/maps/FeatureCard";
+import ExpertCard from "@/components/maps/ExpertCard";
+import PartnersRow from "@/components/maps/PartnersRow";
+import CourseSection from "@/components/maps/CourseSection";
 import dynamic from 'next/dynamic';
 
-const AutoGeocodeMap = dynamic(() => import('@/components/landing/AutoGeocodeMap'), {
+const AutoGeocodeMap = dynamic(() => import('@/components/maps/AutoGeocodeMap'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
 });

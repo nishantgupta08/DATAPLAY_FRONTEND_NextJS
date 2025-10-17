@@ -4,16 +4,16 @@
 import { useEffect, useState, memo, Suspense, lazy } from "react";
 
 // Lazy load components for better performance
-const SocialBadge = lazy(() => import("@/components/SocialBadge"));
-const HeroSection = lazy(() => import("@/components/HeroSection"));
-const CounsellingForm = lazy(() => import("@/components/CounsellingForm"));
-const FellowshipPrograms = lazy(() => import("@/components/FellowshipPrograms"));
-const CourseSectionPro = lazy(() => import("@/components/CourseSectionPro"));
-const Mentors = lazy(() => import("@/components/Mentors"));
-const Testimonials = lazy(() => import("@/components/Testimonials"));
-const WhoCanApply = lazy(() => import("@/components/WhoCanApply"));
-const WorkshopGallery = lazy(() => import("@/components/WorkshopGallery"));
-const Modal = lazy(() => import("@/components/Modal"));
+const SocialBadge = lazy(() => import("@/components/ui/SocialBadge"));
+const HeroSection = lazy(() => import("@/components/sections/HeroSection"));
+const CounsellingForm = lazy(() => import("@/components/forms/CounsellingForm"));
+const FellowshipPrograms = lazy(() => import("@/components/sections/FellowshipPrograms"));
+const CourseSectionPro = lazy(() => import("@/components/sections/CourseSectionPro"));
+const Mentors = lazy(() => import("@/components/sections/Mentors"));
+const Testimonials = lazy(() => import("@/components/sections/Testimonials"));
+const WhoCanApply = lazy(() => import("@/components/sections/WhoCanApply"));
+const WorkshopGallery = lazy(() => import("@/components/sections/WorkshopGallery"));
+const Modal = lazy(() => import("@/components/ui/Modal"));
 
 const Home = memo(function Home() {
   const [open, setOpen] = useState(false);

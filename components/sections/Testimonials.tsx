@@ -6,10 +6,10 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Button from "./widgets/Button";
+import Button from "@/components/ui/Button";
 import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
-import TestimonialCard from "./TestimonialCard";
+import TestimonialCard from "@/components/ui/TestimonialCard";
 
 export type Testimonial = {
   id: number;

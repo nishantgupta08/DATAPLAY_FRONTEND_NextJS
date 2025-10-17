@@ -3,12 +3,12 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 // Dynamically import map components to prevent SSR issues
-const MapDebugger = dynamic(() => import('@/components/landing/MapDebugger'), {
+const MapDebugger = dynamic(() => import('@/components/maps/MapDebugger'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
 });
 
-const IndiaLearnersMap = dynamic(() => import('@/components/landing/IndiaLearnersMap'), {
+const IndiaLearnersMap = dynamic(() => import('@/components/maps/IndiaLearnersMap'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
 });

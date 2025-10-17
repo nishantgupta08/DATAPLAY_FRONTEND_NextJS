@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import data from "@/app/assets/content.json";
-import BookCounsellingButton from "./BookCounsellingButton";
+import BookCounsellingButton from "@/components/ui/BookCounsellingButton";
 
 type Feature = {
   icon: string;
