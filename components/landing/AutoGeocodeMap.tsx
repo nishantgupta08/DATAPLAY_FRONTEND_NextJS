@@ -268,7 +268,7 @@ const AutoGeocodeMap = memo(function AutoGeocodeMap({
                     ]]
                   }
                 }]
-              }}
+              } as GeoJSON.FeatureCollection}
               style={{
                 fillColor: 'transparent',
                 fillOpacity: 0,

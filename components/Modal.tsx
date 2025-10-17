@@ -1,43 +1,44 @@
 "use client";
+import React, { memo } from "react";
 
-type ModalProps = {
-  id?: string;
-  title?: string;
+interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
-};
+}
 
-export default function Modal({ id, title, open, onClose, children }: ModalProps) {
+const Modal = memo(function Modal({ open, onClose, children }: ModalProps) {
   if (!open) return null;
 
   return (
     <div
-      id={id}
-      role="dialog"
       aria-modal="true"
-      aria-labelledby={title ? `${id}-title` : undefined}
-      className="fixed inset-0 z-50 bg-black/35 backdrop-blur-sm flex items-center justify-center p-4"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      role="dialog"
+      aria-labelledby="counselling-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
-      <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl outline-none border border-gray-200">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <h2 id={`${id}-title`} className="text-lg font-semibold">
-            {title ?? "Modal"}
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg px-2 py-1 text-gray-600 hover:bg-gray-100"
-            aria-label="Close"
-          >
-            ✕
-          </button>
-        </div>
-        <div className="p-5">{children}</div>
+      {/* Backdrop with blur */}
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal content */}
+      <div className="relative z-10 w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl outline-none">
+        <button
+          onClick={onClose}
+          className="absolute right-3 top-3 rounded-full px-3 py-1 text-sm font-medium text-gray-600 hover:bg-gray-100"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+        <h2 id="counselling-title" className="sr-only">
+          Book a Counselling Session
+        </h2>
+        {children}
       </div>
     </div>
   );
-}
+});
+
+export default Modal;
