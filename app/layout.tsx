@@ -302,6 +302,54 @@ export default function RootLayout({
       gtag('config', 'AW-17139511988');
     `}
         </Script>
+
+        {/* Iconify Icon Preloader */}
+        <Script id="iconify-preloader" strategy="afterInteractive">
+          {`
+      // Preload commonly used icon sets
+      const iconSets = [
+        'fa6-brands:linkedin',
+        'mdi:instagram', 
+        'mdi:youtube',
+        'mdi:google',
+        'skill-icons:linkedin',
+        'ic:baseline-email',
+        'carbon:phone-filled',
+        'typcn:location',
+        'mdi:arrow-right',
+        'mdi:lightbulb-on-outline',
+        'mdi:account-tie-outline',
+        'mdi:calendar-outline',
+        'mdi:signal-cellular-2',
+        'mdi:clock-outline',
+        'mdi:plus',
+        'mdi:star',
+        'ic:baseline-whatsapp',
+        'mdi:rocket-launch-outline'
+      ];
+      
+      // Create a hidden div with all icons to preload them
+      const preloadDiv = document.createElement('div');
+      preloadDiv.style.display = 'none';
+      preloadDiv.style.position = 'absolute';
+      preloadDiv.style.left = '-9999px';
+      
+      iconSets.forEach(icon => {
+        const iconElement = document.createElement('span');
+        iconElement.setAttribute('data-icon', icon);
+        preloadDiv.appendChild(iconElement);
+      });
+      
+      document.body.appendChild(preloadDiv);
+      
+      // Clean up after a short delay
+      setTimeout(() => {
+        if (preloadDiv.parentNode) {
+          preloadDiv.parentNode.removeChild(preloadDiv);
+        }
+      }, 2000);
+    `}
+        </Script>
       </head>
 
       <body className={`${inter.className} antialiased`}>
