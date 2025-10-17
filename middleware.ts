@@ -5,16 +5,15 @@ import type { NextRequest } from 'next/server';
 export function securityHeaders() {
   const response = NextResponse.next();
   
-  // Security headers
-  response.headers.set('X-Frame-Options', 'DENY');
+  // Security headers - Allow YouTube embeds
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'origin-when-cross-origin');
   response.headers.set('X-XSS-Protection', '1; mode=block');
   
-  // Content Security Policy
+  // Content Security Policy - Allow YouTube embeds
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;"
+    "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://www.youtube.com; img-src 'self' data: https:; font-src 'self' data:; frame-src 'self' https://www.youtube.com https://youtube.com; connect-src 'self' https://www.youtube.com;"
   );
   
   return response;

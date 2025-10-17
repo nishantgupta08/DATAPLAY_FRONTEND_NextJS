@@ -68,7 +68,7 @@ const HeroSection: React.FC = () => {
                 </svg>
 
                 <Image
-                  src="/learning-vector2.svg"
+                  src="/images/learning-vector2.svg"
                   width={53}
                   height={53}
                   alt="Learning Vector 2"

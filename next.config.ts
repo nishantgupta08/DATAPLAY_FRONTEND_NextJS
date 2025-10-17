@@ -62,28 +62,24 @@ const nextConfig = {
   //   return config;
   // },
   
-  // Headers for security and performance
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
-          },
-          {
-            key: 'Content-Security-Policy',
-            value: "frame-src 'self' https://www.youtube.com https://youtube.com https://*.youtube.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://www.youtube.com; connect-src 'self' https://www.youtube.com;",
-          },
-        ],
-      },
-    ];
-  },
+  // Headers for security and performance (handled by middleware)
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/(.*)',
+  //       headers: [
+  //         {
+  //           key: 'X-Content-Type-Options',
+  //           value: 'nosniff',
+  //         },
+  //         {
+  //           key: 'Referrer-Policy',
+  //           value: 'origin-when-cross-origin',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;
