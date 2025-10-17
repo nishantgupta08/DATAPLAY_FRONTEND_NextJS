@@ -1,4 +1,5 @@
 import data from "@/data/content.json"
+import YouTubeVideo from "../ui/YouTubeVideo"
 const FellowshipPrograms = () => {
   const aboutUsData = data.homepage.about_us
   return (
@@ -8,13 +9,15 @@ const FellowshipPrograms = () => {
           {/* Video Section */}
           <div className="relative order-2 lg:order-1">
             <div className="relative max-lg:aspect-video lg:h-[500px] w-full">
-              <iframe
-                className="w-full h-full rounded-2xl sm:rounded-3xl border border-black drop-shadow-[4px_4px_0_#1C1A4A] sm:drop-shadow-[6px_6px_0_#1C1A4A] lg:drop-shadow-[8px_8px_0_#1C1A4A]"
+              <YouTubeVideo
                 src={aboutUsData.video_url}
                 title="WELCOME TO DATAPLAY"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+                className="w-full h-full rounded-2xl sm:rounded-3xl border border-black drop-shadow-[4px_4px_0_#1C1A4A] sm:drop-shadow-[6px_6px_0_#1C1A4A] lg:drop-shadow-[8px_8px_0_#1C1A4A]"
+                width={560}
+                height={315}
+                controls={true}
+                autoplay={false}
+                muted={false}
               />
             </div>
           </div>

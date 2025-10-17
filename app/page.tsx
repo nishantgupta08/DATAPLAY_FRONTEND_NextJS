@@ -1,26 +1,59 @@
 // app/page.tsx
 "use client";
 
-import { useEffect, useState, memo, Suspense, lazy } from "react";
+import { useEffect, useState, memo, Suspense, useMemo } from "react";
+import dynamic from "next/dynamic";
 
-// Lazy load components for better performance
-const SocialBadge = lazy(() => import("@/components/ui/SocialBadge"));
-const HeroSection = lazy(() => import("@/components/sections/HeroSection"));
-const CounsellingForm = lazy(() => import("@/components/forms/CounsellingForm"));
-const FellowshipPrograms = lazy(() => import("@/components/sections/FellowshipPrograms"));
-const CourseSectionPro = lazy(() => import("@/components/sections/CourseSectionPro"));
-const Mentors = lazy(() => import("@/components/sections/Mentors"));
-const Testimonials = lazy(() => import("@/components/sections/Testimonials"));
-const WhoCanApply = lazy(() => import("@/components/sections/WhoCanApply"));
-const WorkshopGallery = lazy(() => import("@/components/sections/WorkshopGallery"));
-const Modal = lazy(() => import("@/components/ui/Modal"));
+// Lazy load components for better performance with loading states
+const SocialBadge = dynamic(() => import("@/components/ui/SocialBadge"), {
+  loading: () => <div className="h-8 w-8 animate-pulse bg-gray-200 rounded" />,
+  ssr: false,
+});
+
+const HeroSection = dynamic(() => import("@/components/sections/HeroSection"), {
+  loading: () => <div className="h-96 bg-gradient-to-r from-blue-50 to-indigo-50 animate-pulse" />,
+});
+
+const CounsellingForm = dynamic(() => import("@/components/forms/CounsellingForm"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+  ssr: false,
+});
+
+const FellowshipPrograms = dynamic(() => import("@/components/sections/FellowshipPrograms"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+});
+
+const CourseSectionPro = dynamic(() => import("@/components/sections/CourseSectionPro"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+});
+
+const Mentors = dynamic(() => import("@/components/sections/Mentors"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+});
+
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+});
+
+const WhoCanApply = dynamic(() => import("@/components/sections/WhoCanApply"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+});
+
+const WorkshopGallery = dynamic(() => import("@/components/sections/WorkshopGallery"), {
+  loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
+});
+
+const Modal = dynamic(() => import("@/components/ui/Modal"), {
+  loading: () => null,
+  ssr: false,
+});
 
 const Home = memo(function Home() {
   const [open, setOpen] = useState(false);
 
-  // Listen for clicks on the "Book Counselling" button in HeroSection
-  useEffect(() => {
-    const handleClick = (e: Event) => {
+  // Memoize event handlers to prevent unnecessary re-renders
+  const handleModalOpen = useMemo(() => {
+    return (e: Event) => {
       let el = e.target as HTMLElement | null;
       while (el && el !== document.body) {
         if (el.hasAttribute("data-counselling-open")) {
@@ -31,9 +64,13 @@ const Home = memo(function Home() {
         el = el.parentElement;
       }
     };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
   }, []);
+
+  // Listen for clicks on the "Book Counselling" button in HeroSection
+  useEffect(() => {
+    document.addEventListener("click", handleModalOpen);
+    return () => document.removeEventListener("click", handleModalOpen);
+  }, [handleModalOpen]);
 
   // Lock body scroll while modal is open
   useEffect(() => {
@@ -41,6 +78,12 @@ const Home = memo(function Home() {
     else document.body.classList.remove("overflow-hidden");
     return () => document.body.classList.remove("overflow-hidden");
   }, [open]);
+
+  // Memoize modal props to prevent unnecessary re-renders
+  const modalProps = useMemo(() => ({
+    open,
+    onClose: () => setOpen(false),
+  }), [open]);
 
   return (
     <>
@@ -71,7 +114,7 @@ const Home = memo(function Home() {
       </Suspense>
 
       {/* Modal with blurred background */}
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal {...modalProps}>
         <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
           <CounsellingForm onSuccess={() => setOpen(false)} />
         </Suspense>

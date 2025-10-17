@@ -144,7 +144,11 @@ function WorkshopCard({ w, i }: { w: WorkshopItem; i: number }) {
 
 export default function WorkshopsGallery() {
   const block = data.workshops ?? {};
-  const items: WorkshopItem[] = (block.items ?? []) as WorkshopItem[];
+  
+  // Memoize items to prevent unnecessary re-renders
+  const items: WorkshopItem[] = useMemo(() => {
+    return (block.items ?? []) as WorkshopItem[];
+  }, [block.items]);
 
   // Aggregate stats; hide when they would be 1/0/0%
   const stats = useMemo(() => {

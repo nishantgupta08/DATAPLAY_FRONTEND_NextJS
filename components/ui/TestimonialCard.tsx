@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
+import YouTubeVideo from "./YouTubeVideo";
 
 import { PersonDetail, Transformation } from "@/types";
 
@@ -34,13 +36,15 @@ const TestimonialCard: React.FC<Props> = ({ t, onReadMore }) => {
             {/* Video or Text */}
             {t.isTypeVideo ? (
                 <div className="relative h-[200px] sm:h-[250px] lg:h-[300px]">
-                    <iframe
-                        className="w-full h-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black"
-                        src={t.video_url}
+                    <YouTubeVideo
+                        src={t.video_url || ''}
                         title="Testimonial Video"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+                        className="w-full h-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black"
+                        width={560}
+                        height={315}
+                        controls={true}
+                        autoplay={false}
+                        muted={false}
                     />
                 </div>
             ) : (
@@ -70,10 +74,13 @@ const TestimonialCard: React.FC<Props> = ({ t, onReadMore }) => {
             <div className="relative">
                 <div className="flex items-center mb-3 sm:mb-4 gap-3 sm:gap-4">
                     <div className="relative flex-center">
-                        <img
+                        <Image
                             src={t.person_detail.img}
                             alt={t.person_detail.name}
-                            className="size-12 sm:size-16 lg:size-[72px] bg-gray-300 rounded-full"
+                            width={72}
+                            height={72}
+                            className="size-12 sm:size-16 lg:size-[72px] bg-gray-300 rounded-full object-cover"
+                            loading="lazy"
                         />
                         {t.person_detail.linkdin_profile && t.person_detail.linkdin_profile?.length > 0 && (
                             <a

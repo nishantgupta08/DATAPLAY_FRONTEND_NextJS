@@ -8,6 +8,7 @@ import { Icon } from "@iconify/react";
 import data from "@/data/content.json";
 import InnerBanner from "@/components/ui/InnerBanner";
 import SocialBadge from "@/components/ui/SocialBadge";
+import YouTubeVideo from "@/components/ui/YouTubeVideo";
 
 /* ---------- Types ---------- */
 type Submodule = { title: string; content: string[] };
@@ -335,13 +336,15 @@ export default function Page() {
       {course?.right_side_video_url && (
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="relative aspect-video lg:h-[420px] w-full rounded-2xl overflow-hidden border border-black drop-shadow-[4px_4px_0_#1C1A4A] mb-10">
-            <iframe
-              className="w-full h-full"
+            <YouTubeVideo
               src={course.right_side_video_url}
               title={`About ${course.title}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+              className="w-full h-full"
+              width={560}
+              height={315}
+              controls={true}
+              autoplay={false}
+              muted={false}
             />
           </div>
         </div>
