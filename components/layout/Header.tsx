@@ -54,7 +54,7 @@ const Header = memo(function Header() {
           {/* Logo */}
           <Link href="/" aria-label="Go to homepage" className="flex items-center gap-2">
             <Image
-              src="/Brand-Logo.svg"
+              src="/logos/Brand-Logo.svg"
               alt="DATAPLAY"
               width={150}
               height={32}

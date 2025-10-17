@@ -68,3 +68,6 @@ export const capitalize = (str: string): string => {
 export const generateId = (): string => {
   return Math.random().toString(36).substr(2, 9);
 };
+
+// Export image utilities
+export * from './image';

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Dataplay",
     images: [
       {
-        url: "https://dataplay.co.in/Brand-Logo.svg",
+        url: "https://dataplay.co.in/logos/Brand-Logo.svg",
         width: 1200,
         height: 630,
         alt: "Dataplay Logo",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Dataplay – Data Science Learning Platform",
     description:
       "Master data science with Dataplay: curated paths, interview questions, and industry insights.",
-    images: ["https://dataplay.co.in/Brand-Logo.svg"],
+    images: ["https://dataplay.co.in/logos/Brand-Logo.svg"],
     site: "@dataplay",
   },
   verification: {
@@ -149,7 +149,7 @@ const staticSchemas = [
     "name": "Dataplay",
     "alternateName": "Dataplay",
     "url": "https://www.dataplay.co.in/",
-    "logo": "https://www.dataplay.co.in/Brand-Logo.svg",
+    "logo": "https://www.dataplay.co.in/logos/Brand-Logo.svg",
     "sameAs": [
       "https://www.linkedin.com/company/data-play/",
       "https://www.dataplay.co.in/",

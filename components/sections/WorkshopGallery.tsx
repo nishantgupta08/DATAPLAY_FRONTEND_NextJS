@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { LinkedInMeta, WorkshopItem } from "@/types";
+import { getSafeImageUrl } from "@/utils";
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -51,7 +52,7 @@ function WorkshopCard({ w, i }: { w: WorkshopItem; i: number }) {
       {/* Cover (no 'View feedback' overlay anymore) */}
       <div className="relative aspect-[4/3]">
         <Image
-          src={w.cover}
+          src={getSafeImageUrl(w.cover, 'workshop')}
           alt={`${w.college} workshop cover`}
           fill
           sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
