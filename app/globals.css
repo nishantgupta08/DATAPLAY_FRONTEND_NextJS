@@ -50,6 +50,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Leaflet map fixes to prevent tile clipping & scaling */
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+}
+.leaflet-container img,
+.leaflet-container .leaflet-tile {
+  max-width: none !important; /* override global img rules */
+}
+
 /* Custom Swiper Styles */
 .testimonials-swiper .swiper-pagination-bullet {
   background: #FF4C3D;
