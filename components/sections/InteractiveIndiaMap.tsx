@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
 
 // Dynamically import Leaflet components to avoid SSR issues
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), {
@@ -20,8 +19,8 @@ const Tooltip = dynamic(() => import('react-leaflet').then(mod => mod.Tooltip), 
 
 const InteractiveIndiaMap = () => {
   const [mounted, setMounted] = useState(false);
-  const [mapInstance, setMapInstance] = useState<L.Map | null>(null);
-  // const [leafletLib, setLeafletLib] = useState<typeof L | null>(null);
+  const [mapInstance, setMapInstance] = useState<unknown>(null);
+  const [leafletLib, setLeafletLib] = useState<unknown>(null);
   
   interface Student { 
     coordinates?: [number, number];
@@ -41,15 +40,27 @@ const InteractiveIndiaMap = () => {
 
   useEffect(() => {
     setMounted(true);
+    
     // Dynamically load Leaflet only on client to avoid SSR issues
-    // (async () => {
-    //   try {
-    //     const mod = await import('leaflet');
-    //     setLeafletLib(mod.default ?? mod);
-    //   } catch {
-    //     // ignore
-    //   }
-    // })();
+    (async () => {
+      try {
+        const mod = await import('leaflet');
+        const L = mod.default ?? mod;
+        setLeafletLib(L);
+        
+        // Fix for default markers in Next.js
+        delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+          iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        });
+        
+        console.log('🗺️ Leaflet loaded successfully');
+      } catch (error) {
+        console.error('❌ Failed to load Leaflet:', error);
+      }
+    })();
     // Detect mobile: coarse pointer or narrow viewport
     const detect = () => {
       const coarse = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
@@ -61,7 +72,7 @@ const InteractiveIndiaMap = () => {
 
     // Trigger size invalidation after first paint
     setTimeout(() => {
-      if (mapInstance) {
+      if (mapInstance && typeof mapInstance === 'object' && mapInstance !== null && 'invalidateSize' in mapInstance && typeof mapInstance.invalidateSize === 'function') {
         mapInstance.invalidateSize();
       }
     }, 200);
@@ -81,9 +92,12 @@ const InteractiveIndiaMap = () => {
       if (!mapInstance) return;
       try {
         const res = await fetch('/api/learners');
+        console.log('🗺️ Map Debug - API Response status:', res.status, res.ok);
         if (res.ok) {
           const data = await res.json();
+          console.log('🗺️ Map Debug - API Response:', data);
           const students: Student[] = Array.isArray(data?.students) ? data.students : [];
+          console.log('🗺️ Map Debug - Students parsed:', students.length, 'students');
           const coords: [number, number][] = students
             .map(s => s.coordinates)
             .filter((c: unknown): c is [number, number] => Array.isArray(c) && c.length === 2 && typeof c[0] === 'number' && typeof c[1] === 'number');
@@ -114,37 +128,34 @@ const InteractiveIndiaMap = () => {
             students: g.students
           }));
           // Clusters generated successfully
+          console.log('🗺️ Map Debug - Clusters generated:', {
+            totalStudents: students.length,
+            validCoordinates: coords.length,
+            clustersGenerated: newClusters.length,
+            clusters: newClusters
+          });
+          console.log('🗺️ Map Debug - Sample student data:', students.slice(0, 2));
+          console.log('🗺️ Map Debug - Sample coordinates:', coords.slice(0, 2));
           setClusters(newClusters);
-          if (coords.length) {
-            let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
-            coords.forEach(([lat, lng]) => {
-              if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
-              minLat = Math.min(minLat, lat);
-              maxLat = Math.max(maxLat, lat);
-              minLng = Math.min(minLng, lng);
-              maxLng = Math.max(maxLng, lng);
-            });
-            if (minLat <= maxLat && minLng <= maxLng) {
-              const bounds: [[number, number], [number, number]] = [[minLat, minLng], [maxLat, maxLng]];
-              mapInstance.fitBounds(bounds, { padding: [24, 24] });
-              mapInstance.invalidateSize();
-              // Lock zoom level
-              const z = mapInstance.getZoom();
-              mapInstance.setMinZoom(z);
-              mapInstance.setMaxZoom(z);
-              return;
-            }
-          }
+          // Always focus on India bounds regardless of student data
+          const INDIA_BOUNDS: [[number, number], [number, number]] = [[6.0, 68.0], [37.0, 97.0]];
+          mapInstance.fitBounds(INDIA_BOUNDS, { padding: [24, 24] });
+          mapInstance.invalidateSize();
+          
+          // Lock zoom level to prevent zoom in/out
+          const z = mapInstance.getZoom();
+          mapInstance.setMinZoom(z);
+          mapInstance.setMaxZoom(z);
+          
+          // Disable all zoom interactions
+          mapInstance.scrollWheelZoom.disable();
+          mapInstance.doubleClickZoom.disable();
+          mapInstance.touchZoom.disable();
+          mapInstance.boxZoom.disable();
+          mapInstance.keyboard.disable();
         }
-      } catch {}
-      // Fallback to India bounds
-      const INDIA_BOUNDS: [[number, number], [number, number]] = [[6.0, 68.0], [37.0, 97.0]];
-      mapInstance.fitBounds(INDIA_BOUNDS, { padding: [24, 24] });
-      mapInstance.invalidateSize();
-      const z = mapInstance.getZoom();
-      if (typeof mapInstance.setMinZoom === 'function' && typeof mapInstance.setMaxZoom === 'function') {
-        mapInstance.setMinZoom(z);
-        mapInstance.setMaxZoom(z);
+      } catch (error) {
+        console.error('🗺️ Map Debug - API Error:', error);
       }
     };
     computeBounds();
@@ -162,21 +173,27 @@ const InteractiveIndiaMap = () => {
     <div className="w-full h-full relative">
       <MapContainer
         center={[20.5937, 78.9629]}
-        zoom={4}
+        zoom={5}
         scrollWheelZoom={false}
         doubleClickZoom={false}
         touchZoom={false}
         boxZoom={false}
         keyboard={false}
-        dragging={true}
+        dragging={false}
         zoomControl={false}
         attributionControl={true}
+        maxZoom={5}
+        minZoom={5}
         whenReady={() => {
           // Leaflet global access with proper typing
-          const map = (window as unknown as { L?: { map?: { instances?: L.Map[] } } })?.L?.map?.instances?.[0] || null;
+          const map = (window as unknown as { L?: { map?: { instances?: unknown[] } } })?.L?.map?.instances?.[0] || null;
           if (map) {
             setMapInstance(map);
-            setTimeout(() => map.invalidateSize(), 50);
+            setTimeout(() => {
+              if (typeof map === 'object' && map !== null && 'invalidateSize' in map && typeof map.invalidateSize === 'function') {
+                map.invalidateSize();
+              }
+            }, 50);
           }
         }}
         className="h-full w-full"
@@ -185,23 +202,30 @@ const InteractiveIndiaMap = () => {
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maxZoom={18}
-          minZoom={1}
+          maxZoom={5}
+          minZoom={5}
           errorTileUrl="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChAI/hxaBcwAAAABJRU5ErkJggg=="
           detectRetina={true}
         />
 
         {/* Debug info */}
-        {clusters.length === 0 && (
-          <div style={{ position: 'absolute', top: 10, left: 10, background: 'rgba(255,255,255,0.9)', padding: '8px', borderRadius: '4px', fontSize: '12px', zIndex: 1000 }}>
-            No markers found. Clusters: {clusters.length}
-          </div>
-        )}
+        <div style={{ position: 'absolute', top: 10, left: 10, background: 'rgba(255,255,255,0.9)', padding: '8px', borderRadius: '4px', fontSize: '12px', zIndex: 1000 }}>
+          <div>Clusters: {clusters.length}</div>
+          <div>Map Instance: {mapInstance ? 'Ready' : 'Not Ready'}</div>
+          <div>Mounted: {mounted ? 'Yes' : 'No'}</div>
+          {clusters.length > 0 && (
+            <div>First cluster: [{clusters[0]?.lat?.toFixed(4)}, {clusters[0]?.lng?.toFixed(4)}] ({clusters[0]?.count} students)</div>
+          )}
+          <div>Total markers to render: {clusters.length}</div>
+          {clusters.length === 0 && <div style={{ color: 'red' }}>⚠️ No markers found!</div>}
+        </div>
         
         {/* Render clustered markers with mobile: always visible tooltip; desktop: show on hover */}
         {clusters.map((c, idx) => {
           const isCluster = c.count > 1;
           const first = c.students[0] || {};
+          
+          console.log(`🗺️ Rendering marker ${idx}:`, { lat: c.lat, lng: c.lng, count: c.count });
           
           // Use default Leaflet markers for now to ensure they display
           return (
