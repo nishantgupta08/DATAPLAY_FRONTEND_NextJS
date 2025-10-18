@@ -12,12 +12,8 @@ Crawl-delay: 1
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
-Disallow: /debug-map/
-Disallow: /geocoding-demo/
 Disallow: /india-locations/
 Disallow: /middleware-test/
-Disallow: /parliamentary-constituencies/
-Disallow: /pin-code-example/
 Disallow: /youtube-test/
 
 # Allow important pages

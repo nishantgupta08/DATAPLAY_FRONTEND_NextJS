@@ -230,6 +230,84 @@ export interface GeographicData {
 }
 
 /**
+ * Review data for structured data
+ */
+export interface ReviewData {
+  courseName: string;
+  courseDescription: string;
+  provider: string;
+  rating: number;
+  authorName: string;
+  reviewText: string;
+  datePublished: string;
+}
+
+/**
+ * Event data for structured data
+ */
+export interface EventData {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  locationUrl: string;
+  organizer: string;
+  organizerUrl: string;
+  price: string;
+  currency: string;
+  availability: string;
+  eventStatus: string;
+}
+
+/**
+ * Local business data for structured data
+ */
+export interface LocalBusinessData {
+  name: string;
+  description: string;
+  url: string;
+  logo: string;
+  telephone: string;
+  email: string;
+  address: {
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo: {
+    latitude: number;
+    longitude: number;
+  };
+  openingHours: string[];
+  priceRange: string;
+  paymentAccepted: string;
+  currenciesAccepted: string;
+  areaServed: string[];
+  serviceRadius: string;
+  courses: Array<{
+    name: string;
+    description: string;
+  }>;
+  sameAs: string[];
+  foundingDate: string;
+  numberOfEmployees: string;
+  aggregateRating?: {
+    ratingValue: string;
+    reviewCount: string;
+    bestRating: string;
+    worstRating: string;
+  };
+  reviews?: Array<{
+    author: string;
+    rating: number;
+    reviewBody: string;
+    datePublished: string;
+  }>;
+}
+
+/**
  * Content analysis result
  */
 export interface ContentAnalysis {

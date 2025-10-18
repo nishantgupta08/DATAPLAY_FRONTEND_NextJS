@@ -4,6 +4,7 @@
 import { useEffect, useState, memo, Suspense, useMemo } from "react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import PerformanceOptimizer from "@/components/seo/PerformanceOptimizer";
 
 // Lazy load components for better performance with loading states
 const SocialBadge = dynamic(() => import("@/components/ui/SocialBadge"), {
@@ -109,10 +110,11 @@ const Home = memo(function Home() {
 
   return (
     <>
+      <PerformanceOptimizer trackMetrics={true} reportToAnalytics={true} />
       <Head>
         <title>Dataplay - Data Science Learning Platform | Master Data Analysis & Engineering</title>
         <meta name="description" content="Master data science with Dataplay's comprehensive courses. Learn Python, SQL, machine learning, and data engineering. Join 1000+ students across India. Expert mentors, real projects, job placement assistance." />
-        <meta name="keywords" content="data science course, data analyst course, data engineering course, python course, SQL course, machine learning, data science training, online data science course, data science certification, data science bootcamp, data science fellowship" />
+        <meta name="keywords" content="data science course, data analyst course, data engineering course, python course, SQL course, machine learning, data science training, online data science course, data science certification, data science bootcamp, data science fellowship, India" />
         <meta name="author" content="Dataplay" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />

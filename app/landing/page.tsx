@@ -304,7 +304,7 @@ const Page = memo(function Page(): JSX.Element {
       <Head>
         <title>Data Science Courses in India | Dataplay - Learn Data Analysis & Engineering</title>
         <meta name="description" content="Master data science with Dataplay's comprehensive courses. Learn Python, SQL, machine learning, and data engineering. Join 1000+ students across India. Enroll now!" />
-        <meta name="keywords" content="data science course, data analyst course, data engineering course, python course, SQL course, machine learning, data science training, online data science course, data science certification, data science bootcamp" />
+        <meta name="keywords" content="data science course, data analyst course, data engineering course, python course, SQL course, machine learning, data science training, online data science course, data science certification, data science bootcamp, India" />
         <meta name="author" content="Dataplay" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />

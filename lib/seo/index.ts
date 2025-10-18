@@ -8,6 +8,12 @@ export * from './config';
 export * from './nextjs';
 export * from './types';
 
+// Enhanced SEO Features
+export * from './performance/core-web-vitals';
+export * from './authority/eeat-optimization';
+export { ContentOptimizer, CONTENT_OPTIMIZATION_CONFIG, CONTENT_OPTIMIZATION_RECOMMENDATIONS } from './content/advanced-optimization';
+export * from './meta/enhanced-meta-tags';
+
 // Re-export commonly used functions
 export { generateOrganizationSchema, DATAPLAY_ORGANIZATION } from './schemas/organization';
 export { generateCourseSchema, createDataplayCourse } from './schemas/course';
