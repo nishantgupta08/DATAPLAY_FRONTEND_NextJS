@@ -1,8 +1,9 @@
 // app/landing/page.tsx
-// TypeScript rewrite — with top hero form (like the reference), no `any`, JSON-typed syllabus, bold UI.
+// TypeScript rewrite — no `any`, JSON-typed syllabus, bold UI.
 
 import Testimonials from "@/components/Testimonials";
 import contentJson from "../assets/content.json";
+import { JSX } from "react";
 
 /* ===========================
    Types for content.json
@@ -33,7 +34,7 @@ export interface Course {
   sub_title: string;
   img_url: string;
   duration_weeks: number;
-  next_cohort_date: string; // e.g. "2025-24-10" (DD and MM may be swapped in source)
+  next_cohort_date: string; // e.g. "2025-24-10"
   courses_content: Module[];
   right_side_video_url: string;
   user_section?: UserTestimonial[];
@@ -82,15 +83,17 @@ function pickTrack(raw: CoursesRoot | null, keyword: "analyst" | "engineer"): Co
 }
 
 function formatCohortDate(raw: string): string {
-  if (!raw) return "24 Oct 2025"; // default fallback
+  // accept formats like YYYY-MM-DD or YYYY-DD-MM (given: "2025-24-10")
+  if (!raw) return "";
   const parts = raw.split("-");
-  let year = parts[0];
+  const year = parts[0];
   let month = parts[1];
   let day = parts[2];
   if (parts.length === 3) {
     const p2 = Number(parts[1]);
     const p3 = Number(parts[2]);
     if (p2 > 12 && p3 <= 12) {
+      // YYYY-DD-MM → YYYY-MM-DD
       month = parts[2];
       day = parts[1];
     }
@@ -110,6 +113,7 @@ function condenseModules(modules: Module[]): { outline: OutlineItem[]; capstone:
   modules.forEach((m) => {
     const subs = Array.isArray(m?.submodules) ? m.submodules : [];
 
+    // Collect capstone/projects bullets
     const cap = subs.find((s) => /capstone/i.test(s.title)) || subs.find((s) => /project/i.test(s.title));
     if (cap && Array.isArray(cap.content)) {
       cap.content.forEach((line) => {
@@ -117,6 +121,7 @@ function condenseModules(modules: Module[]): { outline: OutlineItem[]; capstone:
       });
     }
 
+    // Main topics = submodule titles excluding prerequisites/projects/capstone
     const mains = subs
       .filter((s) => !/prereq|project|capstone/i.test(s.title))
       .map((s) => s.title)
@@ -135,8 +140,6 @@ interface Expert { name: string; role?: string; img?: string; linkedin?: string 
    Page (typed)
 =========================== */
 export default function Page(): JSX.Element {
-  console.log("first")
-
   const dataAnalyst = pickTrack(CONTENT, "analyst");
   const dataEngineering = pickTrack(CONTENT, "engineer");
 
@@ -145,6 +148,7 @@ export default function Page(): JSX.Element {
   const daWeeks = Number(dataAnalyst.duration_weeks || 12);
   const deWeeks = Number(dataEngineering.duration_weeks || 20);
 
+  // Replace logo paths with real files under /public/logos
   const partners: Partner[] = [
     { name: "Celebal", logo: "/logos/celebal.svg" },
     { name: "Polestar", logo: "/logos/polestar.svg" },
@@ -170,6 +174,7 @@ export default function Page(): JSX.Element {
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
+      {/* Theme tokens — move into globals.css when ready */}
       <style>{`
         :root {
           --brand-50:#eef2ff; --brand-100:#e0e7ff; --brand-200:#c7d2fe; --brand-300:#a5b4fc;
@@ -178,7 +183,7 @@ export default function Page(): JSX.Element {
         }
       `}</style>
 
-      {/* ===== HERO with TOP FORM ===== */}
+      {/* HERO */}
       <section className="relative overflow-hidden bg-[#050814]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_50%_-10%,_rgba(79,70,229,0.5),_transparent_60%)]" />
@@ -187,58 +192,79 @@ export default function Page(): JSX.Element {
           <div className="absolute inset-0 [background-image:linear-gradient(#ffffff10_1px,transparent_1px),linear-gradient(90deg,#ffffff10_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(60%_55%_at_50%_0%,_#000_45%,_transparent_75%)]" />
         </div>
 
-        <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-            {/* LEFT */}
-            <div className="lg:col-span-6 text-white">
-              <h2 className=\"text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--brand-400)]\">\n                Hybrid Pay After Placement\n              </h2>
+        <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
+          <div className="text-center text-white">
+            <div className="mx-auto inline-flex items-center gap-2 rounded-full border-2 border-white/30 bg-white/10 px-4 py-1.5 text-sm font-bold uppercase tracking-wide shadow-lg backdrop-blur md:text-base">
+              <SparkleIcon /> Hybrid Pay After Placement
+            </div>
             <h1 className="mt-4 text-4xl font-extrabold leading-tight text-white drop-shadow-[0_8px_30px_rgba(99,102,241,0.45)] sm:text-5xl md:text-6xl">
-              Become a Skilled Data Scientist!
+              Data Analyst <span className="opacity-90">&</span> Data Engineering Programs
             </h1>
-            <ul className="mt-6 space-y-3 text-sm sm:text-base text-white/90">
-              <li className="flex items-start gap-3"><CheckIcon /> 1:1 mentorship with experts</li>
-              <li className="flex items-start gap-3"><CheckIcon /> Live interactive sessions</li>
-              <li className="flex items-start gap-3"><CheckIcon /> 10+ real projects</li>
-              <li className="flex items-start gap-3"><CheckIcon /> Salary-focused career support</li>
-            </ul>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <details className=\"relative inline-block\">\n                  <summary className=\"inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-2 text-white backdrop-blur hover:bg-white/15 [&::-webkit-details-marker]:hidden\">\n                    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M12 3v14m0 0l-4-4m4 4l4-4M6 21h12\" stroke=\"currentColor\" strokeWidth=\"1.6\" strokeLinecap=\"round\" strokeLinejoin=\"round\"/></svg>\n                    View Syllabus\n                    <svg className=\"ml-1\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M6 9l6 6 6-6\" stroke=\"currentColor\" strokeWidth=\"1.8\" strokeLinecap=\"round\" strokeLinejoin=\"round\"/></svg>\n                  </summary>\n                  <div className=\"absolute left-0 z-20 mt-2 w-56 overflow-hidden rounded-xl border border-white/15 bg-[#0b1220] p-1 text-sm text-white shadow-xl backdrop-blur\">\n                    <a href=\"#analyst\" className=\"block rounded-lg px-3 py-2 hover:bg-white/10\">Data Analyst</a>\n                    <a href=\"#engineering\" className=\"block rounded-lg px-3 py-2 hover:bg-white/10\">Data Engineering</a>\n                  </div >\n                </details >
-                <div className="flex flex-wrap gap-2 text-[11px] sm:text-xs">
-                  <Chip>Online</Chip>
-                  <Chip>Offline</Chip>
-                  <Chip>Recordings available</Chip>
-                  <Chip>{classTime}</Chip>
-                </div>
-              </div >
-            </div >
+            <p className="mx-auto mt-3 max-w-2xl text-base sm:text-lg text-white/85">
+              Mentor-led. Project-first. Job-focused. Start small, pay the balance after placement.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-[11px] sm:text-xs">
+              <Chip>Online</Chip>
+              <Chip>Offline</Chip>
+              <Chip>Recordings available</Chip>
+              <Chip>6–8 pm IST</Chip>
+            </div>
 
-    {/* RIGHT */ }
-    < div className = "lg:col-span-6" > <EnrollForm /></div >
-          </div >
+            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+              <ProgramCard
+                dark
+                id="data-analyst"
+                title={dataAnalyst.title}
+                subtitle={dataAnalyst.sub_title}
+                img={dataAnalyst.img_url}
+                feeUpfront="₹7,500"
+                feeAfter="₹30,000"
+                duration={`${daWeeks} weeks`}
+                ctaHref="#analyst"
+              />
+              <ProgramCard
+                dark
+                id="data-engineering"
+                title={dataEngineering.title}
+                subtitle={dataEngineering.sub_title}
+                img={dataEngineering.img_url}
+                feeUpfront="₹10,000"
+                feeAfter="₹30,000"
+                duration={`${deWeeks} weeks`}
+                ctaHref="#engineering"
+              />
+            </div>
 
-    {/* partners logos under hero */ }
-    < div className = "mt-10 text-center" >
-            <p className="text-xs uppercase tracking-wide text-white/60">Select hiring partners</p>
-            <PartnersRow items={partners} />
-            <p className="mt-2 text-xs text-white/60">growing network</p>
-          </div >
-        </div >
-      </section >
-
-    {/* ===== KEY STATS ===== */ }
-    < section className = "bg-[#0b1220]" >
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-10">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Stat dark label="Delivery Modes" value="Online + Offline" />
-          <Stat dark label="Class Timing" value={classTime} />
-          <Stat dark label="Next Cohort" value={cohortDisplay || "24 Oct 2025"} />
-          <Stat dark label="Recordings" value="Available" />
+            <div className="mt-8">
+              <p className="text-xs uppercase tracking-wide text-white/60">Select hiring partners</p>
+              <PartnersRow items={partners} />
+              <p className="mt-2 text-xs text-white/60">growing network</p>
+            </div>
+          </div>
         </div>
-      </div>
-      </section >
 
-    {/* ===== FEATURES ===== */ }
-    < section id = "features" className = "relative bg-white" >
+        {/* sticky mobile CTA */}
+        <div className="fixed inset-x-0 bottom-3 z-30 mx-auto w-[92%] sm:hidden">
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-2 backdrop-blur">
+            <a href="#apply" className="block w-full rounded-xl bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-5 py-3 text-center font-semibold text-white shadow">Start Free Counselling</a>
+          </div>
+        </div>
+      </section>
+
+      {/* KEY STATS */}
+      <section className="bg-[#0b1220]">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-10">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Stat dark label="Delivery Modes" value="Online + Offline" />
+            <Stat dark label="Class Timing" value="6–8 pm IST" />
+            <Stat dark label="Next Cohort" value={cohortDisplay || "24 Oct 2025"} />
+            <Stat dark label="Recordings" value="Available" />
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section id="features" className="relative bg-white">
         <div className="absolute inset-x-0 -top-10 -z-10 h-20 bg-gradient-to-b from-[#0b1220] to-transparent opacity-80" />
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Why these programs</h2>
@@ -249,108 +275,107 @@ export default function Page(): JSX.Element {
             <FeatureCard title="Mock Interviews" desc="Regular analytics & system rounds with feedback." />
           </div>
         </div>
-      </section >
+      </section>
 
-    {/* ===== EXPERTS ===== */ }
-    < section id = "experts" className = "bg-gray-50" >
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">Backed by Industry Experts</h2>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {experts.map((e) => (
-            <ExpertCard key={e.name} {...e} />
-          ))}
-        </div>
-      </div>
-      </section >
-
-    {/* ===== DA ⊂ DE ===== */ }
-    < section id = "subset" className = "bg-white" >
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">Data Analyst ⊂ Data Engineer</h2>
-        <p className="mt-2 max-w-3xl text-gray-700">The Analyst track is the foundation of the Engineering track. Complete the first {daWeeks} weeks for Analyst outcomes; continue to {deWeeks} weeks to master engineering depth.</p>
-        <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <div className="text-sm font-semibold text-gray-900">Timeline</div>
-          <div className="mt-3 grid grid-cols-[repeat(20,minmax(0,1fr))] overflow-hidden rounded-xl">
-            {Array.from({ length: daWeeks }).map((_, i) => (
-              <div key={`da-${i}`} className="h-3 bg-[var(--brand-600)]" />
-            ))}
-            {Array.from({ length: Math.max(deWeeks - daWeeks, 0) }).map((_, i) => (
-              <div key={`de-${i}`} className="h-3 bg-[var(--brand-800)]" />
+      {/* EXPERTS */}
+      <section id="experts" className="bg-gray-50">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Backed by Industry Experts</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {experts.map((e) => (
+              <ExpertCard key={e.name} {...e} />
             ))}
           </div>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 text-sm text-gray-700">
-            <div className="flex items-start gap-2"><span className="mt-1 inline-block h-2 w-2 rounded bg-[var(--brand-600)]" /><p><b>Weeks 1–{daWeeks}:</b> Analyst foundations — Excel/BI, SQL essentials, stats & storytelling, Python for analysis.</p></div>
-            <div className="flex items-start gap-2"><span className="mt-1 inline-block h-2 w-2 rounded bg-[var(--brand-800)]" /><p><b>Weeks {daWeeks + 1}–{deWeeks}:</b> Engineering depth — ETL/ELT, orchestration, cloud, modeling at scale, streaming basics.</p></div>
+        </div>
+      </section>
+
+      {/* DA ⊂ DE */}
+      <section id="subset" className="bg-white">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Data Analyst ⊂ Data Engineer</h2>
+          <p className="mt-2 max-w-3xl text-gray-700">The Analyst track is the foundation of the Engineering track. Complete the first {daWeeks} weeks for Analyst outcomes; continue to {deWeeks} weeks to master engineering depth.</p>
+          <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="text-sm font-semibold text-gray-900">Timeline</div>
+            <div className="mt-3 grid grid-cols-[repeat(20,minmax(0,1fr))] overflow-hidden rounded-xl">
+              {Array.from({ length: daWeeks }).map((_, i) => (
+                <div key={`da-${i}`} className="h-3 bg-[var(--brand-600)]" />
+              ))}
+              {Array.from({ length: Math.max(deWeeks - daWeeks, 0) }).map((_, i) => (
+                <div key={`de-${i}`} className="h-3 bg-[var(--brand-800)]" />
+              ))}
+            </div>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 text-sm text-gray-700">
+              <div className="flex items-start gap-2"><span className="mt-1 inline-block h-2 w-2 rounded bg-[var(--brand-600)]" /><p><b>Weeks 1–{daWeeks}:</b> Analyst foundations — Excel/BI, SQL essentials, stats & storytelling, Python for analysis.</p></div>
+              <div className="flex items-start gap-2"><span className="mt-1 inline-block h-2 w-2 rounded bg-[var(--brand-800)]" /><p><b>Weeks {daWeeks + 1}–{deWeeks}:</b> Engineering depth — ETL/ELT, orchestration, cloud, modeling at scale, streaming basics.</p></div>
+            </div>
           </div>
         </div>
-      </div>
-      </section >
+      </section>
 
-    {/* ===== DATA ANALYST ===== */ }
-    < CourseSection
-  anchor = "analyst"
-  title = {`${dataAnalyst.title} — Pay After Placement`
-}
-subtitle = { dataAnalyst.sub_title }
-img = { dataAnalyst.img_url }
-feeUpfrontLabel = "Enroll with ₹7,500"
-feeAfterLabel = "After placement: ₹30,000"
-totalLabel = "Total: ₹37,500"
-modules = { dataAnalyst.courses_content }
-duration = {`${daWeeks} weeks`}
+      {/* DATA ANALYST */}
+      <CourseSection
+        anchor="analyst"
+        title={`${dataAnalyst.title} — Pay After Placement`}
+        subtitle={dataAnalyst.sub_title}
+        img={dataAnalyst.img_url}
+        feeUpfrontLabel="Enroll with ₹7,500"
+        feeAfterLabel="After placement: ₹30,000"
+        totalLabel="Total: ₹37,500"
+        modules={dataAnalyst.courses_content}
+        duration={`${daWeeks} weeks`}
       />
 
-{/* ===== DATA ENGINEERING ===== */ }
-<CourseSection
-  anchor="engineering"
-  title={`${dataEngineering.title} — Pay After Placement`}
-  subtitle={dataEngineering.sub_title}
-  img={dataEngineering.img_url}
-  feeUpfrontLabel="Enroll with ₹10,000"
-  feeAfterLabel="After placement: ₹30,000"
-  totalLabel="Total: ₹40,000"
-  modules={dataEngineering.courses_content}
-  duration={`${deWeeks} weeks`}
-/>
+      {/* DATA ENGINEERING */}
+      <CourseSection
+        anchor="engineering"
+        title={`${dataEngineering.title} — Pay After Placement`}
+        subtitle={dataEngineering.sub_title}
+        img={dataEngineering.img_url}
+        feeUpfrontLabel="Enroll with ₹10,000"
+        feeAfterLabel="After placement: ₹30,000"
+        totalLabel="Total: ₹40,000"
+        modules={dataEngineering.courses_content}
+        duration={`${deWeeks} weeks`}
+      />
 
-{/* ===== TESTIMONIALS ===== */ }
-<section className="bg-white">
-  <div className="container mx-auto max-w-7xl px-0 py-16">
-    <Testimonials />
-  </div>
-</section>
+      {/* TESTIMONIALS (as-is) */}
+      <section className="bg-white">
+        <div className="container mx-auto max-w-7xl px-0 py-16">
+          <Testimonials />
+        </div>
+      </section>
 
-{/* ===== FAQ ===== */ }
-<section id="faq" className="relative bg-[#0b1220] text-white">
-  <div className="absolute inset-x-0 -top-10 -z-10 h-20 bg-gradient-to-b from-white to-transparent opacity-70" />
-  <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-    <h2 className="text-3xl font-extrabold sm:text-4xl">Frequently asked</h2>
-    <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-2">
-      <Faq dark q="Are classes online or offline?" a="Both. Attend live online sessions or join in-person where available; all sessions have recordings." />
-      <Faq dark q="When does the cohort start?" a={`Cohort starts ${cohortDisplay || "24 Oct 2025"}. Classes run ${classTime}.`} />
-      <Faq dark q="How do fees work?" a="Data Analyst: ₹7,500 upfront + ₹30,000 after placement. Data Engineering: ₹10,000 upfront + ₹30,000 after placement." />
-      <Faq dark q="Do I keep access?" a="Yes, you get lifetime access to updated materials and recordings." />
-    </div>
-  </div>
-</section>
+      {/* FAQ */}
+      <section id="faq" className="relative bg-[#0b1220] text-white">
+        <div className="absolute inset-x-0 -top-10 -z-10 h-20 bg-gradient-to-b from-white to-transparent opacity-70" />
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Frequently asked</h2>
+          <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-2">
+            <Faq dark q="Are classes online or offline?" a="Both. Attend live online sessions or join in-person where available; all sessions have recordings." />
+            <Faq dark q="When does the cohort start?" a={`Cohort starts ${cohortDisplay || "24 Oct 2025"}. Classes run 6–8 pm IST.`} />
+            <Faq dark q="How do fees work?" a="Data Analyst: ₹7,500 upfront + ₹30,000 after placement. Data Engineering: ₹10,000 upfront + ₹30,000 after placement." />
+            <Faq dark q="Do I keep access?" a="Yes, you get lifetime access to updated materials and recordings." />
+          </div>
+        </div>
+      </section>
 
-{/* ===== FOOTER ===== */ }
-<footer className="bg-[#0b1220] text-white/80">
-  <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-8 text-sm">
-    <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
-      <p>© {new Date().getFullYear()} Your Academy. All rights reserved.</p>
-      <nav className="flex flex-wrap gap-4">
-        <a href="#subset" className="hover:text-white">DA ⊂ DE</a>
-        <a href="#analyst" className="hover:text-white">Data Analyst</a>
-        <a href="#engineering" className="hover:text-white">Data Engineering</a>
-        <a href="#features" className="hover:text-white">Features</a>
-        <a href="#experts" className="hover:text-white">Experts</a>
-        <a href="#faq" className="hover:text-white">FAQ</a>
-      </nav>
-    </div>
-  </div>
-</footer>
-    </main >
+      {/* FOOTER */}
+      <footer className="bg-[#0b1220] text-white/80">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-8 text-sm">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+            <p>© {new Date().getFullYear()} Your Academy. All rights reserved.</p>
+            <nav className="flex flex-wrap gap-4">
+              <a href="#subset" className="hover:text-white">DA ⊂ DE</a>
+              <a href="#analyst" className="hover:text-white">Data Analyst</a>
+              <a href="#engineering" className="hover:text-white">Data Engineering</a>
+              <a href="#features" className="hover:text-white">Features</a>
+              <a href="#experts" className="hover:text-white">Experts</a>
+              <a href="#faq" className="hover:text-white">FAQ</a>
+            </nav>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
 }
 
@@ -362,14 +387,6 @@ function SparkleIcon(): JSX.Element {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="opacity-90">
       <path d="M12 3l1.8 4.5L18 9.3l-4.2 1.8L12 15l-1.8-3.9L6 9.3l4.2-1.8L12 3z" stroke="currentColor" strokeWidth="1.5" />
     </svg>
-  );
-}
-
-function CheckIcon(): JSX.Element {
-  return (
-    <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-white">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-    </span>
   );
 }
 
@@ -421,7 +438,7 @@ function ProgramCard(props: {
           <span className="rounded-full border border-current/20 px-2.5 py-1">{feeUpfront} to enroll</span>
           <span className="rounded-full border border-current/20 px-2.5 py-1">{feeAfter} after placement</span>
         </div>
-        <a href={ctaHref} className="mt-4 inline-flex rounded-lg bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-4 py-2.5 text-sm font-semibold text-white shadow hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-[var(--brand-400)]">View syllabus</a>
+        <a href={ctaHref} className="mt-4 inline-flex rounded-lg bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-4 py-2.5 text-sm font-semibold text-white shadow hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-[var(--brand-400)]">View details</a>
       </div>
     </div>
   );
@@ -601,51 +618,5 @@ function Faq({ q, a, dark }: { q: string; a: string; dark?: boolean }): JSX.Elem
       <p className="font-semibold">{q}</p>
       <p className={ans}>{a}</p>
     </div>
-  );
-}
-
-function EnrollForm(): JSX.Element {
-  return (
-    <div className="rounded-2xl border border-white/15 bg-white/10 p-5 sm:p-6 text-white shadow-xl backdrop-blur">
-      <h3 className="text-xl font-bold text-center">Enroll Now!</h3>
-      <form className=\"mt-4 grid grid-cols-1 gap-3\" action=\"#\" method=\"post\">
-      {/* program choice */}
-      <fieldset className="grid grid-cols-2 gap-2 text-sm">
-        <label className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2">
-          <input type="radio" name="program" value="Data Engineering" className="accent-[var(--brand-500)]" />
-          <span>Data Engineering</span>
-        </label>
-        <label className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2">
-          <input type="radio" name="program" value="Data Analyst" defaultChecked className="accent-[var(--brand-500)]" />
-          <span>Data Analytics</span>
-        </label>
-      </fieldset>
-
-      <input required className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-white placeholder-white/60 focus:border-[var(--brand-400)] focus:outline-none" placeholder="Name" name="name" />
-      <input required type="email" className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-white placeholder-white/60 focus:border-[var(--brand-400)] focus:outline-none" placeholder="Email" name="email" />
-
-      <div className="grid grid-cols-[90px,1fr] gap-2">
-        <select className="rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-white focus:border-[var(--brand-400)] focus:outline-none" defaultValue="+91" name="cc">
-          <option value="+91" className="text-black">+91</option>
-          <option value="+1" className="text-black">+1</option>
-          <option value="+44" className="text-black">+44</option>
-        </select>
-        <input required type="tel" className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-white placeholder-white/60 focus:border-[var(--brand-400)] focus:outline-none" placeholder="Phone number" name="phone" />
-      </div>
-
-      <div className="grid grid-cols-2 gap-2">
-        <select required className="rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-white focus:border-[var(--brand-400)] focus:outline-none" defaultValue="" name="experience">
-          <option value="" disabled className="text-black">Experience (years)</option>
-          <option value="0-1" className="text-black">0–1</option>
-          <option value="1-3" className="text-black">1–3</option>
-          <option value="3-5" className="text-black">3–5</option>
-          <option value="5+" className="text-black">5+</option>
-        </select>
-        <input className="rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-white placeholder-white/60 focus:border-[var(--brand-400)] focus:outline-none" placeholder="Company name" name="company" />
-      </div>
-      <label className=\"mt-1 flex items-center gap-2 text-xs text-white/80\">\n          <input name=\"whatsappOptIn\" type=\"checkbox\" defaultChecked className=\"accent-[var(--brand-500)]\" />\n          Send me details and updates on WhatsApp\n        </label>\n
-        < button type = "submit" className = "mt-1 inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-[var(--brand-600)] to-[var(--brand-400)] px-4 py-2.5 font-semibold text-white shadow hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-[var(--brand-400)]" > Submit</button >
-      </form >
-    </div >
   );
 }
