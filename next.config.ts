@@ -50,26 +50,134 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Bundle optimization
-  webpack: (config: unknown, { isServer }: { isServer: boolean }) => {
-    // Optimize bundle splitting
+  // Advanced bundle optimization
+  webpack: (config: unknown, { isServer, dev }: { isServer: boolean; dev: boolean }) => {
     if (!isServer) {
-      (config as { optimization: { splitChunks: unknown } }).optimization.splitChunks = {
+      const webpackConfig = config as {
+        optimization: {
+          splitChunks: {
+            chunks: string;
+            cacheGroups: Record<string, any>;
+          };
+          usedExports: boolean;
+          sideEffects: boolean;
+        };
+        resolve: {
+          alias: Record<string, string>;
+          fallback: Record<string, boolean | string>;
+        };
+        module: {
+          rules: Array<{
+            test: RegExp;
+            use: any;
+          }>;
+        };
+      };
+
+      // Advanced bundle splitting
+      webpackConfig.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {
+          // React and React-DOM
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: 'react',
+            chunks: 'all',
+            priority: 20,
+          },
+          // Next.js framework
+          nextjs: {
+            test: /[\\/]node_modules[\\/](next)[\\/]/,
+            name: 'nextjs',
+            chunks: 'all',
+            priority: 15,
+          },
+          // UI libraries
+          ui: {
+            test: /[\\/]node_modules[\\/](@headlessui|@heroicons|lucide-react|@iconify)[\\/]/,
+            name: 'ui',
+            chunks: 'all',
+            priority: 10,
+          },
+          // SEO and analytics
+          seo: {
+            test: /[\\/]node_modules[\\/](@lib\/seo|@components\/seo)[\\/]/,
+            name: 'seo',
+            chunks: 'all',
+            priority: 8,
+          },
+          // Other vendors
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
+            priority: 5,
           },
+          // Common chunks
           common: {
             name: 'common',
             minChunks: 2,
             chunks: 'all',
+            priority: 1,
             enforce: true,
           },
         },
       };
+
+      // Tree shaking optimization
+      webpackConfig.optimization.usedExports = true;
+      webpackConfig.optimization.sideEffects = false;
+
+      // Module resolution optimization
+      webpackConfig.resolve.alias = {
+        ...webpackConfig.resolve.alias,
+        '@': require('path').resolve(__dirname, '.'),
+        '@components': require('path').resolve(__dirname, 'components'),
+        '@lib': require('path').resolve(__dirname, 'lib'),
+        '@app': require('path').resolve(__dirname, 'app'),
+      };
+
+      // Fallbacks for Node.js modules
+      webpackConfig.resolve.fallback = {
+        ...webpackConfig.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+        stream: false,
+        url: false,
+        zlib: false,
+        http: false,
+        https: false,
+        assert: false,
+        os: false,
+        path: false,
+      };
+
+      // SVG optimization
+      webpackConfig.module.rules.push({
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: true,
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+      });
     }
     
     return config;

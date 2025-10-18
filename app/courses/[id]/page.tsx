@@ -14,7 +14,7 @@ import { generateSEOTitle } from '@/lib/seo/utils/meta';
 import data from "@/data/content.json";
 import InnerBanner from "@/components/ui/InnerBanner";
 import SocialBadge from "@/components/ui/SocialBadge";
-import YouTubeVideo from "@/components/ui/YouTubeVideo";
+import OptimizedYouTubeVideo from "@/components/ui/OptimizedYouTubeVideo";
 
 /* ---------- Types ---------- */
 type Submodule = { title: string; content: string[] };
@@ -481,7 +481,7 @@ export default function Page() {
       {course?.right_side_video_url && (
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="relative aspect-video lg:h-[420px] w-full rounded-2xl overflow-hidden border border-black drop-shadow-[4px_4px_0_#1C1A4A] mb-10">
-            <YouTubeVideo
+            <OptimizedYouTubeVideo
               src={course.right_side_video_url}
               title={`About ${course.title}`}
               className="w-full h-full"
@@ -490,6 +490,11 @@ export default function Page() {
               controls={true}
               autoplay={false}
               muted={false}
+              lazy={true}
+              preload="metadata"
+              quality="hd720"
+              showThumbnail={true}
+              thumbnailQuality="maxres"
             />
           </div>
         </div>

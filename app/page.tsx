@@ -5,6 +5,7 @@ import { useEffect, useState, memo, Suspense, useMemo } from "react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import PerformanceOptimizer from "@/components/seo/PerformanceOptimizer";
+import PerformanceDashboard from "@/components/performance/PerformanceDashboard";
 
 // Lazy load components for better performance with loading states
 const SocialBadge = dynamic(() => import("@/components/ui/SocialBadge"), {
@@ -111,6 +112,7 @@ const Home = memo(function Home() {
   return (
     <>
       <PerformanceOptimizer trackMetrics={true} reportToAnalytics={true} />
+      <PerformanceDashboard />
       <Head>
         <title>Dataplay - Data Science Learning Platform | Master Data Analysis & Engineering</title>
         <meta name="description" content="Master data science with Dataplay's comprehensive courses. Learn Python, SQL, machine learning, and data engineering. Join 1000+ students across India. Expert mentors, real projects, job placement assistance." />

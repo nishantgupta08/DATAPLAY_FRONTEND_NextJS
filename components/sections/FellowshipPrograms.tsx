@@ -1,5 +1,5 @@
 import data from "@/data/content.json"
-import YouTubeVideo from "../ui/YouTubeVideo"
+import OptimizedYouTubeVideo from "../ui/OptimizedYouTubeVideo"
 const FellowshipPrograms = () => {
   const aboutUsData = data.homepage.about_us
   return (
@@ -9,7 +9,7 @@ const FellowshipPrograms = () => {
           {/* Video Section */}
           <div className="relative order-2 lg:order-1">
             <div className="relative max-lg:aspect-video lg:h-[500px] w-full">
-              <YouTubeVideo
+              <OptimizedYouTubeVideo
                 src={aboutUsData.video_url}
                 title="WELCOME TO DATAPLAY"
                 className="w-full h-full rounded-2xl sm:rounded-3xl border border-black drop-shadow-[4px_4px_0_#1C1A4A] sm:drop-shadow-[6px_6px_0_#1C1A4A] lg:drop-shadow-[8px_8px_0_#1C1A4A]"
@@ -18,6 +18,11 @@ const FellowshipPrograms = () => {
                 controls={true}
                 autoplay={false}
                 muted={false}
+                lazy={true}
+                preload="metadata"
+                quality="hd720"
+                showThumbnail={true}
+                thumbnailQuality="maxres"
               />
             </div>
           </div>
