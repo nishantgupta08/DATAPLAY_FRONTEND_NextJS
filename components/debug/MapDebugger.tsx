@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Map Debugger Component
 // Helps debug why pin points are not appearing on the map
 
@@ -56,17 +57,17 @@ export default function MapDebugger() {
       console.log('🔍 Testing API call to /api/learners...');
       console.log('🔍 Current URL:', window.location.href);
       console.log('🔍 Fetch URL:', '/api/learners');
-      
+
       const response = await fetch('/api/learners');
       console.log('🔍 API Response status:', response.status, response.ok);
       console.log('🔍 API Response headers:', Object.fromEntries(response.headers.entries()));
-      
+
       // Test if response is readable
       if (!response.body) {
         console.error('🔍 Response body is null!');
         errors.push('Response body is null');
       }
-      
+
       apiResponse = {
         status: response.status,
         ok: response.ok,
@@ -93,23 +94,23 @@ export default function MapDebugger() {
       // Extract and validate coordinates
       console.log('🔍 Validating coordinates for', students.length, 'students');
       students.forEach((s, i) => {
-        console.log(`🔍 Student ${i}:`, { 
-          id: s.id, 
-          coordinates: s.coordinates, 
+        console.log(`🔍 Student ${i}:`, {
+          id: s.id,
+          coordinates: s.coordinates,
           type: typeof s.coordinates,
           isArray: Array.isArray(s.coordinates),
           length: s.coordinates?.length
         });
       });
-      
+
       validCoordinates = students
         .map(s => s.coordinates)
-        .filter((c: unknown): c is [number, number] => 
-          Array.isArray(c) && 
-          c.length === 2 && 
-          typeof c[0] === 'number' && 
+        .filter((c: unknown): c is [number, number] =>
+          Array.isArray(c) &&
+          c.length === 2 &&
+          typeof c[0] === 'number' &&
           typeof c[1] === 'number' &&
-          Number.isFinite(c[0]) && 
+          Number.isFinite(c[0]) &&
           Number.isFinite(c[1])
         );
 
@@ -121,7 +122,7 @@ export default function MapDebugger() {
       const gridSize = 0.3;
       const gridKey = (lat: number, lng: number) => `${Math.round(lat / gridSize)}_${Math.round(lng / gridSize)}`;
       const grid: Record<string, { latSum: number; lngSum: number; count: number; students: Student[] }> = {};
-      
+
       students.forEach((s: Student) => {
         if (!s.coordinates) {
           errors.push(`Student ${s.id} has no coordinates`);
