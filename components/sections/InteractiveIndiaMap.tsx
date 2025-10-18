@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 // Dynamically import Leaflet components to avoid SSR issues
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), {
@@ -11,7 +12,7 @@ const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapCo
 });
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
-const CircleMarker = dynamic(() => import('react-leaflet').then(mod => mod.CircleMarker), { ssr: false });
+// const CircleMarker = dynamic(() => import('react-leaflet').then(mod => mod.CircleMarker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
 const Tooltip = dynamic(() => import('react-leaflet').then(mod => mod.Tooltip), { ssr: false });
 
@@ -19,28 +20,36 @@ const Tooltip = dynamic(() => import('react-leaflet').then(mod => mod.Tooltip), 
 
 const InteractiveIndiaMap = () => {
   const [mounted, setMounted] = useState(false);
-  const [mapInstance, setMapInstance] = useState<any>(null);
-  const [leafletLib, setLeafletLib] = useState<any>(null);
-  interface Student { coordinates?: [number, number]; }
+  const [mapInstance, setMapInstance] = useState<L.Map | null>(null);
+  // const [leafletLib, setLeafletLib] = useState<typeof L | null>(null);
+  
+  interface Student { 
+    coordinates?: [number, number];
+    institute?: string;
+    name?: string;
+    program?: string;
+    city?: string;
+    pinCode?: string;
+  }
   const [clusters, setClusters] = useState<Array<{
     lat: number;
     lng: number;
     count: number;
-    students: Student[] & any[];
+    students: Student[];
   }>>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     // Dynamically load Leaflet only on client to avoid SSR issues
-    (async () => {
-      try {
-        const mod = await import('leaflet');
-        setLeafletLib((mod as any).default ?? mod);
-      } catch {
-        // ignore
-      }
-    })();
+    // (async () => {
+    //   try {
+    //     const mod = await import('leaflet');
+    //     setLeafletLib(mod.default ?? mod);
+    //   } catch {
+    //     // ignore
+    //   }
+    // })();
     // Detect mobile: coarse pointer or narrow viewport
     const detect = () => {
       const coarse = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
@@ -52,7 +61,7 @@ const InteractiveIndiaMap = () => {
 
     // Trigger size invalidation after first paint
     setTimeout(() => {
-      if (mapInstance && typeof mapInstance.invalidateSize === 'function') {
+      if (mapInstance) {
         mapInstance.invalidateSize();
       }
     }, 200);
@@ -61,7 +70,7 @@ const InteractiveIndiaMap = () => {
 
   // Invalidate size when map instance becomes available (first render)
   useEffect(() => {
-    if (mapInstance && typeof mapInstance.invalidateSize === 'function') {
+    if (mapInstance) {
       setTimeout(() => mapInstance.invalidateSize(), 100);
     }
   }, [mapInstance]);
@@ -74,28 +83,20 @@ const InteractiveIndiaMap = () => {
         const res = await fetch('/api/learners');
         if (res.ok) {
           const data = await res.json();
-          console.log('API response:', data);
           const students: Student[] = Array.isArray(data?.students) ? data.students : [];
-          console.log('Students loaded:', students.length);
-          console.log('Sample student:', students[0]);
           const coords: [number, number][] = students
             .map(s => s.coordinates)
-            .filter((c: any): c is [number, number] => Array.isArray(c) && c.length === 2 && typeof c[0] === 'number' && typeof c[1] === 'number');
-          console.log('Valid coordinates found:', coords.length);
-
+            .filter((c: unknown): c is [number, number] => Array.isArray(c) && c.length === 2 && typeof c[0] === 'number' && typeof c[1] === 'number');
           // Build simple grid-based clusters
-          console.log('Processing students for clustering:', students.length);
           const gridSize = 0.3; // degrees grid
           const gridKey = (lat: number, lng: number) => `${Math.round(lat / gridSize)}_${Math.round(lng / gridSize)}`;
-          const grid: Record<string, { latSum: number; lngSum: number; count: number; students: any[] }>= {};
-          students.forEach((s: any, index) => {
+          const grid: Record<string, { latSum: number; lngSum: number; count: number; students: Student[] }> = {};
+          students.forEach((s: Student) => {
             if (!s.coordinates) {
-              console.log(`Student ${index} has no coordinates:`, s);
               return;
             }
             const [lat, lng] = s.coordinates as [number, number];
             if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-              console.log(`Student ${index} has invalid coordinates:`, s.coordinates);
               return;
             }
             const key = gridKey(lat, lng);
@@ -104,7 +105,7 @@ const InteractiveIndiaMap = () => {
             grid[key].lngSum += lng;
             grid[key].count += 1;
             grid[key].students.push(s);
-            console.log(`Added student ${index} to grid key ${key}:`, { lat, lng });
+            // Student added to cluster
           });
           const newClusters = Object.values(grid).map(g => ({
             lat: g.latSum / g.count,
@@ -112,7 +113,7 @@ const InteractiveIndiaMap = () => {
             count: g.count,
             students: g.students
           }));
-          console.log('Generated clusters:', newClusters.length, newClusters);
+          // Clusters generated successfully
           setClusters(newClusters);
           if (coords.length) {
             let minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
@@ -124,22 +125,20 @@ const InteractiveIndiaMap = () => {
               maxLng = Math.max(maxLng, lng);
             });
             if (minLat <= maxLat && minLng <= maxLng) {
-              const bounds: any = [[minLat, minLng], [maxLat, maxLng]];
+              const bounds: [[number, number], [number, number]] = [[minLat, minLng], [maxLat, maxLng]];
               mapInstance.fitBounds(bounds, { padding: [24, 24] });
               mapInstance.invalidateSize();
               // Lock zoom level
               const z = mapInstance.getZoom();
-              if (typeof mapInstance.setMinZoom === 'function' && typeof mapInstance.setMaxZoom === 'function') {
-                mapInstance.setMinZoom(z);
-                mapInstance.setMaxZoom(z);
-              }
+              mapInstance.setMinZoom(z);
+              mapInstance.setMaxZoom(z);
               return;
             }
           }
         }
       } catch {}
       // Fallback to India bounds
-      const INDIA_BOUNDS: any = [[6.0, 68.0], [37.0, 97.0]];
+      const INDIA_BOUNDS: [[number, number], [number, number]] = [[6.0, 68.0], [37.0, 97.0]];
       mapInstance.fitBounds(INDIA_BOUNDS, { padding: [24, 24] });
       mapInstance.invalidateSize();
       const z = mapInstance.getZoom();
@@ -173,8 +172,8 @@ const InteractiveIndiaMap = () => {
         zoomControl={false}
         attributionControl={true}
         whenReady={() => {
-          // @ts-ignore
-          const map = (window as any)?.L?.map?.instances?.[0] || null;
+          // Leaflet global access with proper typing
+          const map = (window as unknown as { L?: { map?: { instances?: L.Map[] } } })?.L?.map?.instances?.[0] || null;
           if (map) {
             setMapInstance(map);
             setTimeout(() => map.invalidateSize(), 50);
@@ -220,7 +219,7 @@ const InteractiveIndiaMap = () => {
                     <div style={{ minWidth: 240, maxWidth: 320 }}>
                       <div style={{ marginBottom: 0 }} />
                       <ul style={{ maxHeight: 200, overflowY: 'auto', paddingLeft: 16, margin: 0 }}>
-                        {c.students.slice(0, 10).map((s: any, i: number) => (
+                        {c.students.slice(0, 10).map((s: Student, i: number) => (
                           <li key={i} style={{ marginBottom: 4 }}>
                             {s.institute || 'Institute'}
                           </li>
@@ -250,7 +249,7 @@ const InteractiveIndiaMap = () => {
                   <div>
                     <div style={{ fontWeight: 700, marginBottom: 6 }}>Colleges nearby</div>
                     <ul style={{ maxHeight: 180, overflowY: 'auto', paddingLeft: 16 }}>
-                      {c.students.slice(0, 12).map((s: any, i: number) => (
+                      {c.students.slice(0, 12).map((s: Student, i: number) => (
                         <li key={i} style={{ marginBottom: 4 }}>
                           {s.institute || 'Institute'}
                         </li>

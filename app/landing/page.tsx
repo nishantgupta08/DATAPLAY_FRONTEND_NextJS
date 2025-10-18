@@ -3,6 +3,7 @@
 // Optimized landing page with extracted components and performance improvements
 
 import React, { memo, useMemo, useEffect, useState } from "react";
+import Head from "next/head";
 import Testimonials from "@/components/sections/Testimonials";
 import EnrollForm from "@/components/forms/EnrollForm";
 import contentJson from "../../data/content.json";
@@ -226,6 +227,48 @@ const Page = memo(function Page(): JSX.Element {
 
   const classTime = "6–8 pm IST";
 
+  // SEO structured data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Dataplay",
+    "description": "Data Science Learning Platform with structured paths, interview prep, and real-world projects",
+    "url": "https://dataplay.co.in",
+    "logo": "https://dataplay.co.in/Brand-Logo.svg",
+    "sameAs": [
+      "https://www.linkedin.com/company/dataplay",
+      "https://twitter.com/dataplay"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN"
+    },
+    "offers": [
+      {
+        "@type": "Course",
+        "name": "Data Analyst Track",
+        "description": "Comprehensive data analysis course with Python, SQL, and visualization",
+        "provider": {
+          "@type": "Organization",
+          "name": "Dataplay"
+        },
+        "courseMode": "online",
+        "duration": "P12W"
+      },
+      {
+        "@type": "Course", 
+        "name": "Data Engineering Track",
+        "description": "Advanced data engineering with cloud platforms and big data tools",
+        "provider": {
+          "@type": "Organization",
+          "name": "Dataplay"
+        },
+        "courseMode": "online",
+        "duration": "P20W"
+      }
+    ]
+  };
+
   // Seats left (computed from learners API)
   const [seatsLeft, setSeatsLeft] = useState<number | null>(null);
   const [seatsUsed, setSeatsUsed] = useState<number>(0);
@@ -257,7 +300,49 @@ const Page = memo(function Page(): JSX.Element {
   const experts = useMemo(() => extractExperts(CONTENT), []);
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <>
+      <Head>
+        <title>Data Science Courses in India | Dataplay - Learn Data Analysis & Engineering</title>
+        <meta name="description" content="Master data science with Dataplay's comprehensive courses. Learn Python, SQL, machine learning, and data engineering. Join 1000+ students across India. Enroll now!" />
+        <meta name="keywords" content="data science course, data analyst course, data engineering course, python course, SQL course, machine learning, data science training, online data science course, data science certification, data science bootcamp" />
+        <meta name="author" content="Dataplay" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://dataplay.co.in/landing" />
+        <meta property="og:title" content="Data Science Courses in India | Dataplay - Learn Data Analysis & Engineering" />
+        <meta property="og:description" content="Master data science with Dataplay's comprehensive courses. Learn Python, SQL, machine learning, and data engineering. Join 1000+ students across India." />
+        <meta property="og:image" content="https://dataplay.co.in/Brand-Logo.svg" />
+        <meta property="og:site_name" content="Dataplay" />
+        <meta property="og:locale" content="en_IN" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://dataplay.co.in/landing" />
+        <meta property="twitter:title" content="Data Science Courses in India | Dataplay" />
+        <meta property="twitter:description" content="Master data science with comprehensive courses. Learn Python, SQL, ML, and data engineering. Join 1000+ students across India." />
+        <meta property="twitter:image" content="https://dataplay.co.in/Brand-Logo.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="geo.region" content="IN" />
+        <meta name="geo.placename" content="India" />
+        <meta name="geo.position" content="20.5937;78.9629" />
+        <meta name="ICBM" content="20.5937, 78.9629" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://dataplay.co.in/landing" />
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
+      
+      <main className="min-h-screen bg-white text-gray-900">
       <style>{`
         :root {
           --brand-50:#eef2ff; --brand-100:#e0e7ff; --brand-200:#c7d2fe; --brand-300:#a5b4fc;
@@ -267,7 +352,7 @@ const Page = memo(function Page(): JSX.Element {
       `}</style>
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#050814]">
+      <section className="relative overflow-hidden bg-[#050814]" itemScope itemType="https://schema.org/WebPage">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_50%_-10%,_rgba(79,70,229,0.5),_transparent_60%)]" />
           <div className="absolute inset-0 bg-[conic-gradient(from_140deg_at_50%_50%,_rgba(99,102,241,0.25),_transparent_60%)]" />
@@ -279,11 +364,11 @@ const Page = memo(function Page(): JSX.Element {
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             {/* LEFT */}
             <div className="lg:col-span-6 text-white">
-              <h1 className="mt-3 text-4xl font-extrabold leading-tight text-white drop-shadow-[0_8px_30px_rgba(99,102,241,0.45)] sm:text-5xl md:text-6xl">
+              <h1 className="mt-3 text-4xl font-extrabold leading-tight text-white drop-shadow-[0_8px_30px_rgba(99,102,241,0.45)] sm:text-5xl md:text-6xl" itemProp="headline">
                 Data Analyst & Data Engineering Programs
               </h1>
 
-              <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--brand-400)]">
+              <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[var(--brand-400)]" itemProp="description">
                 Hybrid • Pay After Placement
               </h2>
 
@@ -456,10 +541,10 @@ const Page = memo(function Page(): JSX.Element {
           
 
           {/* Interactive India Map */}
-          <div className="mb-12">
+          <div className="mb-12" itemScope itemType="https://schema.org/Map">
             <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Learners Enrolled So Far</h2>
-              <p className="text-gray-600">Live map of enrolled learners across institutes in India</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2" itemProp="name">Learners Enrolled So Far</h2>
+              <p className="text-gray-600" itemProp="description">Live map of enrolled learners across institutes in India</p>
             </div>
             {/* Seats left outside the map */}
             {seatsLeft !== null && (
@@ -494,26 +579,34 @@ const Page = memo(function Page(): JSX.Element {
           {/* Call to Action removed */}
 
           {/* FAQ (moved below the map) */}
-          <section id="faq" className="relative bg-[#0b1220] text-white rounded-2xl overflow-hidden mt-12">
+          <section id="faq" className="relative bg-[#0b1220] text-white rounded-2xl overflow-hidden mt-12" itemScope itemType="https://schema.org/FAQPage">
             <div className="absolute inset-x-0 -top-10 -z-10 h-20 bg-gradient-to-b from-white to-transparent opacity-70" />
             <div className="px-4 sm:px-6 py-12">
               <h2 className="text-3xl font-extrabold sm:text-4xl">Frequently asked</h2>
               <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-                  <p className="font-semibold">Are classes online or offline?</p>
-                  <p className="mt-2 text-sm text-white/80">Both. Attend live online sessions or join in-person where available; all sessions have recordings.</p>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90" itemScope itemType="https://schema.org/Question">
+                  <p className="font-semibold" itemProp="name">Are classes online or offline?</p>
+                  <div itemScope itemType="https://schema.org/Answer">
+                    <p className="mt-2 text-sm text-white/80" itemProp="text">Both. Attend live online sessions or join in-person where available; all sessions have recordings.</p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-                  <p className="font-semibold">When does the cohort start?</p>
-                  <p className="mt-2 text-sm text-white/80">Cohort starts {cohortDisplay || "24 Oct 2025"}. Classes run {classTime}.</p>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90" itemScope itemType="https://schema.org/Question">
+                  <p className="font-semibold" itemProp="name">When does the cohort start?</p>
+                  <div itemScope itemType="https://schema.org/Answer">
+                    <p className="mt-2 text-sm text-white/80" itemProp="text">Cohort starts {cohortDisplay || "24 Oct 2025"}. Classes run {classTime}.</p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-                  <p className="font-semibold">How do fees work?</p>
-                  <p className="mt-2 text-sm text-white/80">Data Analyst: ₹7,500 upfront + ₹30,000 after placement. Data Engineering: ₹10,000 upfront + ₹30,000 after placement.</p>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90" itemScope itemType="https://schema.org/Question">
+                  <p className="font-semibold" itemProp="name">How do fees work?</p>
+                  <div itemScope itemType="https://schema.org/Answer">
+                    <p className="mt-2 text-sm text-white/80" itemProp="text">Data Analyst: ₹7,500 upfront + ₹30,000 after placement. Data Engineering: ₹10,000 upfront + ₹30,000 after placement.</p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-                  <p className="font-semibold">Do I keep access?</p>
-                  <p className="mt-2 text-sm text-white/80">Yes, you get lifetime access to updated materials and recordings.</p>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90" itemScope itemType="https://schema.org/Question">
+                  <p className="font-semibold" itemProp="name">Do I keep access?</p>
+                  <div itemScope itemType="https://schema.org/Answer">
+                    <p className="mt-2 text-sm text-white/80" itemProp="text">Yes, you get lifetime access to updated materials and recordings.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -523,6 +616,7 @@ const Page = memo(function Page(): JSX.Element {
 
       {/* Footer removed */}
     </main>
+    </>
   );
 });
 

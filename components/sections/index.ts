@@ -6,4 +6,4 @@ export { default as Mentors } from './Mentors';
 export { default as Testimonials } from './Testimonials';
 export { default as WhoCanApply } from './WhoCanApply';
 export { default as WorkshopGallery } from './WorkshopGallery';
-export { default as Gallery } from './Gallery';
+// Removed unused Gallery export

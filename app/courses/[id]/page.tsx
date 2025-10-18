@@ -4,6 +4,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { Icon } from "@iconify/react";
+import Head from "next/head";
+// Import SEO utilities
+import { createDataplayCourse, generateCourseSchema } from '@/lib/seo/schemas/course';
+import { trackCourseView } from '@/lib/seo/analytics/tracking';
+import { generateBreadcrumbSchema, BREADCRUMB_PATTERNS } from '@/lib/seo/schemas/breadcrumb';
+import { generateSEOTitle } from '@/lib/seo/utils/meta';
 
 import data from "@/data/content.json";
 import InnerBanner from "@/components/ui/InnerBanner";
@@ -315,8 +321,147 @@ export default function Page() {
   const course_id = params?.id;
   const course = (data.courses as Course[]).find(c => c.id === Number(course_id));
 
+  // Track course view on component mount
+  useEffect(() => {
+    if (course) {
+      trackCourseView(course.title, course_id);
+    }
+  }, [course, course_id]);
+
+  // Generate dynamic SEO data based on course
+  const seoData = useMemo(() => {
+    if (!course) return null;
+    
+    const courseTitle = course.title;
+    const courseSubtitle = course.sub_title;
+    const courseUrl = `https://dataplay.co.in/courses/${course_id}`;
+    
+    // Generate keywords based on course content
+    const keywords = [
+      courseTitle.toLowerCase(),
+      courseSubtitle.toLowerCase(),
+      "data science course",
+      "online course",
+      "data analysis",
+      "python course",
+      "SQL course",
+      "machine learning",
+      "data engineering",
+      "certification",
+      "India"
+    ].join(", ");
+
+    // Generate structured data using SEO library
+    const courseData = createDataplayCourse(
+      courseTitle,
+      courseSubtitle,
+      courseUrl,
+      course.img_url
+    );
+    
+    const courseSchema = generateCourseSchema(courseData);
+    const breadcrumbSchema = generateBreadcrumbSchema(
+      BREADCRUMB_PATTERNS.course(courseTitle, courseUrl)
+    );
+    
+    // Validate schemas before adding to structured data
+    const structuredData = [];
+    
+    // Debug logging removed for production
+    
+    if (courseSchema && courseSchema['@context']) {
+      structuredData.push(courseSchema);
+    } else if (process.env.NODE_ENV === 'development') {
+      console.warn('Course schema is invalid:', courseSchema);
+    }
+    
+    if (breadcrumbSchema && breadcrumbSchema['@context']) {
+      structuredData.push(breadcrumbSchema);
+    } else if (process.env.NODE_ENV === 'development') {
+      console.warn('Breadcrumb schema is invalid:', breadcrumbSchema);
+    }
+
+    return {
+      title: generateSEOTitle(`${courseTitle} - ${courseSubtitle}`),
+      description: `Learn ${courseTitle} with Dataplay. ${courseSubtitle}. Expert-led sessions, real projects, job placement assistance. Enroll now!`,
+      keywords,
+      structuredData,
+      courseUrl
+    };
+  }, [course, course_id]);
+
+  if (!course || !seoData) {
+    return (
+      <>
+        <Head>
+          <title>Course Not Found | Dataplay</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Head>
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Course Not Found</h1>
+          <p className="text-gray-600">The course you&apos;re looking for doesn&apos;t exist.</p>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
+      <Head>
+        <title>{seoData.title}</title>
+        <meta name="description" content={seoData.description} />
+        <meta name="keywords" content={seoData.keywords} />
+        <meta name="author" content="Dataplay" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={seoData?.courseUrl || ''} />
+        <meta property="og:title" content={seoData?.title || ''} />
+        <meta property="og:description" content={seoData?.description || ''} />
+        <meta property="og:image" content={course.img_url} />
+        <meta property="og:site_name" content="Dataplay" />
+        <meta property="og:locale" content="en_IN" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={seoData?.courseUrl || ''} />
+        <meta property="twitter:title" content={seoData?.title || ''} />
+        <meta property="twitter:description" content={seoData?.description || ''} />
+        <meta property="twitter:image" content={course.img_url} />
+        
+        {/* Additional SEO */}
+        <meta name="geo.region" content="IN" />
+        <meta name="geo.placename" content="India" />
+        <meta name="geo.position" content="20.5937;78.9629" />
+        <meta name="ICBM" content="20.5937, 78.9629" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={seoData?.courseUrl || ''} />
+        
+        {/* Structured Data */}
+        {seoData.structuredData && seoData.structuredData.length > 0 && seoData.structuredData.map((schema, index) => {
+          if (!schema || !schema['@context']) {
+            return null;
+          }
+          
+          try {
+            return (
+              <script
+                key={`structured-data-${index}`}
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 0) }}
+              />
+            );
+          } catch (error) {
+            console.warn('Failed to render structured data:', error);
+            return null;
+          }
+        })}
+      </Head>
+      
       <SocialBadge />
 
       <InnerBanner

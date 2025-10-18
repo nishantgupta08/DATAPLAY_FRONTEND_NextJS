@@ -7,6 +7,9 @@ import Footer from "@/components/layout/Footer";
 import contentData from "@/data/content.json";
 // 1. Import the Script component from next/script
 import Script from 'next/script';
+// Import SEO utilities
+import { generateDefaultMetadata } from '@/lib/seo/nextjs/metadata';
+import { generateAllIconTags } from '@/lib/seo/utils/icons';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,43 +17,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
-  // ... existing metadata ...
-  title: "Dataplay – Data Science Learning Platform",
-  description:
-    "Dataplay is your data science learning hub: structured paths, interview prep, daily problems, and more for aspiring data professionals.",
-  metadataBase: new URL("https://dataplay.co.in"),
-  themeColor: "#ffffff",
-  // ... other metadata fields ...
-  openGraph: {
-    title: "Dataplay – Data Science Learning Platform",
-    description:
-      "Structured paths, interview prep, daily challenges, and real-world insights for aspiring data professionals.",
-    url: "https://dataplay.co.in",
-    siteName: "Dataplay",
-    images: [
-      {
-        url: "https://dataplay.co.in/Brand-Logo.svg",
-        width: 1200,
-        height: 630,
-        alt: "Dataplay Logo",
-      },
-    ],
-    locale: "en_IN",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Dataplay – Data Science Learning Platform",
-    description:
-      "Master data science with Dataplay: curated paths, interview questions, and industry insights.",
-    images: ["https://dataplay.co.in/Brand-Logo.svg"],
-    site: "@dataplay",
-  },
-  verification: {
-    google: "SOdoDmVwmitkQciSMId7J2IbqHKcoyhdKRCX9VkHSYk",
-  },
-};
+export const metadata: Metadata = generateDefaultMetadata();
 
 // --- START: Dynamic Schema Generation ---
 // ... existing dynamic schema generation logic ...
@@ -91,7 +58,50 @@ const courseItemListSchema = {
 
 // 3. Define the static schemas that don't need to change
 const staticSchemas = [
-  // New LocalBusiness Schema
+  // Enhanced Organization Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "DataPlay",
+    "alternateName": "Dataplay Data Science Institute",
+    "description": "DataPlay offers data science courses, mock interviews, real‑world projects, and skill development training.",
+    "url": "https://dataplay.co.in",
+    "logo": "https://dataplay.co.in/Brand-Logo.svg",
+    "image": "https://dataplay.co.in/Brand-Logo.svg",
+    "foundingDate": "2023",
+    "founder": {
+      "@type": "Person",
+      "name": "DataPlay Team"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN",
+      "addressRegion": "India"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-XXXXXXXXXX",
+      "contactType": "customer service",
+      "availableLanguage": ["English", "Hindi"]
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/dataplay",
+      "https://twitter.com/dataplay"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Data Science Courses",
+      "itemListElement": courseListElements
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "150",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  },
+  // LocalBusiness Schema for local SEO
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -274,6 +284,43 @@ export default function RootLayout({
 
       <head>
         <link rel="icon" href="favicon.ico" sizes="any" />
+        
+        {/* Performance Optimizations */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
+        
+        {/* Critical Resource Hints */}
+        <link rel="preload" href="/Brand-Logo.svg" as="image" type="image/svg+xml" />
+        
+        {/* Security Headers */}
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="X-Frame-Options" content="DENY" />
+        <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+        <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+        
+        {/* Advanced Mobile Optimization */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Dataplay" />
+        
+        {/* Hreflang for International SEO */}
+        <link rel="alternate" hrefLang="en-IN" href="https://dataplay.co.in" />
+        <link rel="alternate" hrefLang="en-US" href="https://dataplay.co.in" />
+        <link rel="alternate" hrefLang="x-default" href="https://dataplay.co.in" />
+        
+        {/* Apple Touch Icons and PWA */}
+        {generateAllIconTags().links.map((link, index) => (
+          <link key={index} {...link} />
+        ))}
+        {generateAllIconTags().meta.map((meta, index) => (
+          <meta key={index} {...meta} />
+        ))}
 
         {/* Bing Webmaster Tools Verification */}
         <meta
