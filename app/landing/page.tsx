@@ -2,7 +2,7 @@
 // app/landing/page.tsx
 // Optimized landing page with extracted components and performance improvements
 
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useEffect, useState } from "react";
 import Testimonials from "@/components/sections/Testimonials";
 import EnrollForm from "@/components/forms/EnrollForm";
 import contentJson from "../../data/content.json";
@@ -15,7 +15,7 @@ import FeatureCard from "@/components/ui/FeatureCard";
 import ExpertCard from "@/components/ui/ExpertCard";
 import PartnersRow from "@/components/ui/PartnersRow";
 import CourseSection from "@/components/ui/CourseSection";
-import IndiaStudentsStats from "@/components/sections/IndiaStudentsStats";
+ 
 import InteractiveIndiaMap from "@/components/sections/InteractiveIndiaMap";
 
 
@@ -226,6 +226,24 @@ const Page = memo(function Page(): JSX.Element {
 
   const classTime = "6–8 pm IST";
 
+  // Seats left (computed from learners API)
+  const [seatsLeft, setSeatsLeft] = useState<number | null>(null);
+  const [seatsUsed, setSeatsUsed] = useState<number>(0);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/api/learners');
+        if (res.ok) {
+          const data = await res.json();
+          const total = 25;
+          const count = Array.isArray(data?.students) ? data.students.length : 0;
+          setSeatsUsed(Math.min(total, count));
+          setSeatsLeft(Math.max(0, total - count));
+        }
+      } catch {}
+    })();
+  }, []);
+
   // Memoize partners data
   const partners: Partner[] = useMemo(() => [
     { name: "Celebal", logo: "https://res.cloudinary.com/dd0e4iwau/image/upload/v1760617723/celebal_technologies_m7f4s7.jpg" },
@@ -429,55 +447,43 @@ const Page = memo(function Page(): JSX.Element {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="relative bg-[#0b1220] text-white">
-        <div className="absolute inset-x-0 -top-10 -z-10 h-20 bg-gradient-to-b from-white to-transparent opacity-70" />
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Frequently asked</h2>
-          <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-              <p className="font-semibold">Are classes online or offline?</p>
-              <p className="mt-2 text-sm text-white/80">Both. Attend live online sessions or join in-person where available; all sessions have recordings.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-              <p className="font-semibold">When does the cohort start?</p>
-              <p className="mt-2 text-sm text-white/80">Cohort starts {cohortDisplay || "24 Oct 2025"}. Classes run {classTime}.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-              <p className="font-semibold">How do fees work?</p>
-              <p className="mt-2 text-sm text-white/80">Data Analyst: ₹7,500 upfront + ₹30,000 after placement. Data Engineering: ₹10,000 upfront + ₹30,000 after placement.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
-              <p className="font-semibold">Do I keep access?</p>
-              <p className="mt-2 text-sm text-white/80">Yes, you get lifetime access to updated materials and recordings.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* INDIA MAP SECTION */}
       <section className="bg-gray-50">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold sm:text-4xl mb-4">
-              Our Students Across India
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Join thousands of students from prestigious institutes across India who are building their data science careers with us. Explore our reach with this interactive India map.
-            </p>
-          </div>
           
-          {/* Statistics */}
-          <div className="mb-8">
-            <IndiaStudentsStats />
-          </div>
+          
 
           {/* Interactive India Map */}
           <div className="mb-12">
             <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Interactive Map of India</h2>
-              <p className="text-gray-600">Explore India with our interactive map powered by OpenStreetMap</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Learners Enrolled So Far</h2>
+              <p className="text-gray-600">Live map of enrolled learners across institutes in India</p>
             </div>
+            {/* Seats left outside the map */}
+            {seatsLeft !== null && (
+              <div className="mb-5 flex flex-col items-center justify-center gap-2">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-800 shadow-sm">
+                  <span className="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
+                  {seatsLeft} seats left
+                </div>
+                {/* Progress bar */}
+                <div className="w-full max-w-xl">
+                  <div className="mb-1 flex items-center justify-between text-xs text-gray-600">
+                    <span>Filled: {Math.round((seatsUsed / 25) * 100)}%</span>
+                    <span>Left: {seatsLeft}</span>
+                  </div>
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all"
+                      style={{ width: `${Math.min(100, Math.max(0, (seatsUsed / 25) * 100))}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="w-full">
               <div className="w-full h-[500px] rounded-2xl overflow-hidden ring-1 ring-gray-200/60 shadow-sm">
                 <InteractiveIndiaMap />
@@ -485,37 +491,37 @@ const Page = memo(function Page(): JSX.Element {
             </div>
           </div>
 
-          {/* Call to Action */}
-          <div className="text-center mt-12">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-4">Ready to Start Your Data Science Journey?</h3>
-              <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                Join students from top institutes across India and build your career in data science
-              </p>
-              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Enroll Now
-              </button>
+          {/* Call to Action removed */}
+
+          {/* FAQ (moved below the map) */}
+          <section id="faq" className="relative bg-[#0b1220] text-white rounded-2xl overflow-hidden mt-12">
+            <div className="absolute inset-x-0 -top-10 -z-10 h-20 bg-gradient-to-b from-white to-transparent opacity-70" />
+            <div className="px-4 sm:px-6 py-12">
+              <h2 className="text-3xl font-extrabold sm:text-4xl">Frequently asked</h2>
+              <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
+                  <p className="font-semibold">Are classes online or offline?</p>
+                  <p className="mt-2 text-sm text-white/80">Both. Attend live online sessions or join in-person where available; all sessions have recordings.</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
+                  <p className="font-semibold">When does the cohort start?</p>
+                  <p className="mt-2 text-sm text-white/80">Cohort starts {cohortDisplay || "24 Oct 2025"}. Classes run {classTime}.</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
+                  <p className="font-semibold">How do fees work?</p>
+                  <p className="mt-2 text-sm text-white/80">Data Analyst: ₹7,500 upfront + ₹30,000 after placement. Data Engineering: ₹10,000 upfront + ₹30,000 after placement.</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
+                  <p className="font-semibold">Do I keep access?</p>
+                  <p className="mt-2 text-sm text-white/80">Yes, you get lifetime access to updated materials and recordings.</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[#0b1220] text-white/80">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-8 text-sm">
-          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
-            <p>© {new Date().getFullYear()} Your Academy. All rights reserved.</p>
-            <nav className="flex flex-wrap gap-4">
-              <a href="#subset" className="hover:text-white">DA ⊂ DE</a>
-              <a href="#analyst" className="hover:text-white">Data Analyst</a>
-              <a href="#engineering" className="hover:text-white">Data Engineering</a>
-              <a href="#features" className="hover:text-white">Features</a>
-              <a href="#experts" className="hover:text-white">Experts</a>
-              <a href="#faq" className="hover:text-white">FAQ</a>
-            </nav>
-          </div>
-        </div>
-      </footer>
+      {/* Footer removed */}
     </main>
   );
 });
