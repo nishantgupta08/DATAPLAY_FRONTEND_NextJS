@@ -11,18 +11,16 @@ const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapCo
 });
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
-// const CircleMarker = dynamic(() => import('react-leaflet').then(mod => mod.CircleMarker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
 const Tooltip = dynamic(() => import('react-leaflet').then(mod => mod.Tooltip), { ssr: false });
 
-// No manual Leaflet JS injection — react-leaflet bundles Leaflet
-
 const InteractiveIndiaMap = () => {
   const [mounted, setMounted] = useState(false);
-  const [mapInstance, setMapInstance] = useState<unknown>(null);
+  // NOTE: Typing `mapInstance` as `any` or a more specific Leaflet type (if available) is safer than `unknown` here
+  const [mapInstance, setMapInstance] = useState<any>(null); // Changed type to any for simplicity here
   const [leafletLib, setLeafletLib] = useState<unknown>(null);
-  
-  interface Student { 
+
+  interface Student {
     coordinates?: [number, number];
     institute?: string;
     name?: string;
@@ -40,27 +38,28 @@ const InteractiveIndiaMap = () => {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Dynamically load Leaflet only on client to avoid SSR issues
     (async () => {
       try {
         const mod = await import('leaflet');
         const L = mod.default ?? mod;
         setLeafletLib(L);
-        
-        // Fix for default markers in Next.js
+
+        // Fix for default markers in Next.js (Crucial for marker visibility!)
         delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
         L.Icon.Default.mergeOptions({
           iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
           iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
           shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
         });
-        
+
         console.log('🗺️ Leaflet loaded successfully');
       } catch (error) {
         console.error('❌ Failed to load Leaflet:', error);
       }
     })();
+
     // Detect mobile: coarse pointer or narrow viewport
     const detect = () => {
       const coarse = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
@@ -79,13 +78,6 @@ const InteractiveIndiaMap = () => {
     return () => window.removeEventListener('resize', detect);
   }, [mapInstance]);
 
-  // Invalidate size when map instance becomes available (first render)
-  useEffect(() => {
-    if (mapInstance) {
-      setTimeout(() => mapInstance.invalidateSize(), 100);
-    }
-  }, [mapInstance]);
-
   // Once map is ready, compute bounds from learners API
   useEffect(() => {
     const computeBounds = async () => {
@@ -95,16 +87,18 @@ const InteractiveIndiaMap = () => {
         console.log('🗺️ Map Debug - API Response status:', res.status, res.ok);
         if (res.ok) {
           const data = await res.json();
-          console.log('🗺️ Map Debug - API Response:', data);
           const students: Student[] = Array.isArray(data?.students) ? data.students : [];
           console.log('🗺️ Map Debug - Students parsed:', students.length, 'students');
+
           const coords: [number, number][] = students
             .map(s => s.coordinates)
             .filter((c: unknown): c is [number, number] => Array.isArray(c) && c.length === 2 && typeof c[0] === 'number' && typeof c[1] === 'number');
+
           // Build simple grid-based clusters
           const gridSize = 0.3; // degrees grid
           const gridKey = (lat: number, lng: number) => `${Math.round(lat / gridSize)}_${Math.round(lng / gridSize)}`;
           const grid: Record<string, { latSum: number; lngSum: number; count: number; students: Student[] }> = {};
+
           students.forEach((s: Student) => {
             if (!s.coordinates) {
               return;
@@ -119,40 +113,38 @@ const InteractiveIndiaMap = () => {
             grid[key].lngSum += lng;
             grid[key].count += 1;
             grid[key].students.push(s);
-            // Student added to cluster
           });
+
           const newClusters = Object.values(grid).map(g => ({
             lat: g.latSum / g.count,
             lng: g.lngSum / g.count,
             count: g.count,
             students: g.students
           }));
-          // Clusters generated successfully
+
           console.log('🗺️ Map Debug - Clusters generated:', {
             totalStudents: students.length,
             validCoordinates: coords.length,
             clustersGenerated: newClusters.length,
-            clusters: newClusters
           });
-          console.log('🗺️ Map Debug - Sample student data:', students.slice(0, 2));
-          console.log('🗺️ Map Debug - Sample coordinates:', coords.slice(0, 2));
           setClusters(newClusters);
-          // Always focus on India bounds regardless of student data
+
+          // Always focus on India bounds
           const INDIA_BOUNDS: [[number, number], [number, number]] = [[6.0, 68.0], [37.0, 97.0]];
           mapInstance.fitBounds(INDIA_BOUNDS, { padding: [24, 24] });
           mapInstance.invalidateSize();
-          
-          // Lock zoom level to prevent zoom in/out
-          const z = mapInstance.getZoom();
-          mapInstance.setMinZoom(z);
-          mapInstance.setMaxZoom(z);
-          
-          // Disable all zoom interactions
+
+          //Aggressive zoom locking. This was likely causing the visibility issue.
+          // mapInstance.setMinZoom(z);
+          // mapInstance.setMaxZoom(z);
+
+          // ✅ Keep: Disable all zoom interactions
           mapInstance.scrollWheelZoom.disable();
           mapInstance.doubleClickZoom.disable();
           mapInstance.touchZoom.disable();
           mapInstance.boxZoom.disable();
           mapInstance.keyboard.disable();
+
         }
       } catch (error) {
         console.error('🗺️ Map Debug - API Error:', error);
@@ -182,19 +174,17 @@ const InteractiveIndiaMap = () => {
         dragging={false}
         zoomControl={false}
         attributionControl={true}
-        maxZoom={5}
-        minZoom={5}
-        whenReady={() => {
-          // Leaflet global access with proper typing
-          const map = (window as unknown as { L?: { map?: { instances?: unknown[] } } })?.L?.map?.instances?.[0] || null;
-          if (map) {
-            setMapInstance(map);
-            setTimeout(() => {
-              if (typeof map === 'object' && map !== null && 'invalidateSize' in map && typeof map.invalidateSize === 'function') {
-                map.invalidateSize();
-              }
-            }, 50);
-          }
+        // REMOVED: maxZoom={5} and minZoom={5} from MapContainer. 
+        // We let fitBounds calculate the best view, and rely on the TileLayer to enforce the 5 boundary.
+        whenReady={(map) => {
+          // You can also use map.target directly if mapInstance is typed correctly, 
+          // but sticking to your original logic for setting mapInstance:
+          setMapInstance(map.target);
+          setTimeout(() => {
+            if (map.target && 'invalidateSize' in map.target && typeof map.target.invalidateSize === 'function') {
+              map.target.invalidateSize();
+            }
+          }, 50);
         }}
         className="h-full w-full"
         style={{ height: '100%', width: '100%' }}
@@ -219,15 +209,15 @@ const InteractiveIndiaMap = () => {
           <div>Total markers to render: {clusters.length}</div>
           {clusters.length === 0 && <div style={{ color: 'red' }}>⚠️ No markers found!</div>}
         </div>
-        
-        {/* Render clustered markers with mobile: always visible tooltip; desktop: show on hover */}
+
+        {/* Render clustered markers */}
         {clusters.map((c, idx) => {
           const isCluster = c.count > 1;
           const first = c.students[0] || {};
-          
-          console.log(`🗺️ Rendering marker ${idx}:`, { lat: c.lat, lng: c.lng, count: c.count });
-          
-          // Use default Leaflet markers for now to ensure they display
+
+          // console.log(`🗺️ Rendering marker ${idx}:`, { lat: c.lat, lng: c.lng, count: c.count });
+
+          // Using default Leaflet markers (icon fix applied in useEffect)
           return (
             <Marker key={idx} position={[c.lat, c.lng]}>
               <Tooltip permanent={isMobile} direction="top" offset={[0, -20]} opacity={1} sticky={!isMobile}>
