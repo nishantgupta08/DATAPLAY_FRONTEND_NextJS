@@ -43,9 +43,6 @@ const WorkshopGallery = dynamic(() => import("@/components/sections/WorkshopGall
   loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />,
 });
 
-const IndiaLocationsSection = dynamic(() => import("@/components/sections/IndiaLocationsSection"), {
-  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />,
-});
 
 const Modal = dynamic(() => import("@/components/ui/Modal"), {
   loading: () => null,
@@ -115,10 +112,6 @@ const Home = memo(function Home() {
       </Suspense>
       <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse" />}>
         <WorkshopGallery />
-      </Suspense>
-
-      <Suspense fallback={<div className="h-96 bg-gray-100 animate-pulse" />}>
-        <IndiaLocationsSection />
       </Suspense>
 
       {/* Modal with blurred background */}

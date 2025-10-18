@@ -6,22 +6,18 @@ import React, { memo, useMemo } from "react";
 import Testimonials from "@/components/sections/Testimonials";
 import EnrollForm from "@/components/forms/EnrollForm";
 import contentJson from "../../data/content.json";
-import learnersData from "../../data/learners.json";
 import { JSX } from "react";
-import { Expert, Partner, EnrolledStudent, Course, MentorRaw } from "@/types";
+import { Expert, Partner, Course, MentorRaw } from "@/types";
 
 // Import extracted components
-import StatCard from "@/components/maps/StatCard";
-import FeatureCard from "@/components/maps/FeatureCard";
-import ExpertCard from "@/components/maps/ExpertCard";
-import PartnersRow from "@/components/maps/PartnersRow";
-import CourseSection from "@/components/maps/CourseSection";
-import dynamic from 'next/dynamic';
+import StatCard from "@/components/ui/StatCard";
+import FeatureCard from "@/components/ui/FeatureCard";
+import ExpertCard from "@/components/ui/ExpertCard";
+import PartnersRow from "@/components/ui/PartnersRow";
+import CourseSection from "@/components/ui/CourseSection";
+import IndiaStudentsStats from "@/components/sections/IndiaStudentsStats";
+import InteractiveIndiaMap from "@/components/sections/InteractiveIndiaMap";
 
-const AutoGeocodeMap = dynamic(() => import('@/components/maps/AutoGeocodeMap'), {
-  ssr: false,
-  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />
-});
 
 /* ===========================
    Types - Now imported from centralized types
@@ -204,14 +200,7 @@ function extractExperts(root: ContentRoot): Expert[] {
   return [];
 }
 
-/* ===========================
-   Enrolled students (provided data)
-   We'll show these on the map + list
-=========================== */
-// EnrolledStudent type moved to IndiaLearnersMap component
 
-// Use data from JSON file
-const ENROLLED: EnrolledStudent[] = learnersData as EnrolledStudent[];
 
 
 /* ===========================
@@ -367,13 +356,6 @@ const Page = memo(function Page(): JSX.Element {
         </div>
       </section>
 
-      {/* INDIA MAP + ENROLLED STUDENTS */}
-      <section className="bg-white">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
-          <h2 className="text-3xl font-extrabold sm:text-4xl mb-8">Our Students Across India</h2>
-          <AutoGeocodeMap students={ENROLLED} height="600px" />
-        </div>
-      </section>
 
       {/* DA ⊂ DE */}
       <section id="subset" className="bg-white">
@@ -468,6 +450,51 @@ const Page = memo(function Page(): JSX.Element {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/90">
               <p className="font-semibold">Do I keep access?</p>
               <p className="mt-2 text-sm text-white/80">Yes, you get lifetime access to updated materials and recordings.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INDIA MAP SECTION */}
+      <section className="bg-gray-50">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold sm:text-4xl mb-4">
+              Our Students Across India
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Join thousands of students from prestigious institutes across India who are building their data science careers with us. Explore our reach with this interactive India map.
+            </p>
+          </div>
+          
+          {/* Statistics */}
+          <div className="mb-8">
+            <IndiaStudentsStats />
+          </div>
+
+          {/* Interactive India Map */}
+          <div className="mb-12">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Interactive Map of India</h2>
+              <p className="text-gray-600">Explore India with our interactive map powered by OpenStreetMap</p>
+            </div>
+            <div className="w-full">
+              <div className="w-full h-[500px] rounded-2xl overflow-hidden ring-1 ring-gray-200/60 shadow-sm">
+                <InteractiveIndiaMap />
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-12">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">Ready to Start Your Data Science Journey?</h3>
+              <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+                Join students from top institutes across India and build your career in data science
+              </p>
+              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Enroll Now
+              </button>
             </div>
           </div>
         </div>
